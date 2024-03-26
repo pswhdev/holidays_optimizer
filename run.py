@@ -151,6 +151,30 @@ countries = [
     "Zimbabwe",
 ]
 
+# List of countries with holidays varying with the state
+countries_state_holidays = [
+    "Australia",
+    "Austria",
+    "Bolivia",
+    "Bosnia and herzegovina",
+    "Brazil",
+    "Canada",
+    "Chile",
+    "El salvador",
+    "France",
+    "Germany",
+    "India",
+    "Italy",
+    "Malaysia",
+    "New zealand",
+    "Nicaragua",
+    "Portugal",
+    "Spain",
+    "Switzerland",
+    "United kingdom",
+    "United states of america",
+]
+
 
 def get_country():
     """
@@ -179,6 +203,36 @@ def get_country():
             print("Invalid input. Please enter a valid country name in English.")
 
 
-selected_country = get_country()
-print("You selected:", selected_country)
+def choose_state(country):
+    if country == "Australia":
+        user_input_state = input(
+            "Please enter one of the territorries: ACT, NSW, NT, QLD, SA, TAS, VIC, WA: "
+        )
+    elif country == "Austria":
+        user_input_state = input(
+            "Please enter one of the states:  B, K, N, O, S, St, T, V, W: "
+        )
+    elif country == "Bolivia":
+        user_input_state = input(
+            "Please enter one of the Departments: B, C, H, L, N, O, P, S, T: "
+        )
+    elif country == "Bosnia and herzegovina":
+        user_input_state = input("Please enter one District: BIH, BRC, SRP: ")
+    elif country == "Brazil":
+        user_input_state = input(
+            "Please enter a state (two letters abrbreviation, e.g. AC for Acre): "
+        )
+    elif country == "Canada":
+        user_input_state = input(
+            "Please enter a province  AB, BC, MB, NB, NL, NS, NT, NU, ON, PE, QC, SK, YT: "
+        )
 
+
+def main():
+    selected_country = get_country()
+    print("You selected:", selected_country)
+    if selected_country in countries_state_holidays:
+        choose_state(selected_country)
+
+
+main()
