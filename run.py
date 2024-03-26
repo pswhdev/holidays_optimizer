@@ -154,7 +154,9 @@ countries = [
 
 def get_country():
     """
-    Gets country from the user's input and checks for valid input
+    Gets country from the user's input and checks for valid input.
+    While loop keeps prompting for correct input until a valid
+    country name from the list is given as an input.
     """
     while True:
         # Converts input to lowercase and deletes empty spaces
@@ -179,3 +181,4 @@ def get_country():
 
 selected_country = get_country()
 print("You selected:", selected_country)
+
