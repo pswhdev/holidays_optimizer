@@ -89,7 +89,7 @@ countries = [
     "Malaysia",
     "Maldives",
     "Malta",
-    "Marshall Islands (the)",
+    "Marshall Islands",
     "Mexico",
     "Moldova",
     "Monaco",
@@ -101,7 +101,7 @@ countries = [
     "New Zealand",
     "Nicaragua",
     "Nigeria",
-    "Northern Mariana Islands (the)",
+    "Northern Mariana Islands",
     "North Macedonia",
     "Norway",
     "Pakistan",
@@ -137,16 +137,15 @@ countries = [
     "Ukraine",
     "United Arab Emirates",
     "United Kingdom",
-    "United States Minor Outlying Islands",
-    "United States of America (the)",
-    "United States Virgin Islands (the)",
+    "United States of America",
+    "United States Virgin Islands",
     "Uruguay",
     "Uzbekistan",
     "Vanuatu",
     "Vatican City",
     "Venezuela",
     "Vietnam",
-    "Virgin Islands (U.S.)",
+    "Virgin Islands",
     "Zambia",
     "Zimbabwe",
 ]
@@ -612,6 +611,8 @@ def get_country():
     while True:
         # Converts input to lowercase and deletes empty spaces
         user_input = input("Please enter a country: ").strip().lower()
+
+        
         # Validation to check if input is a number instead of text
         if user_input.isdigit():
             print(
