@@ -157,16 +157,25 @@ def get_country():
     Gets country from the user's input and checks for valid input
     """
     while True:
-        user_input = input("Please enter a country: ")
-        #validation to check if input is a number instead of text
+        # Converts input to lowercase and deletes empty spaces
+        user_input = input("Please enter a country: ").strip().lower()
+        # Validation to check if input is a number instead of text
         if user_input.isdigit():
-                print("Please enter a valid country name (text, not a number).")
-        #validation to prevent sumbission of empty input or white spaces
+            print(
+                "Invalid input. Please enter a valid country name (text, not a number)."
+            )
+        # Validation to prevent sumbission of empty input or white spaces
         elif not user_input:
-                print("Input cannot be empty. Please enter a country.")
-        #check if the country from the input is on the coutries list
-        elif user_input in [country for country in countries]:
-            return user_input
+            print("Input cannot be empty. Please enter a country.")
+        # Converts country name from the list to lowercase
+        elif user_input and user_input in [country.lower() for country in countries]:
+            return (
+                # Returns the country name with the first letter capitalized
+                user_input.capitalize()
+            )
+        else:
+            print("Invalid input. Please enter a valid country name in English.")
+
 
 selected_country = get_country()
 print("You selected:", selected_country)
