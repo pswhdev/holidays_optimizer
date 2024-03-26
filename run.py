@@ -150,3 +150,13 @@ countries = [
     "Zambia",
     "Zimbabwe",
 ]
+
+
+def get_country():
+    """
+    Gets country from the user's input and checks for valid input
+    """
+    user_input = input("Please enter a country: ")
+    
+
+get_country()
