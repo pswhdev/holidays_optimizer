@@ -612,7 +612,6 @@ def get_country():
         # Converts input to lowercase and deletes empty spaces
         user_input = input("Please enter a country: ").strip().lower()
 
-        
         # Validation to check if input is a number instead of text
         if user_input.isdigit():
             print(
@@ -630,48 +629,27 @@ def get_country():
         else:
             print("Invalid input. Please enter a valid country name in English.")
 
+
 def specify_state(country):
     """Ask the user to input a state for the given country."""
     while True:
         if country in states_by_country:
             # Display available states for the given country
-            print(f"States or territories in {country}: {', '.join(states_by_country[country])}")
+            print(
+                f"States or territories in {country}: {', '.join(states_by_country[country])}"
+            )
             state_input = input("Please enter a state: ").strip().upper()
             if state_input in states_by_country[country]:
                 return state_input
             else:
                 print("Invalid state. Please enter a state from the provided list.")
 
-# def choose_state(country):
-#     if country == "Australia":
-#         user_input_state = input(
-#             "Please enter one of the territorries: ACT, NSW, NT, QLD, SA, TAS, VIC, WA: "
-#         )
-#     elif country == "Austria":
-#         user_input_state = input(
-#             "Please enter one of the states:  B, K, N, O, S, St, T, V, W: "
-#         )
-#     elif country == "Bolivia":
-#         user_input_state = input(
-#             "Please enter one of the Departments: B, C, H, L, N, O, P, S, T: "
-#         )
-#     elif country == "Bosnia and herzegovina":
-#         user_input_state = input("Please enter one District: BIH, BRC, SRP: ")
-#     elif country == "Brazil":
-#         user_input_state = input(
-#             "Please enter a state (two letters abrbreviation, e.g. AC for Acre): "
-#         )
-#     elif country == "Canada":
-#         user_input_state = input(
-#             "Please enter a province  AB, BC, MB, NB, NL, NS, NT, NU, ON, PE, QC, SK, YT: "
-#         )
-
 
 def main():
     selected_country = get_country()
     print("You selected:", selected_country)
     if selected_country in states_by_country:
-        specify_state (selected_country)
+        specify_state(selected_country)
 
 
 main()
