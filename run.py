@@ -157,6 +157,9 @@ def get_country():
     Gets country from the user's input and checks for valid input
     """
     user_input = input("Please enter a country: ")
-    
+    #check if the country from the input is on the coutries list
+    if user_input in [country for country in countries]:
+        return user_input
 
-get_country()
+selected_country = get_country()
+print("You selected:", selected_country)
