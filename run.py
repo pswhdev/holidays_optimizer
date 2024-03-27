@@ -173,7 +173,7 @@ states_by_country = {
         "Wien",
     ],
     "Bolivia": ["B", "C", "H", "L", "N", "O", "P", "S", "T"],
-    "Bosnia and herzegovina": ["BIH", "BRC", "SRP"],
+    "Bosnia and Herzegovina": ["BIH", "BRC", "SRP"],
     "Brazil": [
         "AC",
         "AL",
@@ -236,7 +236,7 @@ states_by_country = {
         "TA",
         "VS",
     ],
-    "El salvador": [
+    "El Salvador": [
         "AH",
         "CA",
         "CH",
@@ -547,8 +547,8 @@ states_by_country = {
         "ZG",
         "ZH",
     ],
-    "United kingdom": ["ENG", "NIR", "SCT", "WLS"],
-    "United states of america": [
+    "United Kingdom": ["ENG", "NIR", "SCT", "WLS"],
+    "United States of America": [
         "AK",
         "AL",
         "AR",
@@ -632,12 +632,11 @@ def get_country():
             elif not user_input:
                 raise ValueError("Input cannot be empty. Please enter a country.")
 
-            # Converts country name from the list to lowercase
+            # If coutry is present on country list, return selected country
             elif user_input and user_input in [
-                country.lower() for country in countries
+                country for country in countries
             ]:
-                # Returns the country name with the first letter capitalized
-                return user_input.capitalize()
+                return user_input
 
             else:
                 raise ValueError(
