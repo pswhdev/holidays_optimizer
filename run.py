@@ -255,7 +255,19 @@ states_by_country = {
         "UN",
         "US",
     ],
-    "France": ["BL", "GES", "GP", "GY", "MF", "MQ", "NC", "PF", "RE", "WF", "YT"],
+    "France": [
+        "BL",
+        "GES",
+        "GP",
+        "GY",
+        "MF",
+        "MQ",
+        "NC",
+        "PF",
+        "RE",
+        "WF",
+        "YT",
+    ],
     "Germany": [
         "BB",
         "BE",
@@ -623,9 +635,7 @@ def get_country():
         try:
             # Autocomplete to improve UX and avoid misspells
             user_input = prompt(
-                "Please enter a country (to choose a country\n"
-                "from the suggestions press the 'Tab' key from\n"
-                "your keyboard): ",
+                "Please enter a country: ",
                 completer=country_completer,
             )
             # Converts input to lowercase and deletes empty spaces
@@ -634,15 +644,18 @@ def get_country():
             # Validation to check if input is a number instead of text
             if user_input.isdigit():
                 raise ValueError(
-                    "Invalid input. Please enter a valid country\n"
+                    "Invalid input. Please enter a valid country "
                     "name (text, not a number)."
                 )
 
             # Validation to prevent submission of empty input or white spaces
             elif not user_input:
-                raise ValueError("Input cannot be empty. Please enter a country.")
+                raise ValueError(
+                    "Input cannot be empty. Please enter a country."
+                )
 
-            # To return the coutry name with proper casing if coutry is found on country list
+            # To return the coutry name with proper casing if coutry
+            # is found on country list
             for country in countries:
                 if user_input == country.lower():
                     # To keep original case of the matched country name
@@ -668,7 +681,10 @@ def specify_state(country):
             if state_input in states_by_country[country]:
                 return state_input
             else:
-                print("Invalid state. Please enter a state from the provided list.")
+                print(
+                    "Invalid state. Please enter a state"
+                    "from the provided list."
+                )
 
 
 def main():
