@@ -1,37 +1,41 @@
-#next steps:
-#define a function to get input for time range from the user
-#generate a holidays calendar using that information
-#Find out the day of the week the holidays are at
-#Develop a logic to check what days could be taken off as bridge days based on the day of the week the holiday landed on
-#Return the list of bridge days avaiable on the requested period
-#If there is time: find a way to display the information in a pleasant and direct way to the user
-#include some colors and a nice title to the program on the terminal
-
+# next steps:
+# define a function to get input for time range from the user
+# generate a holidays calendar using that information
+# Find out the day of the week the holidays are at
+# Develop a logic to check what days could be taken off as bridge days based on the day of the week the holiday landed on
+# Return the list of bridge days avaiable on the requested period
+# If there is time: find a way to display the information in a pleasant and direct way to the user
+# include some colors and a nice title to the program on the terminal
 
 
 import holidays
 from datetime import datetime
+
 # For the ASCII art
 import pyfiglet
 
-#To colour the text
-#from: https://stackoverflow.com/questions/67474578/making-coloured-ascii-text-with-python)
+# To colour the text
+# from: https://stackoverflow.com/questions/67474578/making-coloured-ascii-text-with-python)
 from rich import print
 
 # to be able to use autocomplete
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 
-#To print logo on the terminal
+
+# To print logo on the terminal
 def prints_logo():
-    banner_part1 = pyfiglet.figlet_format("     Holidays", font = "doom")
-    banner_part2 = pyfiglet.figlet_format("                      Optimizer", font = "doom") 
+    banner_part1 = pyfiglet.figlet_format("     Holidays", font="doom")
+    banner_part2 = pyfiglet.figlet_format(
+        "                      Optimizer", font="doom"
+    )
 
-    print(f'[bright_cyan]{banner_part1}[/bright_cyan]')
-    print(f'[bright_cyan]{banner_part2}[/bright_cyan]')
-    print("[magenta]                                               By Patricia Halley[/magenta]")
+    print(f"[bright_cyan]{banner_part1}[/bright_cyan]")
+    print(f"[bright_cyan]{banner_part2}[/bright_cyan]")
+    print(
+        "[magenta]                                               By Patricia Halley[/magenta]"
+    )
     print("\n", "\n", "\n")
-
 
 
 # List of countries
@@ -678,9 +682,7 @@ def get_country():
 
             # Validation to prevent submission of empty input or white spaces
             elif not user_input:
-                raise ValueError(
-                    "Input cannot be empty. Please enter a country."
-                )
+                raise ValueError("Input cannot be empty. Please enter a country.")
 
             # To return the coutry name with proper casing if coutry
             # is found on country list
@@ -709,18 +711,46 @@ def specify_state(country):
             if state_input in states_by_country[country]:
                 return state_input
             else:
-                print(
-                    "Invalid state. Please enter a state"
-                    "from the provided list."
-                )
+                print("Invalid state. Please enter a state" "from the provided list.")
 
+
+def get_date(message):
+    while True:
+        try:
+            date = input(message + " (YYYY-MM-DD): ")
+            date_obj = datetime.strptime(date, "%Y-%m-%d")
+            return date_obj
+        except ValueError:
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+
+
+def check_holidays(start_date, end_date):
+    #elaborate this function
+    print(
+        f"Checking for holidays between {start_date.strftime('%Y-%m-%d')} and {end_date.strftime('%Y-%m-%d')}"
+    )
+
+def get_bridge_days(start_date, end_date):
+    #elaborate this function
+    
 
 def main():
     prints_logo()
+    print("Welcome to the Holiday Optimizer!")
+
     selected_country = get_country()
     print("You selected:", selected_country)
     if selected_country in states_by_country:
         specify_state(selected_country)
+
+    print("Please enter the start and end dates to check for holidays.")
+
+    start_date = get_date("Enter the start date")
+    end_date = get_date("Enter the end date")
+
+    check_holidays(start_date, end_date)
+
+    get_bridge_days(start_date, end_date)
 
 
 main()
