@@ -620,9 +620,8 @@ def get_country():
     while True:
         try:
             # Autocomplete to improve UX and avoid misspells
-            # Converts input to lowercase and deletes empty spaces
             user_input = prompt("Please enter a country: ", completer=country_completer)
-            # Convert input to lowercase
+            # Converts input to lowercase and deletes empty spaces
             user_input = user_input.strip().lower()
 
             # Validation to check if input is a number instead of text
@@ -636,16 +635,11 @@ def get_country():
                 raise ValueError("Input cannot be empty. Please enter a country.")
                 
             # To return the coutry name with proper casing if coutry is found on country list
-            # country_in_the_list = None
             for country in countries:
                 if user_input == country.lower():
                     # To keep original case of the matched country name
                     return country
                     
-            # if country_in_the_list:
-            #     return country_in_the_list
-
-
             else:
                 raise ValueError(
                     "Invalid input. Please enter a valid country name in English."
