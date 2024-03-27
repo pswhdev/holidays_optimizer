@@ -11,10 +11,27 @@
 
 import holidays
 from datetime import datetime
+# For the ASCII art
+import pyfiglet
+
+#To colour the text
+#from: https://stackoverflow.com/questions/67474578/making-coloured-ascii-text-with-python)
+from rich import print
 
 # to be able to use autocomplete
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
+
+#To print logo on the terminal
+def prints_logo():
+    banner_part1 = pyfiglet.figlet_format("     Holidays", font = "doom")
+    banner_part2 = pyfiglet.figlet_format("                      Optimizer", font = "doom") 
+
+    print(f'[bright_cyan]{banner_part1}[/bright_cyan]')
+    print(f'[bright_cyan]{banner_part2}[/bright_cyan]')
+    print("[magenta]                                               By Patricia Halley[/magenta]")
+    print("\n", "\n", "\n")
+
 
 
 # List of countries
@@ -699,6 +716,7 @@ def specify_state(country):
 
 
 def main():
+    prints_logo()
     selected_country = get_country()
     print("You selected:", selected_country)
     if selected_country in states_by_country:
