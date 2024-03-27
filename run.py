@@ -1,5 +1,9 @@
 import holidays
 from datetime import datetime
+#to be able to use autocomplete
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
+
 
 # List of countries
 countries = [
@@ -149,6 +153,10 @@ countries = [
     "Zambia",
     "Zimbabwe",
 ]
+
+# WordCompleter object with the list of countries.
+#set to ignore case to make the autocomplete regardless of typing with lower or uppercase
+country_completer = WordCompleter(countries, ignore_case=True)
 
 # Dict with countries with holidays varying with the state and the state/district/province/territory lists
 states_by_country = {
@@ -610,27 +618,35 @@ def get_country():
     """
     while True:
         try:
+            # Autocomplete to improve UX and avoid misspells
             # Converts input to lowercase and deletes empty spaces
-            user_input = input("Please enter a country: ").strip().lower()
+            user_input = prompt('Please enter a country: ', completer=country_completer)
 
             # Validation to check if input is a number instead of text
             if user_input.isdigit():
-                raise ValueError("Invalid input. Please enter a valid country name (text, not a number).")
+                raise ValueError(
+                    "Invalid input. Please enter a valid country name (text, not a number)."
+                )
 
             # Validation to prevent submission of empty input or white spaces
             elif not user_input:
                 raise ValueError("Input cannot be empty. Please enter a country.")
 
             # Converts country name from the list to lowercase
-            elif user_input and user_input in [country.lower() for country in countries]:
+            elif user_input and user_input in [
+                country.lower() for country in countries
+            ]:
                 # Returns the country name with the first letter capitalized
                 return user_input.capitalize()
 
             else:
-                raise ValueError("Invalid input. Please enter a valid country name in English.")
+                raise ValueError(
+                    "Invalid input. Please enter a valid country name in English."
+                )
 
         except ValueError as e:
             print(e)
+
 
 def specify_state(country):
     """Ask the user to input a state for the given country."""
