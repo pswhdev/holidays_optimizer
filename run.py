@@ -1,6 +1,7 @@
 import holidays
 from datetime import datetime
-#to be able to use autocomplete
+
+# to be able to use autocomplete
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 
@@ -155,7 +156,7 @@ countries = [
 ]
 
 # WordCompleter object with the list of countries.
-#set to ignore case to make the autocomplete regardless of typing with lower or uppercase
+# set to ignore case to make the autocomplete regardless of typing with lower or uppercase
 country_completer = WordCompleter(countries, ignore_case=True)
 
 # Dict with countries with holidays varying with the state and the state/district/province/territory lists
@@ -620,29 +621,35 @@ def get_country():
         try:
             # Autocomplete to improve UX and avoid misspells
             # Converts input to lowercase and deletes empty spaces
-            user_input = prompt('Please enter a country: ', completer=country_completer)
+            user_input = prompt("Please enter a country: ", completer=country_completer)
+            # Convert input to lowercase
+            user_input = user_input.strip().lower()
 
             # Validation to check if input is a number instead of text
             if user_input.isdigit():
                 raise ValueError(
                     "Invalid input. Please enter a valid country name (text, not a number)."
                 )
-
+            
             # Validation to prevent submission of empty input or white spaces
             elif not user_input:
                 raise ValueError("Input cannot be empty. Please enter a country.")
+                
+            # To return the coutry name with proper casing if coutry is found on country list
+            # country_in_the_list = None
+            for country in countries:
+                if user_input == country.lower():
+                    # To keep original case of the matched country name
+                    return country
+                    
+            # if country_in_the_list:
+            #     return country_in_the_list
 
-            # If coutry is present on country list, return selected country
-            elif user_input and user_input in [
-                country for country in countries
-            ]:
-                return user_input
 
             else:
                 raise ValueError(
                     "Invalid input. Please enter a valid country name in English."
                 )
-
         except ValueError as e:
             print(e)
 
