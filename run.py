@@ -156,10 +156,12 @@ countries = [
 ]
 
 # WordCompleter object with the list of countries.
-# set to ignore case to make the autocomplete regardless of typing with lower or uppercase
+# set to ignore case to make the autocomplete regardless
+# of typing with lower or uppercase
 country_completer = WordCompleter(countries, ignore_case=True)
 
-# Dict with countries with holidays varying with the state and the state/district/province/territory lists
+# Dict with countries with holidays varying with the state
+# and the state/district/province/territory lists
 states_by_country = {
     "Australia": ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"],
     "Austria": [
@@ -620,26 +622,32 @@ def get_country():
     while True:
         try:
             # Autocomplete to improve UX and avoid misspells
-            user_input = prompt("Please enter a country: ", completer=country_completer)
+            user_input = prompt(
+                "Please enter a country (to choose a country\n"
+                "from the suggestions press the 'Tab' key from\n"
+                "your keyboard): ",
+                completer=country_completer,
+            )
             # Converts input to lowercase and deletes empty spaces
             user_input = user_input.strip().lower()
 
             # Validation to check if input is a number instead of text
             if user_input.isdigit():
                 raise ValueError(
-                    "Invalid input. Please enter a valid country name (text, not a number)."
+                    "Invalid input. Please enter a valid country\n"
+                    "name (text, not a number)."
                 )
-            
+
             # Validation to prevent submission of empty input or white spaces
             elif not user_input:
                 raise ValueError("Input cannot be empty. Please enter a country.")
-                
+
             # To return the coutry name with proper casing if coutry is found on country list
             for country in countries:
                 if user_input == country.lower():
                     # To keep original case of the matched country name
                     return country
-                    
+
             else:
                 raise ValueError(
                     "Invalid input. Please enter a valid country name in English."
