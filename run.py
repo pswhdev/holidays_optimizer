@@ -609,26 +609,28 @@ def get_country():
     country name from the list is given as an input.
     """
     while True:
-        # Converts input to lowercase and deletes empty spaces
-        user_input = input("Please enter a country: ").strip().lower()
+        try:
+            # Converts input to lowercase and deletes empty spaces
+            user_input = input("Please enter a country: ").strip().lower()
 
-        # Validation to check if input is a number instead of text
-        if user_input.isdigit():
-            print(
-                "Invalid input. Please enter a valid country name (text, not a number)."
-            )
-        # Validation to prevent sumbission of empty input or white spaces
-        elif not user_input:
-            print("Input cannot be empty. Please enter a country.")
-        # Converts country name from the list to lowercase
-        elif user_input and user_input in [country.lower() for country in countries]:
-            return (
+            # Validation to check if input is a number instead of text
+            if user_input.isdigit():
+                raise ValueError("Invalid input. Please enter a valid country name (text, not a number).")
+
+            # Validation to prevent submission of empty input or white spaces
+            elif not user_input:
+                raise ValueError("Input cannot be empty. Please enter a country.")
+
+            # Converts country name from the list to lowercase
+            elif user_input and user_input in [country.lower() for country in countries]:
                 # Returns the country name with the first letter capitalized
-                user_input.capitalize()
-            )
-        else:
-            print("Invalid input. Please enter a valid country name in English.")
+                return user_input.capitalize()
 
+            else:
+                raise ValueError("Invalid input. Please enter a valid country name in English.")
+
+        except ValueError as e:
+            print(e)
 
 def specify_state(country):
     """Ask the user to input a state for the given country."""
