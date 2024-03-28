@@ -5,6 +5,9 @@
 # Return the list of bridge days avaiable on the requested period
 # If there is time: find a way to display the information in a pleasant and direct way to the user
 # include some colors and a nice title to the program on the terminal
+# write docstrings for all functions
+#try to use classes and inheritance
+
 import database
 
 import holidays
@@ -37,8 +40,9 @@ def prints_logo():
     print("\n" * 3)
 
 
-# WordCompleter object with the list of countries set to ignore case to make the autocomplete regardless of typing with lower or uppercase
-country_completer = WordCompleter(database.countries, ignore_case=True)
+# WordCompleter object with the keys on the dictrionary of countries set to ignore case to make the autocomplete regardless of typing with lower or uppercase
+country_completer = WordCompleter(database.countries.keys(), ignore_case=True)
+
 
 def get_country():
     """
@@ -67,12 +71,11 @@ def get_country():
             elif not user_input:
                 raise ValueError("Input cannot be empty. Please enter a country.")
 
-            # To return the coutry name with proper casing if coutry
-            # is found on country list
-            for country in database.countries:
+            # To return the coutry's abbreviation used on the holidays library
+            for country in database.countries.keys():
                 if user_input == country.lower():
-                    # To keep original case of the matched country name
-                    return country
+                    # For the coutries to be found correctly on the holidays library
+                    return database.countries[country]
 
             else:
                 raise ValueError(
@@ -137,7 +140,7 @@ def validate_dates(start_date, end_date):
             start_date = get_date("Enter the start date")
             end_date = get_date("Enter the end date")
 
-# Info about holidays library and how to use it under https://python-holidays.readthedocs.io/en/latest/
+# https://pypi.org/project/holidays/
 def check_holidays(start_date, end_date, country, state=None):
     # Holidays for the specified country and state
     holiday_calendar = holidays.CountryHoliday(country, state)
@@ -177,7 +180,11 @@ def main():
     print("Welcome to the Holiday Optimizer!")
 
     selected_country = get_country()
-    print("You selected:", selected_country)
+    #To convert the country's abbreviation back to the country's name
+    selected_country_name = [c for c in database.countries if database.countries[c] == selected_country]
+    print(f"You selected: {selected_country_name[0]}")
+
+    #validation of choice **********************************************************
 
     selected_state = specify_state(selected_country)
     
