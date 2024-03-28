@@ -40,7 +40,6 @@ def prints_logo():
 # WordCompleter object with the list of countries set to ignore case to make the autocomplete regardless of typing with lower or uppercase
 country_completer = WordCompleter(database.countries, ignore_case=True)
 
-
 def get_country():
     """
     Gets country from the user's input and checks for valid input.
@@ -124,6 +123,8 @@ def check_holidays(start_date, end_date):
                 #strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
                 f"Checking for public holidays between {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}"
             )
+            #To stop the loop
+            return
         
         except ValueError as e:
             # Print error message
