@@ -110,12 +110,28 @@ def get_date(message):
 
 
 def check_holidays(start_date, end_date):
-    # elaborate this function
-    #check that the end_date is a date in the future of the start_date and maximum 1 calendar year apart
-    print(
-        #strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
-        f"Checking for public holidays between {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}"
-    )
+    while True:
+        try:
+            # Check if end date is a date in the future of the start_date
+            if end_date <= start_date:
+                raise ValueError("End date cannot be before the start date.")
+
+            # Check if dates are maximum one year apart (https://docs.python.org/3/library/datetime.html#timedelta-objects)
+            if (end_date - start_date).days > 365:
+                raise ValueError("Please enter dates that are maximum one year apart.")
+
+            print(
+                #strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
+                f"Checking for public holidays between {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}"
+            )
+        
+        except ValueError as e:
+            # Print error message
+            print(e)
+            # Prompt for new start and end dates
+            start_date = get_date("Enter the start date")
+            end_date = get_date("Enter the end date")
+
 
 
 # def get_bridge_days(start_date, end_date):
