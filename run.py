@@ -157,10 +157,10 @@ def check_holidays(country, state, start_date, end_date):
         print("There are no holidays during the selected period in your area")
     else:
         # Print the dictionary to the user
-        list_of_holidays = ""
-        for date, holiday in holiday_dict.items():
-            list_of_holidays += f"{date.strftime('%d-%m-%Y')}: {holiday}\n"
-        print(f"The public holidays in your region during the selected period are:\n{list_of_holidays}")
+        if holiday_dict:
+            print("The public holidays in your region during the selected period are:")
+            for date, holiday in sorted(holiday_dict.items()):
+                print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
     
     return holiday_dict
     
@@ -187,6 +187,8 @@ def main():
     validate_dates(start_date, end_date)
 
     check_holidays(selected_country, selected_state, start_date, end_date)
+
+
 
     # get_bridge_days(start_date, end_date)
 
