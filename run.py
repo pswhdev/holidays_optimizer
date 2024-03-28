@@ -8,7 +8,7 @@
 import database
 
 import holidays
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # For the ASCII art of the logo (https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/)
 import pyfiglet
@@ -112,11 +112,13 @@ def validate_dates(start_date, end_date):
     while True:
         try:
             # Check if end date is a date in the future of the start_date
-            if end_date <= start_date:
+            if end_date < start_date:
                 raise ValueError("End date cannot be before the start date.")
+            if end_date == start_date:
+                raise ValueError("End date cannot be the same as the start date.")
 
             # Check if dates are maximum one year apart (https://docs.python.org/3/library/datetime.html#timedelta-objects)
-            if (end_date - start_date).days > 365:
+            if (end_date - start_date).days > 366:
                 raise ValueError("Please enter dates that are maximum one year apart.")
 
             print(
@@ -133,11 +135,32 @@ def validate_dates(start_date, end_date):
             start_date = get_date("Enter the start date")
             end_date = get_date("Enter the end date")
 
-
+# Info about holidays library and how to use it under https://python-holidays.readthedocs.io/en/latest/
 def check_holidays(country, state, start_date, end_date):
-    # Choose the holidays for the specified country and state
-    country_holidays = holidays.CountryHoliday(country, state)
-    print(country_holidays)
+    # Holidays for the specified country and state
+    holiday_calendar = holidays.CountryHoliday(country, state)
+
+    # Initialize a dictionary to store holidays
+    holiday_dict = {}
+
+    # Iterate through each day between start_date and end_date
+    check_date = start_date
+    while check_date <= end_date:
+        # Check if the current date is a holiday and if it is add the holiday to the dictionary
+        if check_date in holiday_calendar:
+            holiday_name = holiday_calendar[check_date]
+            holiday_dict[check_date] = holiday_name
+
+        # Move to the next day. If use only += 1 it gives an error: unsupported operand type(s) for +=: 'datetime.datetime' and 'int'
+        check_date += timedelta(days=1)
+    if not holiday_dict:
+        print("There are no holidays during the selected period in your area")
+    else:
+        # Print the dictionary to the user
+        print(f"The public holidays in your region during the selected period are:\n{holiday_dict}")
+    
+    return holiday_dict
+    
 
 
 # def get_bridge_days(start_date, end_date):
