@@ -101,17 +101,20 @@ def specify_state(country):
 def get_date(message):
     while True:
         try:
-            date = input(message + " (YYYY-MM-DD): ")
-            date_obj = datetime.strptime(date, "%Y-%m-%d")
+            date = input(message + " (DD-MM-YYYY): ")
+            # Conversion of the given date into a date to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
+            date_obj = datetime.strptime(date, "%d-%m-%Y")
             return date_obj
         except ValueError:
-            print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+            print("Invalid date format. Please enter the date in DD-MM-YYYY format.")
 
 
 def check_holidays(start_date, end_date):
     # elaborate this function
+    #check that the end_date is a date in the future of the start_date and maximum 1 calendar year apart
     print(
-        f"Checking for public holidays between {start_date.strftime('%Y-%m-%d')} and {end_date.strftime('%Y-%m-%d')}"
+        #strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
+        f"Checking for public holidays between {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}"
     )
 
 
