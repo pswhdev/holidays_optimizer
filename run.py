@@ -34,7 +34,7 @@ def prints_logo():
     print(
         "[magenta]                                               By Patricia Halley[/magenta]"
     )
-    print("\n", "\n", "\n")
+    print("\n" * 3)
 
 
 # WordCompleter object with the list of countries set to ignore case to make the autocomplete regardless of typing with lower or uppercase
@@ -108,7 +108,7 @@ def get_date(message):
             print("Invalid date format. Please enter the date in DD-MM-YYYY format.")
 
 
-def check_holidays(start_date, end_date):
+def validate_holidays(start_date, end_date):
     while True:
         try:
             # Check if end date is a date in the future of the start_date
@@ -153,7 +153,7 @@ def main():
     start_date = get_date("Enter the start date")
     end_date = get_date("Enter the end date")
 
-    check_holidays(start_date, end_date)
+    validate_holidays(start_date, end_date)
 
     # get_bridge_days(start_date, end_date)
 
