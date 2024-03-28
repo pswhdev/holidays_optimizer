@@ -183,11 +183,11 @@ def main():
     #To convert the country's abbreviation back to the country's name
     selected_country_name = [c for c in database.countries if database.countries[c] == selected_country]
     print(f"You selected: {selected_country_name[0]}")
-
-    #validation of choice **********************************************************
+    #validation of choice of country **********************************************************
 
     selected_state = specify_state(selected_country)
-    
+    #validation of choice for state **********************************************************
+
 
 
     print("Please enter the start and end dates to check for holidays.")
@@ -196,6 +196,7 @@ def main():
     end_date = get_date("Enter the end date")
 
     validate_dates(start_date, end_date)
+    #validation of choice of period start to end **********************************************************
 
     check_holidays(start_date, end_date, selected_country, selected_state)
 
