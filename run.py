@@ -95,6 +95,8 @@ def specify_state(country):
                 return state_input
             else:
                 print("Invalid state. Please enter a state" "from the provided list.")
+        else:
+            return None
 
 
 def get_date(message):
@@ -136,7 +138,7 @@ def validate_dates(start_date, end_date):
             end_date = get_date("Enter the end date")
 
 # Info about holidays library and how to use it under https://python-holidays.readthedocs.io/en/latest/
-def check_holidays(country, state, start_date, end_date):
+def check_holidays(start_date, end_date, country, state=None):
     # Holidays for the specified country and state
     holiday_calendar = holidays.CountryHoliday(country, state)
 
@@ -176,8 +178,10 @@ def main():
 
     selected_country = get_country()
     print("You selected:", selected_country)
-    if selected_country in database.states_by_country:
-        selected_state = specify_state(selected_country)
+
+    selected_state = specify_state(selected_country)
+    
+
 
     print("Please enter the start and end dates to check for holidays.")
 
@@ -186,7 +190,7 @@ def main():
 
     validate_dates(start_date, end_date)
 
-    check_holidays(selected_country, selected_state, start_date, end_date)
+    check_holidays(start_date, end_date, selected_country, selected_state)
 
 
 
