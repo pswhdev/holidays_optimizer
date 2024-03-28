@@ -146,21 +146,12 @@ countries = {
 
 # Dict with countries with holidays varying with the state and the state/district/province/territory lists
 states_by_country = {
-    "Australia": ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"],
-    "Austria": [
-        "Burgenland",
-        "Kärnten",
-        "Niederösterreich",
-        "Oberösterreich",
-        "Salzburg",
-        "Steiermark",
-        "Tirol",
-        "Vorarlberg",
-        "Wien",
-    ],
-    "Bolivia": ["B", "C", "H", "L", "N", "O", "P", "S", "T"],
-    "Bosnia and Herzegovina": ["BIH", "BRC", "SRP"],
-    "Brazil": [
+    "AD": ["02", "03", "04", "05", "06", "07", "08"],
+    "AU": ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"],
+    "AT": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    "BO": ["B", "C", "H", "L", "N", "O", "P", "S", "T"],
+    "BA": ["BIH", "BRC", "SRP"],
+    "BR": [
         "AC",
         "AL",
         "AM",
@@ -189,7 +180,7 @@ states_by_country = {
         "SP",
         "TO",
     ],
-    "Canada": [
+    "CA": [
         "AB",
         "BC",
         "MB",
@@ -204,7 +195,7 @@ states_by_country = {
         "SK",
         "YT",
     ],
-    "Chile": [
+    "CL": [
         "AI",
         "AN",
         "AP",
@@ -222,7 +213,7 @@ states_by_country = {
         "TA",
         "VS",
     ],
-    "El Salvador": [
+    "SV": [
         "AH",
         "CA",
         "CH",
@@ -238,20 +229,8 @@ states_by_country = {
         "UN",
         "US",
     ],
-    "France": [
-        "BL",
-        "GES",
-        "GP",
-        "GY",
-        "MF",
-        "MQ",
-        "NC",
-        "PF",
-        "RE",
-        "WF",
-        "YT",
-    ],
-    "Germany": [
+    "FR": ["BL", "GES", "GP", "GY", "MF", "MQ", "NC", "PF", "RE", "WF", "YT"],
+    "DE": [
         "BB",
         "BE",
         "BW",
@@ -270,7 +249,7 @@ states_by_country = {
         "ST",
         "TH",
     ],
-    "India": [
+    "IN": [
         "AN",
         "AP",
         "AR",
@@ -309,7 +288,7 @@ states_by_country = {
         "UP",
         "WB",
     ],
-    "Italy": [
+    "IT": [
         "AG",
         "AL",
         "AN",
@@ -417,8 +396,15 @@ states_by_country = {
         "VR",
         "VT",
         "VV",
+        "Andria",
+        "Barletta",
+        "Cesena",
+        "Forli",
+        "Pesaro",
+        "Trani",
+        "Urbino",
     ],
-    "Malaysia": [
+    "MY": [
         "JHR",
         "KDH",
         "KTN",
@@ -436,7 +422,7 @@ states_by_country = {
         "SWK",
         "TRG",
     ],
-    "New Zealand": [
+    "NZ": [
         "AUK",
         "BOP",
         "CAN",
@@ -455,7 +441,7 @@ states_by_country = {
         "WKO",
         "WTC",
     ],
-    "Nicaragua": [
+    "NI": [
         "AN",
         "AS",
         "BO",
@@ -474,7 +460,7 @@ states_by_country = {
         "RI",
         "SJ",
     ],
-    "Portugal": [
+    "PT": [
         "01",
         "02",
         "03",
@@ -496,7 +482,7 @@ states_by_country = {
         "20",
         "30",
     ],
-    "Spain": [
+    "ES": [
         "AN",
         "AR",
         "AS",
@@ -517,7 +503,7 @@ states_by_country = {
         "RI",
         "VC",
     ],
-    "Switzerland": [
+    "CH": [
         "AG",
         "AI",
         "AR",
@@ -545,8 +531,9 @@ states_by_country = {
         "ZG",
         "ZH",
     ],
-    "United Kingdom": ["ENG", "NIR", "SCT", "WLS"],
-    "United States of America": [
+    "GB": ["ENG", "NIR", "SCT", "WLS"],
+    "UK": ["ENG", "NIR", "SCT", "WLS"],
+    "US": [
         "AK",
         "AL",
         "AR",
