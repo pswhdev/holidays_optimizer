@@ -108,7 +108,7 @@ def get_date(message):
             print("Invalid date format. Please enter the date in DD-MM-YYYY format.")
 
 
-def validate_holidays(start_date, end_date):
+def validate_dates(start_date, end_date):
     while True:
         try:
             # Check if end date is a date in the future of the start_date
@@ -134,6 +134,11 @@ def validate_holidays(start_date, end_date):
             end_date = get_date("Enter the end date")
 
 
+def check_holidays(country, state, start_date, end_date):
+    # Choose the holidays for the specified country and state
+    country_holidays = holidays.CountryHoliday(country, state)
+    print(country_holidays)
+
 
 # def get_bridge_days(start_date, end_date):
 #     #elaborate this function
@@ -146,14 +151,16 @@ def main():
     selected_country = get_country()
     print("You selected:", selected_country)
     if selected_country in database.states_by_country:
-        specify_state(selected_country)
+        selected_state = specify_state(selected_country)
 
     print("Please enter the start and end dates to check for holidays.")
 
     start_date = get_date("Enter the start date")
     end_date = get_date("Enter the end date")
 
-    validate_holidays(start_date, end_date)
+    validate_dates(start_date, end_date)
+
+    check_holidays(selected_country, selected_state, start_date, end_date)
 
     # get_bridge_days(start_date, end_date)
 
