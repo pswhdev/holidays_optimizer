@@ -157,7 +157,10 @@ def check_holidays(country, state, start_date, end_date):
         print("There are no holidays during the selected period in your area")
     else:
         # Print the dictionary to the user
-        print(f"The public holidays in your region during the selected period are:\n{holiday_dict}")
+        list_of_holidays = ""
+        for date, holiday in holiday_dict.items():
+            list_of_holidays += f"{date.strftime('%d-%m-%Y')}: {holiday}\n"
+        print(f"The public holidays in your region during the selected period are:\n{list_of_holidays}")
     
     return holiday_dict
     
