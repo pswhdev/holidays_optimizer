@@ -6,7 +6,7 @@
 # If there is time: find a way to display the information in a pleasant and direct way to the user
 # include some colors and a nice title to the program on the terminal
 # write docstrings for all functions
-#try to use classes and inheritance
+# try to use classes and inheritance
 
 import database
 
@@ -127,18 +127,19 @@ def validate_dates(start_date, end_date):
                 raise ValueError("Please enter dates that are maximum one year apart.")
 
             print(
-                #strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
+                # strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
                 f"Checking for public holidays between {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}"
             )
-            #To stop the loop
+            # To stop the loop
             return
-        
+
         except ValueError as e:
             # Print error message
             print(e)
             # Prompt for new start and end dates
             start_date = get_date("Enter the start date")
             end_date = get_date("Enter the end date")
+
 
 # https://pypi.org/project/holidays/
 def check_holidays(start_date, end_date, country, state=None):
@@ -166,13 +167,22 @@ def check_holidays(start_date, end_date, country, state=None):
             print("The public holidays in your region during the selected period are:")
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
-    
+
     return holiday_dict
-    
 
 
 # def get_bridge_days(start_date, end_date):
 #     #elaborate this function
+
+
+def confirm_choice(message):
+    """Function to confirm user's choice."""
+    while True:
+        confirmation = input(f"{message} (yes/no): ").strip().lower()
+        if confirmation in ["yes", "y", "no", "n"]:
+            return confirmation
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
 
 
 def main():
@@ -180,15 +190,15 @@ def main():
     print("Welcome to the Holiday Optimizer!")
 
     selected_country = get_country()
-    #To convert the country's abbreviation back to the country's name
-    selected_country_name = [c for c in database.countries if database.countries[c] == selected_country]
+    # To convert the country's abbreviation back to the country's name
+    selected_country_name = [
+        c for c in database.countries if database.countries[c] == selected_country
+    ]
     print(f"You selected: {selected_country_name[0]}")
-    #validation of choice of country **********************************************************
+    # validation of choice of country **********************************************************
 
     selected_state = specify_state(selected_country)
-    #validation of choice for state **********************************************************
-
-
+    # validation of choice for state **********************************************************
 
     print("Please enter the start and end dates to check for holidays.")
 
@@ -196,11 +206,9 @@ def main():
     end_date = get_date("Enter the end date")
 
     validate_dates(start_date, end_date)
-    #validation of choice of period start to end **********************************************************
+    # validation of choice of period start to end **********************************************************
 
     check_holidays(start_date, end_date, selected_country, selected_state)
-
-
 
     # get_bridge_days(start_date, end_date)
 
