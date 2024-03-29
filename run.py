@@ -107,7 +107,7 @@ def get_date(message):
     while True:
         try:
             date = input(message + " (DD-MM-YYYY): ")
-            # Conversion of the given date into a date to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
+            # Conversion of the given date into a date object to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
             date_obj = datetime.strptime(date, "%d-%m-%Y")
             return date_obj
         except ValueError:
@@ -127,11 +127,11 @@ def validate_dates(start_date, end_date):
             if (end_date - start_date).days > 366:
                 raise ValueError("Please enter dates that are maximum one year apart.")
 
-            print(
-                # strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
-                f"Checking for public holidays between {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}"
-            )
-            # To stop the loop
+            # print(
+            #     # strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
+            #     f"Checking for public holidays between {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}"
+            # )
+            # # To stop the loop
             return
 
         except ValueError as e:
@@ -140,6 +140,31 @@ def validate_dates(start_date, end_date):
             # Prompt for new start and end dates
             start_date = get_date("Enter the start date")
             end_date = get_date("Enter the end date")
+
+
+# Confirm with the user if the chosen dates are correct
+def confirm_dates(start_date, end_date):
+    while True:
+        confirmation = (
+                input(
+                    f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')} Are you happy with these dates? (yes/no): "
+                )
+                .strip()
+                .lower()
+            )
+        try:
+            if confirmation == "no" or confirmation == "n":
+                # Prompt for new start and end dates
+                start_date = get_date("Enter the start date")
+                end_date = get_date("Enter the end date")
+            elif confirmation == "yes" or confirmation == "y":
+                # To stop the loop
+                return
+            else:
+                raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
+        except ValueError as e:
+            # Print error message
+            print(e)
 
 
 # https://pypi.org/project/holidays/
@@ -207,6 +232,7 @@ def main():
     end_date = get_date("Enter the end date")
 
     validate_dates(start_date, end_date)
+    confirm_dates(start_date, end_date)
     # validation of choice of period start to end **********************************************************
 
     check_holidays(start_date, end_date, selected_country, selected_state)
