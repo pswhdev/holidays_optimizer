@@ -1,4 +1,5 @@
 # next steps:
+# implement confirm_choice properly or delete it
 # generate a holidays calendar using the information got from the user
 # Find out the day of the week the holidays are at
 # Develop a logic to check what days could be taken off as bridge days based on the day of the week the holiday landed on
@@ -71,11 +72,11 @@ def get_country():
             elif not user_input:
                 raise ValueError("Input cannot be empty. Please enter a country.")
 
-            # To return the coutry's abbreviation used on the holidays library
-            for country in database.countries.keys():
+            # To return the country's abbreviation used on the holidays library
+            for country, abbreviation in database.countries.items():
                 if user_input == country.lower():
                     # For the coutries to be found correctly on the holidays library
-                    return database.countries[country]
+                    return abbreviation
 
             else:
                 raise ValueError(
