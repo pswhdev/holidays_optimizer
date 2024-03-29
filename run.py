@@ -86,6 +86,40 @@ def get_country():
             print(e)
 
 
+def confirm_country(abb):
+    # To find the country's name given the abbreviation
+    country_name = ""
+    for country, abbreviation in database.countries.items():
+                if abb == abbreviation:
+                    country_name = country
+                    
+    while True:
+        confirmation = (
+                input(
+                    f"The selected country was {country_name}. Is this the desired country? (yes/no): "
+                )
+                .strip()
+                .lower()
+            )
+        try:
+            if confirmation == "no" or confirmation == "n":
+                #run function to select country again and update selected country
+                abb = get_country()
+                # Update country name to be printed on the confirmation
+                for country, abbreviation in database.countries.items():
+                    if abb == abbreviation:
+                        country_name = country
+                
+            elif confirmation == "yes" or confirmation == "y":
+                # To stop the loop
+                return
+            else:
+                raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
+        except ValueError as e:
+            # Print error message
+            print(e)
+
+
 def specify_state(country):
     """Ask the user to input a state for the given country."""
     while True:
@@ -127,11 +161,6 @@ def validate_dates(start_date, end_date):
             if (end_date - start_date).days > 366:
                 raise ValueError("Please enter dates that are maximum one year apart.")
 
-            # print(
-            #     # strftime method is formatting the datetime object (yyyy-mm-dd 00:00:00) back into string on the desired dd-mm-yyyy format
-            #     f"Checking for public holidays between {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}"
-            # )
-            # # To stop the loop
             return
 
         except ValueError as e:
@@ -201,29 +230,35 @@ def check_holidays(start_date, end_date, country, state=None):
 #     #elaborate this function
 
 
-def confirm_choice(message):
-    """Function to confirm user's choice."""
-    while True:
-        confirmation = input(f"{message} (yes/no): ").strip().lower()
-        if confirmation in ["yes", "y", "no", "n"]:
-            return confirmation
-        else:
-            print("Invalid input. Please enter 'yes' or 'no'.")
+# def confirm_choice(message):
+#     """Function to confirm user's choice."""
+#     while True:
+#         confirmation = input(f"{message} (yes/no): ").strip().lower()
+#         if confirmation in ["yes", "y", "no", "n"]:
+#             return confirmation
+#         else:
+#             print("Invalid input. Please enter 'yes' or 'no'.")
 
 
 def main():
     prints_logo()
     print("Welcome to the Holiday Optimizer!")
 
-    selected_country = get_country()
-    # To convert the country's abbreviation back to the country's name
-    selected_country_name = [
-        c for c in database.countries if database.countries[c] == selected_country
-    ]
-    print(f"You selected: {selected_country_name[0]}")
+    selected_country_abb = get_country()
+    confirm_country(selected_country_abb)
+
+
+
+
+
+    # # To convert the country's abbreviation back to the country's name
+    # selected_country_name = [
+    #     c for c in database.countries if database.countries[c] == selected_country
+    # ]
+    # print(f"You selected: {selected_country_name[0]}")
     # validation of choice of country **********************************************************
 
-    selected_state = specify_state(selected_country)
+    selected_state = specify_state(selected_country_abb)
     # validation of choice for state **********************************************************
 
     print("Please enter the start and end dates to check for holidays.")
@@ -235,7 +270,7 @@ def main():
     confirm_dates(start_date, end_date)
     # validation of choice of period start to end **********************************************************
 
-    check_holidays(start_date, end_date, selected_country, selected_state)
+    check_holidays(start_date, end_date, selected_country_abb, selected_state)
 
     # get_bridge_days(start_date, end_date)
 
