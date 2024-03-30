@@ -1,5 +1,4 @@
 # next steps:
-# implement confirm_choice properly or delete it
 # generate a holidays calendar using the information got from the user
 # Find out the day of the week the holidays are at
 # Develop a logic to check what days could be taken off as bridge days based on the day of the week the holiday landed on
@@ -144,11 +143,9 @@ def get_dates():
             start_date_str = input("Please enter start date (DD-MM-YYYY): ").strip()
             # Conversion of the given dates into date objects to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
             start_date = datetime.strptime(start_date_str, "%d-%m-%Y")
-            
 
             end_date_str = input("Please enter end date (DD-MM-YYYY): ").strip()
             end_date = datetime.strptime(end_date_str, "%d-%m-%Y")
-            
 
             # Check if end date is a date in the future of the start_date
             if end_date < start_date:
@@ -180,69 +177,11 @@ def get_dates():
 
         except ValueError as e:
             if "time data" in str(e):
-                print("Invalid date format. Please enter the date in DD-MM-YYYY format.")
+                print(
+                    "Invalid date format. Please enter the date in DD-MM-YYYY format."
+                )
             else:
                 print(e)
-
-
-
-# def get_date(message):
-#     while True:
-#         try:
-#             date = input(message + " (DD-MM-YYYY): ")
-#             # Conversion of the given date into a date object to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
-#             date_obj = datetime.strptime(date, "%d-%m-%Y")
-#             return date_obj
-#         except ValueError:
-#             print("Invalid date format. Please enter the date in DD-MM-YYYY format.")
-
-
-# def validate_dates(start_date, end_date):
-#     while True:
-#         try:
-#             # Check if end date is a date in the future of the start_date
-#             if end_date < start_date:
-#                 raise ValueError("End date cannot be before the start date.")
-#             if end_date == start_date:
-#                 raise ValueError("End date cannot be the same as the start date.")
-
-#             # Check if dates are maximum one year apart (https://docs.python.org/3/library/datetime.html#timedelta-objects)
-#             if (end_date - start_date).days > 366:
-#                 raise ValueError("Please enter dates that are maximum one year apart.")
-
-#             return start_date, end_date
-
-#         except ValueError as e:
-#             # Print error message
-#             print(e)
-#             # Prompt for new start and end dates
-#             start_date = get_date("Enter the start date")
-#             end_date = get_date("Enter the end date")
-
-
-# # Confirm with the user if the chosen dates are correct
-# def confirm_dates(start_date, end_date):
-#     while True:
-#         confirmation = (
-#             input(
-#                 f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')} Are you happy with these dates? (yes/no): "
-#             )
-#             .strip()
-#             .lower()
-#         )
-#         try:
-#             if confirmation == "no" or confirmation == "n":
-#                 # Prompt for new start and end dates
-#                 start_date = get_date("Enter the start date")
-#                 end_date = get_date("Enter the end date")
-#             elif confirmation == "yes" or confirmation == "y":
-#                 # To stop the loop
-#                 return start_date, end_date
-#             else:
-#                 raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
-#         except ValueError as e:
-#             # Print error message
-#             print(e)
 
 
 # https://pypi.org/project/holidays/
@@ -286,18 +225,10 @@ def main():
     selected_country_abb = get_country()
 
     selected_state = specify_state(selected_country_abb)
-    # confirm_state(selected_state, selected_country_abb)
 
     print("Please enter the start and end dates to check for holidays.")
 
     start_date, end_date = get_dates()
-
-    # start_date = get_date("Enter the start date")
-    # end_date = get_date("Enter the end date")
-
-    # # Validation and confirmation of the chosen dates
-    # start_date, end_date = validate_dates(start_date, end_date)
-    # start_date, end_date = confirm_dates(start_date, end_date)
 
     check_holidays(start_date, end_date, selected_country_abb, selected_state)
 
