@@ -179,7 +179,10 @@ def get_dates():
                 raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
 
         except ValueError as e:
-            print(e)
+            if "time data" in str(e):
+                print("Invalid date format. Please enter the date in DD-MM-YYYY format.")
+            else:
+                print(e)
 
 
 
