@@ -161,7 +161,7 @@ def validate_dates(start_date, end_date):
             if (end_date - start_date).days > 366:
                 raise ValueError("Please enter dates that are maximum one year apart.")
 
-            return
+            return start_date, end_date
 
         except ValueError as e:
             # Print error message
@@ -169,6 +169,7 @@ def validate_dates(start_date, end_date):
             # Prompt for new start and end dates
             start_date = get_date("Enter the start date")
             end_date = get_date("Enter the end date")
+            
 
 
 # Confirm with the user if the chosen dates are correct
@@ -188,7 +189,7 @@ def confirm_dates(start_date, end_date):
                 end_date = get_date("Enter the end date")
             elif confirmation == "yes" or confirmation == "y":
                 # To stop the loop
-                return
+                return start_date, end_date
             else:
                 raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
         except ValueError as e:
@@ -230,33 +231,12 @@ def check_holidays(start_date, end_date, country, state=None):
 #     #elaborate this function
 
 
-# def confirm_choice(message):
-#     """Function to confirm user's choice."""
-#     while True:
-#         confirmation = input(f"{message} (yes/no): ").strip().lower()
-#         if confirmation in ["yes", "y", "no", "n"]:
-#             return confirmation
-#         else:
-#             print("Invalid input. Please enter 'yes' or 'no'.")
-
-
 def main():
     prints_logo()
     print("Welcome to the Holiday Optimizer!")
 
     selected_country_abb = get_country()
     confirm_country(selected_country_abb)
-
-
-
-
-
-    # # To convert the country's abbreviation back to the country's name
-    # selected_country_name = [
-    #     c for c in database.countries if database.countries[c] == selected_country
-    # ]
-    # print(f"You selected: {selected_country_name[0]}")
-    # validation of choice of country **********************************************************
 
     selected_state = specify_state(selected_country_abb)
     # validation of choice for state **********************************************************
@@ -266,9 +246,9 @@ def main():
     start_date = get_date("Enter the start date")
     end_date = get_date("Enter the end date")
 
-    validate_dates(start_date, end_date)
-    confirm_dates(start_date, end_date)
-    # validation of choice of period start to end **********************************************************
+    # Validation and confirmation of the chosen dates
+    start_date, end_date = validate_dates(start_date, end_date)
+    start_date, end_date = confirm_dates(start_date, end_date)
 
     check_holidays(start_date, end_date, selected_country_abb, selected_state)
 
