@@ -72,51 +72,32 @@ def get_country():
             elif not user_input:
                 raise ValueError("Input cannot be empty. Please enter a country.")
 
-            # To return the country's abbreviation used on the holidays library
+            # To find the country's abbreviation given the country name
             for country, abbreviation in database.countries.items():
                 if user_input == country.lower():
-                    # For the coutries to be found correctly on the holidays library
-                    return abbreviation
-
+                    while True:
+                        confirmation = (
+                            input(
+                                f"The selected country was {country}. Is this the desired country? (yes/no): "
+                            )
+                            .strip()
+                            .lower()
+                        )
+                        if confirmation in ["yes", "y"]:
+                            # To return the country's abbreviation used on the holidays library
+                            return abbreviation
+                        elif confirmation in ["no", "n"]:
+                            # Prompt for another country
+                            break
+                        else:
+                            print("Invalid input. Please enter 'yes' or 'no'.")
+                    # Prompt for another country
+                    break 
             else:
                 raise ValueError(
                     "Invalid input. Please enter a valid country name in English."
                 )
         except ValueError as e:
-            print(e)
-
-
-def confirm_country(abb):
-    # To find the country's name given the abbreviation
-    country_name = ""
-    for country, abbreviation in database.countries.items():
-                if abb == abbreviation:
-                    country_name = country
-                    
-    while True:
-        confirmation = (
-                input(
-                    f"The selected country was {country_name}. Is this the desired country? (yes/no): "
-                )
-                .strip()
-                .lower()
-            )
-        try:
-            if confirmation == "no" or confirmation == "n":
-                #run function to select country again and update selected country
-                abb = get_country()
-                # Update country name to be printed on the confirmation
-                for country, abbreviation in database.countries.items():
-                    if abb == abbreviation:
-                        country_name = country
-                
-            elif confirmation == "yes" or confirmation == "y":
-                # To stop the loop
-                return
-            else:
-                raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
-        except ValueError as e:
-            # Print error message
             print(e)
 
 
@@ -135,21 +116,22 @@ def specify_state(country):
                 print("Invalid state. Please enter a state" "from the provided list.")
         else:
             return None
-        
-def confirm_state(state, country):    
+
+
+def confirm_state(state, country):
     while True:
         confirmation = (
-                input(
-                    f"The selected state/territorry/province was {state}. Is this the desired one? (yes/no): "
-                )
-                .strip()
-                .lower()
+            input(
+                f"The selected state/territorry/province was {state}. Is this the desired one? (yes/no): "
             )
+            .strip()
+            .lower()
+        )
         try:
             if confirmation == "no" or confirmation == "n":
-                #run function to select state again and update the selected state
+                # run function to select state again and update the selected state
                 state = specify_state(country)
-                
+
             elif confirmation == "yes" or confirmation == "y":
                 # To stop the loop
                 return state
@@ -192,19 +174,18 @@ def validate_dates(start_date, end_date):
             # Prompt for new start and end dates
             start_date = get_date("Enter the start date")
             end_date = get_date("Enter the end date")
-            
 
 
 # Confirm with the user if the chosen dates are correct
 def confirm_dates(start_date, end_date):
     while True:
         confirmation = (
-                input(
-                    f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')} Are you happy with these dates? (yes/no): "
-                )
-                .strip()
-                .lower()
+            input(
+                f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')} Are you happy with these dates? (yes/no): "
             )
+            .strip()
+            .lower()
+        )
         try:
             if confirmation == "no" or confirmation == "n":
                 # Prompt for new start and end dates
@@ -259,7 +240,6 @@ def main():
     print("Welcome to the Holiday Optimizer!")
 
     selected_country_abb = get_country()
-    confirm_country(selected_country_abb)
 
     selected_state = specify_state(selected_country_abb)
     confirm_state(selected_state, selected_country_abb)
