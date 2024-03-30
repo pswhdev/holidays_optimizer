@@ -135,6 +135,29 @@ def specify_state(country):
                 print("Invalid state. Please enter a state" "from the provided list.")
         else:
             return None
+        
+def confirm_state(state, country):    
+    while True:
+        confirmation = (
+                input(
+                    f"The selected state/territorry/province was {state}. Is this the desired one? (yes/no): "
+                )
+                .strip()
+                .lower()
+            )
+        try:
+            if confirmation == "no" or confirmation == "n":
+                #run function to select state again and update the selected state
+                state = specify_state(country)
+                
+            elif confirmation == "yes" or confirmation == "y":
+                # To stop the loop
+                return state
+            else:
+                raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
+        except ValueError as e:
+            # Print error message
+            print(e)
 
 
 def get_date(message):
@@ -239,7 +262,7 @@ def main():
     confirm_country(selected_country_abb)
 
     selected_state = specify_state(selected_country_abb)
-    # validation of choice for state **********************************************************
+    confirm_state(selected_state, selected_country_abb)
 
     print("Please enter the start and end dates to check for holidays.")
 
