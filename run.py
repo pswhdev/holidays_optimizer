@@ -102,7 +102,9 @@ def get_country():
 
 
 def specify_state(country):
-    """Ask the user to input a state for the given country."""
+    """
+    Ask the user to input a state for the given country and confirm.
+    """
     while True:
         if country in database.states_by_country:
             # Display available states for the given country
@@ -111,35 +113,61 @@ def specify_state(country):
             )
             state_input = input("Please enter a state: ").strip().upper()
             if state_input in database.states_by_country[country]:
-                return state_input
+                while True:
+                    confirmation = input(
+                        f"The selected state/territory/province was {state_input}. Is this the desired one? (yes/no): "
+                    ).strip().lower()
+                    if confirmation == "yes" or confirmation == "y":
+                        return state_input
+                    elif confirmation == "no" or confirmation == "n":
+                        break
+                    else:
+                        print("Invalid input. Please enter 'yes' or 'no'.")
             else:
-                print("Invalid state. Please enter a state" "from the provided list.")
+                print("Invalid state. Please enter a state from the provided list.")
         else:
             return None
 
 
-def confirm_state(state, country):
-    while True:
-        confirmation = (
-            input(
-                f"The selected state/territorry/province was {state}. Is this the desired one? (yes/no): "
-            )
-            .strip()
-            .lower()
-        )
-        try:
-            if confirmation == "no" or confirmation == "n":
-                # run function to select state again and update the selected state
-                state = specify_state(country)
+# def specify_state(country):
+#     """Ask the user to input a state for the given country."""
+#     while True:
+#         if country in database.states_by_country:
+#             # Display available states for the given country
+#             print(
+#                 f"States or territories in {country}: {', '.join(database.states_by_country[country])}"
+#             )
+#             state_input = input("Please enter a state: ").strip().upper()
+#             if state_input in database.states_by_country[country]:
+#                 return state_input
+#             else:
+#                 print("Invalid state. Please enter a state" "from the provided list.")
+#         else:
+#             return None
 
-            elif confirmation == "yes" or confirmation == "y":
-                # To stop the loop
-                return state
-            else:
-                raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
-        except ValueError as e:
-            # Print error message
-            print(e)
+
+# def confirm_state(state, country):
+#     while True:
+#         confirmation = (
+#             input(
+#                 f"The selected state/territorry/province was {state}. Is this the desired one? (yes/no): "
+#             )
+#             .strip()
+#             .lower()
+#         )
+#         try:
+#             if confirmation == "no" or confirmation == "n":
+#                 # run function to select state again and update the selected state
+#                 state = specify_state(country)
+
+#             elif confirmation == "yes" or confirmation == "y":
+#                 # To stop the loop
+#                 return state
+#             else:
+#                 raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
+#         except ValueError as e:
+#             # Print error message
+#             print(e)
 
 
 def get_date(message):
@@ -242,7 +270,7 @@ def main():
     selected_country_abb = get_country()
 
     selected_state = specify_state(selected_country_abb)
-    confirm_state(selected_state, selected_country_abb)
+    # confirm_state(selected_state, selected_country_abb)
 
     print("Please enter the start and end dates to check for holidays.")
 
