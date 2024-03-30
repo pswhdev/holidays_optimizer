@@ -158,22 +158,23 @@ def get_dates():
                 raise ValueError("Please enter dates that are maximum one year apart.")
 
             # If no problem with the selected dates is found, confirm with the user if the chosen dates are the desired dates
-            confirmation = (
-                input(
-                    f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}. Are you happy with these dates? (yes/no): "
+            while True:
+                confirmation = (
+                    input(
+                        f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}. Are you happy with these dates? (yes/no): "
+                    )
+                    .strip()
+                    .lower()
                 )
-                .strip()
-                .lower()
-            )
 
-            if confirmation in ["no", "n"]:
-                # Asks for new start and end dates
-                continue
-            elif confirmation in ["yes", "y"]:
-                # To stop the loop and return the dates
-                return start_date, end_date
-            else:
-                raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
+                if confirmation in ["no", "n"]:
+                    # Asks for new start and end dates
+                    break  
+                elif confirmation in ["yes", "y"]:
+                    # To stop the loop and return the dates
+                    return start_date, end_date
+                else:
+                    print("Invalid input. Please enter 'yes' or 'no'.")
 
         except ValueError as e:
             if "time data" in str(e):
