@@ -61,7 +61,7 @@ def get_country():
             # Validation to check if input is a number instead of text
             if user_input.isdigit():
                 raise ValueError(
-                    "Invalid input. Please enter a valid country " "name (text, not a number)."
+                    "Please enter a valid country " "name (text, not a number)."
                 )
 
             # Validation to prevent submission of empty input or white spaces
@@ -72,9 +72,10 @@ def get_country():
             for country, abbreviation in database.countries.items():
                 if user_input == country.lower():
                     while True:
+                        print(f"[bright_green]The selected country was {country}. [/bright_green]")
                         confirmation = (
                             input(
-                                f"The selected country was {country}. Is this the desired country? (y/n): "
+                                "Is this the desired country? (y/n): "
                             )
                             .strip()
                             .lower()
@@ -86,13 +87,13 @@ def get_country():
                             # Prompt for another country
                             break
                         else:
-                            print("Invalid input. Please enter 'y' or 'n'.")
+                            print("Please enter 'y' or 'n'.")
                     # Prompt for another country
                     break
             else:
-                raise ValueError("Invalid input. Please enter a valid country name in English.")
+                raise ValueError("Please enter a valid country name in English.")
         except ValueError as e:
-            print(e)
+            print("[bright_red]Invalid input.[/bright_red]", e)
 
 
 def specify_state(country):
@@ -103,14 +104,15 @@ def specify_state(country):
         if country in database.states_by_country:
             # Display available states for the given country
             print(
-                f"States or territories in {country}: {', '.join(database.states_by_country[country])}"
+                f"[bright_yellow]States or territories in {country}:[/bright_yellow] {', '.join(database.states_by_country[country])}"
             )
             state_input = input("Please enter a state: ").strip().upper()
             if state_input in database.states_by_country[country]:
                 while True:
+                    print(f"[bright_green]The selected state/territory/province was {state_input}. [/bright_green]")
                     confirmation = (
                         input(
-                            f"The selected state/territory/province was {state_input}. Is this the desired one? (y/n): "
+                            f"Is this the desired one? (y/n): "
                         )
                         .strip()
                         .lower()
@@ -120,9 +122,9 @@ def specify_state(country):
                     elif confirmation == "n":
                         break
                     else:
-                        print("Invalid input. Please enter 'y' for yes or 'n' for no.")
+                        print("[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no.")
             else:
-                print("Invalid state. Please enter a state from the provided list.")
+                print("[bright_red]Invalid state[/bright_red]. Please enter a state from the provided list.")
         else:
             return None
 
@@ -139,7 +141,7 @@ def get_date(message):
 
             if selected_date < datetime.now():
                 raise ValueError(
-                    f"You cannot choose a date in the past. Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future."
+                    f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future."
                 )
 
             # if no problem is found with the date format entry it returns the value to main() and stops the loop
@@ -147,9 +149,9 @@ def get_date(message):
         except ValueError as e:
             # Checks if the user's input is anything other than the requested date format and promts for the correct format
             if "time data" in str(e):
-                print("Invalid date format. Please enter the date in DD-MM-YYYY format.")
+                print("[bright_red]Invalid date format.[/bright_red] Please enter the date in DD-MM-YYYY format.")
             else:
-                print(e)
+                print("[bright_red]You cannot choose a date in the past. [/bright_red]",e)
 
 
 def verify_dates(start_date, end_date):
@@ -176,9 +178,10 @@ def verify_dates(start_date, end_date):
 
 def confirm_dates(start_date, end_date):
     while True:
+        print(f"[bright_green]The selected period was [/bright_green]{start_date.strftime('%d-%m-%Y')} [bright_green] and [/bright_green]{end_date.strftime('%d-%m-%Y')}. ")
         confirmation = (
             input(
-                f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}. Are you happy with these dates? (y/n): "
+                "Are you happy with these dates? (y/n): "
             )
             .strip()
             .lower()
@@ -192,7 +195,7 @@ def confirm_dates(start_date, end_date):
             # To stop the loop and return the dates
             return start_date, end_date
         else:
-            print("Invalid input. Please enter 'y' for yes or 'n' for no.")
+            print("[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no.")
 
 
 def handle_new_dates():
@@ -222,11 +225,11 @@ def check_holidays(start_date, end_date, country, state=None):
         # Move to the next day. If use only += 1 it gives an error: unsupported operand type(s) for +=: 'datetime.datetime' and 'int'
         check_date += timedelta(days=1)
     if not holiday_dict:
-        print("There are no holidays during the selected period in your area")
+        print("[bright_yellow]There are no holidays during the selected period in your area[/bright_yellow]")
     else:
         # Print the dictionary to the user
         if holiday_dict:
-            print("The public holidays in your region during the selected period are:")
+            print("[bright_cyan]The public holidays in your region during the selected period are:[bright_cyan]")
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
     return holiday_dict
@@ -246,10 +249,11 @@ def what_next():
         elif what_next == "r":
             main()
         elif what_next == "f":
-            print("Thank you for using Holidays Optimizer! Enjoy your time off :-)")
+            print("[bright_green]Thank you for using Holidays Optimizer! Enjoy your time off :-)[/bright_green]")
         else:
+            print("[bright_red]Invalid entry. [/bright_red]")
             input(
-                "Invalid entry To enter new dates, press 'n', to restart the program, press 'r', to finalize the program, press 'f'"
+                "To enter new dates, press 'n', to restart the program, press 'r', to finalize the program, press 'f'"
             )
 
 
