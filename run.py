@@ -256,18 +256,16 @@ def check_holidays(start_date, end_date, country, state=None):
 def what_next():
     while True:
         what_next = input(
-            "If you wish to enter new dates, press 'n', to restart the program, press 'r', to finalize the program, press 'f'"
+            "If you wish to restart the program, press 'r', to finalize the program, press 'f'"
         )
-        if what_next == "n":
-            handle_new_dates()
-        elif what_next == "r":
+        if what_next == "r":
             main()
         elif what_next == "f":
             print("[bright_green]Thank you for using Holidays Optimizer! Enjoy your time off :-)[/bright_green]")
         else:
             print("[bright_red]Invalid entry. [/bright_red]")
             input(
-                "To enter new dates, press 'n', to restart the program, press 'r', to finalize the program, press 'f'"
+                "To restart the program, press 'r', to finalize the program, press 'f'"
             )
 
 
@@ -284,7 +282,7 @@ def main():
     start_date = get_date("Please enter the start date ")
 
     end_date = get_date("Please enter the end date ")
-
+    #Important to reassign the start and end date in case they had been reentered as part of the validation and confirmation steps
     start_date, end_date = verify_dates(start_date, end_date)
 
     start_date, end_date = confirm_dates(start_date, end_date)
