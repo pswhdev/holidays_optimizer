@@ -169,21 +169,18 @@ def verify_dates(start_date, end_date):
             if (end_date - start_date).days > 366:
                 raise ValueError("Please enter dates that are maximum one year apart.")
             # To break the loop in case there is no problem with the chosen dates validation
-            return
+            return start_date, end_date
         except ValueError as e:
             print(e)
-            new_start_date = get_date("Please select a new start date ")
-            new_end_date = get_date("Please select a new end date ")
-            start_date = new_start_date
-            end_date = new_end_date
-            return start_date, end_date
+            start_date = get_date("Please select a new start date ")
+            end_date = get_date("Please select a new end date ")
 
 
 def confirm_dates(start_date, end_date):
     while True:
         confirmation = (
             input(
-                f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}. Are you happy with these dates? (yes/no): "
+                f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}. Are you happy with these dates? (y/n): "
             )
             .strip()
             .lower()
@@ -191,10 +188,7 @@ def confirm_dates(start_date, end_date):
 
         if confirmation == "n":
             # Asks for new start and end dates
-            new_start_date = get_date("Please select a new start date ")
-            new_end_date = get_date("Please select a new end date ")
-            start_date = new_start_date
-            end_date = new_end_date
+            start_date, end_date = handle_new_dates()
             return start_date, end_date
         elif confirmation == "y":
             # To stop the loop and return the dates
@@ -202,6 +196,12 @@ def confirm_dates(start_date, end_date):
         else:
             print("Invalid input. Please enter 'y' for yes or 'n' for no.")
 
+def handle_new_dates():
+    start_date = get_date("Please select a new start date ")
+    end_date = get_date("Please select a new end date ")
+    start_date, end_date = verify_dates(start_date, end_date)
+    start_date, end_date =confirm_dates(start_date, end_date)
+    return start_date, end_date
 
 # https://pypi.org/project/holidays/
 def check_holidays(start_date, end_date, country, state=None):
@@ -251,9 +251,9 @@ def main():
 
     end_date = get_date("Please enter the end date ")
 
-    verify_dates(start_date, end_date)
+    start_date, end_date = verify_dates(start_date, end_date)
 
-    confirm_dates(start_date, end_date)
+    start_date, end_date = confirm_dates(start_date, end_date)
 
     check_holidays(start_date, end_date, selected_country_abb, selected_state)
 
