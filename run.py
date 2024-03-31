@@ -262,12 +262,11 @@ def what_next():
             main()
         elif what_next == "f":
             print("[bright_green]Thank you for using Holidays Optimizer! Enjoy your time off :-)[/bright_green]")
+            # Stops the loop
+            break
         else:
             print("[bright_red]Invalid entry. [/bright_red]")
-            input(
-                "To restart the program, press 'r', to finalize the program, press 'f'"
-            )
-
+            
 
 def main():
     prints_logo()
