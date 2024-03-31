@@ -136,12 +136,26 @@ def get_date(message):
     while True:
         try:
             selected_date_str = input(f"{message} (DD-MM-YYYY): ").strip()
+
+            # Check if the input matches the expected format
+            if len(selected_date_str) != 10 or selected_date_str[2] != '-' or selected_date_str[5] != '-':
+                print("[bright_red]Invalid date format. [/bright_red]")
+                raise ValueError("Please enter the date in DD-MM-YYYY format.")
+            
             # Conversion of the given dates into date objects to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
             selected_date = datetime.strptime(selected_date_str, "%d-%m-%Y")
 
             if selected_date < datetime.now():
+                print("[bright_red]You cannot choose a date in the past. [/bright_red]")
                 raise ValueError(
                     f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future."
+                )
+            # Check if the selected date is within 10 years from today
+            max_date = datetime.now() + timedelta(days=365*10)
+            if selected_date > max_date:
+                print("[bright_red]The selected date is too far in the future. [/bright_red]")
+                raise ValueError(
+                    f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date within the next 10 years."
                 )
 
             # if no problem is found with the date format entry it returns the value to main() and stops the loop
@@ -151,7 +165,7 @@ def get_date(message):
             if "time data" in str(e):
                 print("[bright_red]Invalid date format.[/bright_red] Please enter the date in DD-MM-YYYY format.")
             else:
-                print("[bright_red]You cannot choose a date in the past. [/bright_red]",e)
+                print(e)
 
 
 def verify_dates(start_date, end_date):
@@ -171,7 +185,7 @@ def verify_dates(start_date, end_date):
             # To break the loop in case there is no problem with the chosen dates validation
             return start_date, end_date
         except ValueError as e:
-            print(e)
+            print("[bright_red]Invalid choice. [/bright_red]", e)
             start_date = get_date("Please select a new start date ")
             end_date = get_date("Please select a new end date ")
 
