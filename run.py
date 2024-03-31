@@ -30,11 +30,15 @@ def prints_logo():
     Prints the logo to the terminal
     """
     banner_part1 = pyfiglet.figlet_format("     Holidays", font="doom")
-    banner_part2 = pyfiglet.figlet_format("                      Optimizer", font="doom")
+    banner_part2 = pyfiglet.figlet_format(
+        "                      Optimizer", font="doom"
+    )
 
     print(f"[bright_cyan]{banner_part1}[/bright_cyan]")
     print(f"[bright_cyan]{banner_part2}[/bright_cyan]")
-    print("[magenta]                                               By Patricia Halley[/magenta]")
+    print(
+        "[magenta]                                               By Patricia Halley[/magenta]"
+    )
     print("\n" * 3)
 
 
@@ -72,11 +76,11 @@ def get_country():
             for country, abbreviation in database.countries.items():
                 if user_input == country.lower():
                     while True:
-                        print(f"[bright_green]The selected country was {country}. [/bright_green]")
+                        print(
+                            f"[bright_green]The selected country was {country}. [/bright_green]"
+                        )
                         confirmation = (
-                            input(
-                                "Is this the desired country? (y/n): "
-                            )
+                            input("Is this the desired country? (y/n): ")
                             .strip()
                             .lower()
                         )
@@ -109,22 +113,24 @@ def specify_state(country):
             state_input = input("Please enter a state: ").strip().upper()
             if state_input in database.states_by_country[country]:
                 while True:
-                    print(f"[bright_green]The selected state/territory/province was {state_input}. [/bright_green]")
+                    print(
+                        f"[bright_green]The selected state/territory/province was {state_input}. [/bright_green]"
+                    )
                     confirmation = (
-                        input(
-                            f"Is this the desired one? (y/n): "
-                        )
-                        .strip()
-                        .lower()
+                        input(f"Is this the desired one? (y/n): ").strip().lower()
                     )
                     if confirmation == "y":
                         return state_input
                     elif confirmation == "n":
                         break
                     else:
-                        print("[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no.")
+                        print(
+                            "[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no."
+                        )
             else:
-                print("[bright_red]Invalid state[/bright_red]. Please enter a state from the provided list.")
+                print(
+                    "[bright_red]Invalid state[/bright_red]. Please enter a state from the provided list."
+                )
         else:
             return None
 
@@ -138,10 +144,14 @@ def get_date(message):
             selected_date_str = input(f"{message} (DD-MM-YYYY): ").strip()
 
             # Check if the input matches the expected format
-            if len(selected_date_str) != 10 or selected_date_str[2] != '-' or selected_date_str[5] != '-':
+            if (
+                len(selected_date_str) != 10
+                or selected_date_str[2] != "-"
+                or selected_date_str[5] != "-"
+            ):
                 print("[bright_red]Invalid date format. [/bright_red]")
                 raise ValueError("Please enter the date in DD-MM-YYYY format.")
-            
+
             # Conversion of the given dates into date objects to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
             selected_date = datetime.strptime(selected_date_str, "%d-%m-%Y")
 
@@ -151,9 +161,11 @@ def get_date(message):
                     f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future."
                 )
             # Check if the selected date is within 10 years from today
-            max_date = datetime.now() + timedelta(days=365*10)
+            max_date = datetime.now() + timedelta(days=365 * 10)
             if selected_date > max_date:
-                print("[bright_red]The selected date is too far in the future. [/bright_red]")
+                print(
+                    "[bright_red]The selected date is too far in the future. [/bright_red]"
+                )
                 raise ValueError(
                     f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date within the next 10 years."
                 )
@@ -163,7 +175,9 @@ def get_date(message):
         except ValueError as e:
             # Checks if the user's input is anything other than the requested date format and promts for the correct format
             if "time data" in str(e):
-                print("[bright_red]Invalid date format.[/bright_red] Please enter the date in DD-MM-YYYY format.")
+                print(
+                    "[bright_red]Invalid date format.[/bright_red] Please enter the date in DD-MM-YYYY format."
+                )
             else:
                 print(e)
 
@@ -192,14 +206,10 @@ def verify_dates(start_date, end_date):
 
 def confirm_dates(start_date, end_date):
     while True:
-        print(f"[bright_green]The selected period was [/bright_green]{start_date.strftime('%d-%m-%Y')} [bright_green] and [/bright_green]{end_date.strftime('%d-%m-%Y')}. ")
-        confirmation = (
-            input(
-                "Are you happy with these dates? (y/n): "
-            )
-            .strip()
-            .lower()
+        print(
+            f"[bright_green]The selected period was [/bright_green]{start_date.strftime('%d-%m-%Y')} [bright_green] and [/bright_green]{end_date.strftime('%d-%m-%Y')}. "
         )
+        confirmation = input("Are you happy with these dates? (y/n): ").strip().lower()
 
         if confirmation == "n":
             # Asks for new start and end dates
@@ -209,7 +219,9 @@ def confirm_dates(start_date, end_date):
             # To stop the loop and return the dates
             return start_date, end_date
         else:
-            print("[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no.")
+            print(
+                "[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no."
+            )
 
 
 def handle_new_dates():
@@ -239,11 +251,15 @@ def check_holidays(start_date, end_date, country, state=None):
         # Move to the next day. If use only += 1 it gives an error: unsupported operand type(s) for +=: 'datetime.datetime' and 'int'
         check_date += timedelta(days=1)
     if not holiday_dict:
-        print("[bright_yellow]There are no holidays during the selected period in your area[/bright_yellow]")
+        print(
+            "[bright_yellow]There are no holidays during the selected period in your area[/bright_yellow]"
+        )
     else:
         # Print the dictionary to the user
         if holiday_dict:
-            print("[bright_cyan]The public holidays in your region during the selected period are:[bright_cyan]")
+            print(
+                "[bright_cyan]The public holidays in your region during the selected period are:[bright_cyan]"
+            )
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
     return holiday_dict
@@ -256,12 +272,14 @@ def check_holidays(start_date, end_date, country, state=None):
 def what_next():
     while True:
         what_next = input(
-            "If you wish to restart the program, press 'r', to finalize the program, press 'f': "
+            "If you wish to make a new inquiry, press 'r', to finish the program, press 'f': "
         )
         if what_next == "r":
             main()
         elif what_next == "f":
-            print("[bright_green]Thank you for using Holidays Optimizer! Enjoy your time off :-)[/bright_green]")
+            print(
+                "[bright_green]Thank you for using Holidays Optimizer! Enjoy your time off :-)[/bright_green]"
+            )
             # Stops the loop
             break
         else:
@@ -281,7 +299,7 @@ def main():
     start_date = get_date("Please enter the start date ")
 
     end_date = get_date("Please enter the end date ")
-    #Important to reassign the start and end date in case they had been reentered as part of the validation and confirmation steps
+    # Important to reassign the start and end date in case they had been reentered as part of the validation and confirmation steps
     start_date, end_date = verify_dates(start_date, end_date)
 
     start_date, end_date = confirm_dates(start_date, end_date)
