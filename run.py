@@ -143,15 +143,20 @@ def get_date(message):
             selected_date_str = input(f"{message} (DD-MM-YYYY): ").strip()
             # Conversion of the given dates into date objects to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
             selected_date = datetime.strptime(selected_date_str, "%d-%m-%Y")
-            # Checks if the user's input is anything other than the requested date format and promts for the correct format
+            
+            if selected_date < datetime.now():
+                raise ValueError(f"You cannot choose a date in the past. Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future.")
 
             # if no problem is found with the date format entry it returns the value to main() and stops the loop
             return selected_date
         except ValueError as e:
+            # Checks if the user's input is anything other than the requested date format and promts for the correct format
             if "time data" in str(e):
                 print(
                     "Invalid date format. Please enter the date in DD-MM-YYYY format."
                 )
+            else:
+                print (e)
 
 
 def verify_dates(start_date, end_date):
