@@ -79,19 +79,19 @@ def get_country():
                     while True:
                         confirmation = (
                             input(
-                                f"The selected country was {country}. Is this the desired country? (yes/no): "
+                                f"The selected country was {country}. Is this the desired country? (y/n): "
                             )
                             .strip()
                             .lower()
                         )
-                        if confirmation in ["yes", "y"]:
+                        if confirmation == "y":
                             # To return the country's abbreviation used on the holidays library
                             return abbreviation
-                        elif confirmation in ["no", "n"]:
+                        elif confirmation == "n":
                             # Prompt for another country
                             break
                         else:
-                            print("Invalid input. Please enter 'yes' or 'no'.")
+                            print("Invalid input. Please enter 'y' or 'n'.")
                     # Prompt for another country
                     break
             else:
@@ -117,72 +117,90 @@ def specify_state(country):
                 while True:
                     confirmation = (
                         input(
-                            f"The selected state/territory/province was {state_input}. Is this the desired one? (yes/no): "
+                            f"The selected state/territory/province was {state_input}. Is this the desired one? (y/n): "
                         )
                         .strip()
                         .lower()
                     )
-                    if confirmation == "yes" or confirmation == "y":
+                    if confirmation == "y":
                         return state_input
-                    elif confirmation == "no" or confirmation == "n":
+                    elif confirmation == "n":
                         break
                     else:
-                        print("Invalid input. Please enter 'yes' or 'no'.")
+                        print("Invalid input. Please enter 'y' for yes or 'n' for no.")
             else:
                 print("Invalid state. Please enter a state from the provided list.")
         else:
             return None
 
 
-def get_dates():
+def get_date(message):
     """
-    Prompt the user to enter start and end dates and confirm their selection.
+    Prompt the user to enter start date and confirm their selection.
     """
     while True:
         try:
-            start_date_str = input("Please enter start date (DD-MM-YYYY): ").strip()
+            selected_date_str = input(f"{message} (DD-MM-YYYY): ").strip()
             # Conversion of the given dates into date objects to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
-            start_date = datetime.strptime(start_date_str, "%d-%m-%Y")
+            selected_date = datetime.strptime(selected_date_str, "%d-%m-%Y")
+            # Checks if the user's input is anything other than the requested date format and promts for the correct format
 
-            end_date_str = input("Please enter end date (DD-MM-YYYY): ").strip()
-            end_date = datetime.strptime(end_date_str, "%d-%m-%Y")
-
-            # Check if end date is a date in the future of the start_date
-            if end_date < start_date:
-                raise ValueError("End date cannot be before the start date.")
-            if end_date == start_date:
-                raise ValueError("End date cannot be the same as the start date.")
-
-            # Check if dates are maximum one year apart (https://docs.python.org/3/library/datetime.html#timedelta-objects)
-            if (end_date - start_date).days > 366:
-                raise ValueError("Please enter dates that are maximum one year apart.")
-
-            # If no problem with the selected dates is found, confirm with the user if the chosen dates are the desired dates
-            while True:
-                confirmation = (
-                    input(
-                        f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}. Are you happy with these dates? (yes/no): "
-                    )
-                    .strip()
-                    .lower()
-                )
-
-                if confirmation in ["no", "n"]:
-                    # Asks for new start and end dates
-                    break  
-                elif confirmation in ["yes", "y"]:
-                    # To stop the loop and return the dates
-                    return start_date, end_date
-                else:
-                    print("Invalid input. Please enter 'yes' or 'no'.")
-
+            # if no problem is found with the date format entry it returns the value to main() and stops the loop
+            return selected_date
         except ValueError as e:
             if "time data" in str(e):
                 print(
                     "Invalid date format. Please enter the date in DD-MM-YYYY format."
                 )
-            else:
-                print(e)
+
+
+def verify_dates(start_date, end_date):
+    """
+    Prompt the user to enter start and end dates and confirm their selection.
+    """
+    while True:
+        try:
+            # Check if end date is a date in the future of the start_date
+            if end_date < start_date:
+                raise ValueError("End date cannot be before the start date.")
+            if end_date == start_date:
+                raise ValueError("End date cannot be the same as the start date.")
+            # Check if dates are maximum one year apart (https://docs.python.org/3/library/datetime.html#timedelta-objects)
+            if (end_date - start_date).days > 366:
+                raise ValueError("Please enter dates that are maximum one year apart.")
+            # To break the loop in case there is no problem with the chosen dates validation
+            return
+        except ValueError as e:
+            print(e)
+            new_start_date = get_date("Please select a new start date ")
+            new_end_date = get_date("Please select a new end date ")
+            start_date = new_start_date
+            end_date = new_end_date
+            return start_date, end_date
+
+
+def confirm_dates(start_date, end_date):
+    while True:
+        confirmation = (
+            input(
+                f"The selected period was {start_date.strftime('%d-%m-%Y')} and {end_date.strftime('%d-%m-%Y')}. Are you happy with these dates? (yes/no): "
+            )
+            .strip()
+            .lower()
+        )
+
+        if confirmation == "n":
+            # Asks for new start and end dates
+            new_start_date = get_date("Please select a new start date ")
+            new_end_date = get_date("Please select a new end date ")
+            start_date = new_start_date
+            end_date = new_end_date
+            return start_date, end_date
+        elif confirmation == "y":
+            # To stop the loop and return the dates
+            return start_date, end_date
+        else:
+            print("Invalid input. Please enter 'y' for yes or 'n' for no.")
 
 
 # https://pypi.org/project/holidays/
@@ -229,7 +247,13 @@ def main():
 
     print("Please enter the start and end dates to check for holidays.")
 
-    start_date, end_date = get_dates()
+    start_date = get_date("Please enter the start date ")
+
+    end_date = get_date("Please enter the end date ")
+
+    verify_dates(start_date, end_date)
+
+    confirm_dates(start_date, end_date)
 
     check_holidays(start_date, end_date, selected_country_abb, selected_state)
 
