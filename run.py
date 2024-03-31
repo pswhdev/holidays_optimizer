@@ -30,15 +30,11 @@ def prints_logo():
     Prints the logo to the terminal
     """
     banner_part1 = pyfiglet.figlet_format("     Holidays", font="doom")
-    banner_part2 = pyfiglet.figlet_format(
-        "                      Optimizer", font="doom"
-    )
+    banner_part2 = pyfiglet.figlet_format("                      Optimizer", font="doom")
 
     print(f"[bright_cyan]{banner_part1}[/bright_cyan]")
     print(f"[bright_cyan]{banner_part2}[/bright_cyan]")
-    print(
-        "[magenta]                                               By Patricia Halley[/magenta]"
-    )
+    print("[magenta]                                               By Patricia Halley[/magenta]")
     print("\n" * 3)
 
 
@@ -65,8 +61,7 @@ def get_country():
             # Validation to check if input is a number instead of text
             if user_input.isdigit():
                 raise ValueError(
-                    "Invalid input. Please enter a valid country "
-                    "name (text, not a number)."
+                    "Invalid input. Please enter a valid country " "name (text, not a number)."
                 )
 
             # Validation to prevent submission of empty input or white spaces
@@ -95,9 +90,7 @@ def get_country():
                     # Prompt for another country
                     break
             else:
-                raise ValueError(
-                    "Invalid input. Please enter a valid country name in English."
-                )
+                raise ValueError("Invalid input. Please enter a valid country name in English.")
         except ValueError as e:
             print(e)
 
@@ -143,20 +136,20 @@ def get_date(message):
             selected_date_str = input(f"{message} (DD-MM-YYYY): ").strip()
             # Conversion of the given dates into date objects to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
             selected_date = datetime.strptime(selected_date_str, "%d-%m-%Y")
-            
+
             if selected_date < datetime.now():
-                raise ValueError(f"You cannot choose a date in the past. Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future.")
+                raise ValueError(
+                    f"You cannot choose a date in the past. Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future."
+                )
 
             # if no problem is found with the date format entry it returns the value to main() and stops the loop
             return selected_date
         except ValueError as e:
             # Checks if the user's input is anything other than the requested date format and promts for the correct format
             if "time data" in str(e):
-                print(
-                    "Invalid date format. Please enter the date in DD-MM-YYYY format."
-                )
+                print("Invalid date format. Please enter the date in DD-MM-YYYY format.")
             else:
-                print (e)
+                print(e)
 
 
 def verify_dates(start_date, end_date):
@@ -201,12 +194,14 @@ def confirm_dates(start_date, end_date):
         else:
             print("Invalid input. Please enter 'y' for yes or 'n' for no.")
 
+
 def handle_new_dates():
     start_date = get_date("Please select a new start date ")
     end_date = get_date("Please select a new end date ")
     start_date, end_date = verify_dates(start_date, end_date)
-    start_date, end_date =confirm_dates(start_date, end_date)
+    start_date, end_date = confirm_dates(start_date, end_date)
     return start_date, end_date
+
 
 # https://pypi.org/project/holidays/
 def check_holidays(start_date, end_date, country, state=None):
@@ -234,12 +229,28 @@ def check_holidays(start_date, end_date, country, state=None):
             print("The public holidays in your region during the selected period are:")
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
-
     return holiday_dict
 
 
 # def get_bridge_days(start_date, end_date):
 #     #elaborate this function
+
+
+def what_next():
+    while True:
+        what_next = input(
+            "If you wish to enter new dates, press 'n', to restart the program, press 'r', to finalize the program, press 'f'"
+        )
+        if what_next == "n":
+            handle_new_dates()
+        elif what_next == "r":
+            main()
+        elif what_next == "f":
+            print("Thank you for using Holidays Optimizer! Enjoy your time off :-)")
+        else:
+            input(
+                "Invalid entry To enter new dates, press 'n', to restart the program, press 'r', to finalize the program, press 'f'"
+            )
 
 
 def main():
@@ -263,6 +274,7 @@ def main():
     check_holidays(start_date, end_date, selected_country_abb, selected_state)
 
     # get_bridge_days(start_date, end_date)
+    what_next()
 
 
 main()
