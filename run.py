@@ -256,7 +256,7 @@ def check_holidays(start_date, end_date, country, state=None):
 def what_next():
     while True:
         what_next = input(
-            "If you wish to restart the program, press 'r', to finalize the program, press 'f'"
+            "If you wish to restart the program, press 'r', to finalize the program, press 'f': "
         )
         if what_next == "r":
             main()
@@ -266,7 +266,7 @@ def what_next():
             break
         else:
             print("[bright_red]Invalid entry. [/bright_red]")
-            
+
 
 def main():
     prints_logo()
