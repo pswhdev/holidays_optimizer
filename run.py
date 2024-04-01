@@ -324,10 +324,10 @@ def get_bridge_days(holidays):
 
             if following_monday_holiday:
                 four_days_1[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=-1)),
-                    (holiday["date"] + timedelta(days=-2)),
-                    (holiday["date"] + timedelta(days=-3)),
                     (holiday["date"] + timedelta(days=-4)),
+                    (holiday["date"] + timedelta(days=-3)),
+                    (holiday["date"] + timedelta(days=-2)),
+                    (holiday["date"] + timedelta(days=-1)),
                 ]
                 four_days_2[following_monday_holiday["name"]] = [
                     (holiday["date"] + timedelta(days=4)),
@@ -354,7 +354,6 @@ def get_bridge_days(holidays):
     # if holiday on monday: tuesday off = 4 days free with 1 vacation holiday (on Friday week before or tuesday),
     # tuesday and wednesday of friday week before and tuesday: 5 days total using 2 days or
     # 4 days on the week of the holiday = 9 days free using 4 vacation days.
-    # if holidays are the dey before and a day after a weekend (like easter) - 4 days in either week will result in 10 free days using 4 days off
     # always that total number of free days/2 > number of vacation days used --> holidays have been optimized
     # preference for more total days off using less vacation days:
     # if there are two holidays during the given period --> best result is to use up to 2 days per holiday than take 4 days in one week. For instance using the logic described above, taking 2 days on a week with a holiday we have 5 days free. If we do it with two separate holidays we then have 10 days using 4 vacation days. If we take 4 vacation days in one of the weeks with a holiday, we will have only 9 days free
@@ -393,7 +392,9 @@ def main():
     holidays = check_holidays(
         start_date, end_date, selected_country_abb, selected_state
     )
+    print()
     get_bridge_days(holidays)
+    print()
 
     what_next()
 
