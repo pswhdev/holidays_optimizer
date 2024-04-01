@@ -232,35 +232,6 @@ def handle_new_dates():
     return start_date, end_date
 
 
-# def get_days():
-#     while True:
-#         try:
-#             days = input("How many vacation days would you like to take off during this time? ")
-#             # Checks if input is a number and within a maximum vacation allowance
-#             if days.isdigit() == False or int(days) > 40:
-#                 print("[bright_red]Invalid input. [/bright_red]")
-#                 raise ValueError ("Please enter a number between 1 and 50.")
-#             #if the number of days entered is valid
-#             print(
-#                 f"[bright_green]The selected number of days was {days}. [/bright_green]"
-#             )
-#             while True:
-#                 confirmation = (
-#                     input(f"Is that correct? (y/n): ").strip().lower()
-#                 )
-#                 if confirmation == "y":
-#                     # Returns the number of days and breakes the loop
-#                     return days
-#                 elif confirmation == "n":
-#                     break
-#                 else:
-#                     print(
-#                         "[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no."
-#                     )
-#         except ValueError as e:
-#             print(e)
-
-
 # https://pypi.org/project/holidays/
 def check_holidays(start_date, end_date, country, state=None):
     # Holidays for the specified country and state
@@ -291,6 +262,7 @@ def check_holidays(start_date, end_date, country, state=None):
             )
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
+                print()
     return holiday_dict
 
 
@@ -336,19 +308,26 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=7)),
                 ]
 
-    print("Taking 4 days off in either of the suggested weeks you will have 10 days free using 4 vacation days")
+    print(
+        "Taking 4 days off in either of the suggested weeks you will have 10 days free using 4 vacation days"
+    )
     print()
-    
+
     print("Option 1:")
     for holiday_name, dates in four_days_1.items():
-        print(f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}")
+        print(
+            f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+        )
 
     print("\nOption 2:")
     for holiday_name, dates in four_days_2.items():
-        print(f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}")
+        print(
+            f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+        )
+        print()
 
     return four_days_1, four_days_2
-        # elif holiday['weekday'] == "Tuesday"
+    # elif holiday['weekday'] == "Tuesday"
     # if holiday is not on the weekend: check how many days to the weekend
     # based on the amount of days entered by the user suggest the best combination during the period:
     # if holiday on monday: tuesday off = 4 days free with 1 vacation holiday (on Friday week before or tuesday),
@@ -357,7 +336,6 @@ def get_bridge_days(holidays):
     # always that total number of free days/2 > number of vacation days used --> holidays have been optimized
     # preference for more total days off using less vacation days:
     # if there are two holidays during the given period --> best result is to use up to 2 days per holiday than take 4 days in one week. For instance using the logic described above, taking 2 days on a week with a holiday we have 5 days free. If we do it with two separate holidays we then have 10 days using 4 vacation days. If we take 4 vacation days in one of the weeks with a holiday, we will have only 9 days free
-    
 
 
 def what_next():
@@ -388,14 +366,10 @@ def main():
     # Important to reassign the start and end date in case they had been reentered as part of the validation and confirmation steps
     start_date, end_date = verify_dates(start_date, end_date)
     start_date, end_date = confirm_dates(start_date, end_date)
-    # number_of_days = get_days() possibly going to be deleted ****************************************
     holidays = check_holidays(
         start_date, end_date, selected_country_abb, selected_state
     )
-    print()
     get_bridge_days(holidays)
-    print()
-
     what_next()
 
 
