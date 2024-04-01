@@ -365,60 +365,6 @@ def get_bridge_days(holidays):
                 (holiday["date"] + timedelta(days=1))
             ]
 
-            
-        # elif holiday["weekday"] == "Monday":
-        #     one_day[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=1)),
-        #             (holiday["date"] + timedelta(days=-3))
-        #         ]
-
-        # elif holiday["weekday"] == "Tuesday":
-        #     one_day[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=-1)),
-        #         ]
-
-        # elif holiday["weekday"] == "Thursday":
-        #     one_day[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=1)),
-        #         ]
-        # # Logic for 2 vacation day scenario
-        # elif holiday["weekday"] == "Monday":
-        #     two_days_1[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=-3)),
-        #             (holiday["date"] + timedelta(days=1))
-        #         ]
-        #     two_days_2[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=1)),
-        #             (holiday["date"] + timedelta(days=2))
-        #         ]
-        # elif holiday["weekday"] == "Tuesday":
-        #     two_days_1[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=-1)),
-        #             (holiday["date"] + timedelta(days=1))
-        #         ]
-        # elif holiday["weekday"] == "Wednesday":
-        #     two_days_1[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=-2)),
-        #             (holiday["date"] + timedelta(days=-1))
-        #         ]
-        #     two_days_2[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=1)),
-        #             (holiday["date"] + timedelta(days=2))
-        #         ]
-        # elif holiday["weekday"] == "Thursday":
-        #     ttwo_days_1[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=-1)),
-        #             (holiday["date"] + timedelta(days=1))
-        #         ]
-        # elif holiday["weekday"] == "Friday":
-        #     two_days_1[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=-2)),
-        #             (holiday["date"] + timedelta(days=-1))
-        #         ]
-        #     two_days_2[holiday["name"]] = [
-        #             (holiday["date"] + timedelta(days=3)),
-        #             (holiday["date"] + timedelta(days=4))
-                # ]
     #Print statements:
     if four_days_1:
         print(
@@ -441,30 +387,18 @@ def get_bridge_days(holidays):
             print(f"{holiday_name}: Take off {dates_str}")
 
     if two_days_1:
-        print("\nBy taking 2 vacation days on the suggested dates, you will have an extended break of at least 5 days.")
+        print("\n[bright_cyan]By taking 2 vacation days on the suggested dates, you will have an extended break of at least 5 days.[/bright_cyan]")
         for holiday_name, dates in two_days_1.items():
             dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
             print(f"{holiday_name}: Take off {dates_str}")
 
     if two_days_2:
-        print("\nAlternative 2-day vacation options for an extended break:")
+        print("\n[bright_cyan]Alternative 2-day vacation options for an extended break:[/bright_cyan]")
         for holiday_name, dates in two_days_2.items():
             dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
             print(f"{holiday_name}: Take off {dates_str}")
 
     return four_days_1, four_days_2, one_day, two_days_1, two_days_2
-
-    
-    # elif holiday['weekday'] == "Tuesday"
-    # if holiday is not on the weekend: check how many days to the weekend
-    # based on the amount of days entered by the user suggest the best combination during the period:
-    # if holiday on monday: tuesday off = 4 days free with 1 vacation holiday (on Friday week before or tuesday),
-    # tuesday and wednesday of friday week before and tuesday: 5 days total using 2 days or
-    # 4 days on the week of the holiday = 9 days free using 4 vacation days.
-    # always that total number of free days/2 > number of vacation days used --> holidays have been optimized
-    # preference for more total days off using less vacation days:
-    # if there are two holidays during the given period --> best result is to use up to 2 days per holiday than take 4 days in one week. For instance using the logic described above, taking 2 days on a week with a holiday we have 5 days free. If we do it with two separate holidays we then have 10 days using 4 vacation days. If we take 4 vacation days in one of the weeks with a holiday, we will have only 9 days free
-
 
 def what_next():
     print()
