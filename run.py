@@ -258,7 +258,7 @@ def check_holidays(start_date, end_date, country, state=None):
         # Print the dictionary to the user
         if holiday_dict:
             print(
-                "[bright_cyan]The public holidays in your region during the selected period are:[/bright_cyan]"
+                "[bright_green]The public holidays in your region during the selected period are:[/bright_green]"
             )
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
@@ -368,7 +368,7 @@ def get_bridge_days(holidays):
     #Print statements:
     if four_days_1:
         print(
-            "\n[bright_cyan]Using 4 vacation days in the suggested weeks gives you a 10-day break.[/bright_cyan]"
+            "\n[bright_green]Using[/bright_green] 4 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 10-day [bright_green]break.[/bright_green]"
         )
         print("Option 1:")
         for holiday_name, dates in four_days_1.items():
@@ -381,19 +381,19 @@ def get_bridge_days(holidays):
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
             )
     if one_day:
-        print("\n[bright_cyan]By taking 1 vacation day on the suggested date(s), you will have a long weekend of at least 4 days.[/bright_cyan]")
+        print("\n[bright_green]By taking[/bright_green] 1 [bright_green]vacation day on the suggested date(s), you will have a long weekend of at least[/bright_green] 4 [bright_green]days.[/bright_green]")
         for holiday_name, dates in one_day.items():
             dates_str = " or ".join([date.strftime('%d-%m-%Y') for date in dates])
             print(f"{holiday_name}: Take off {dates_str}")
 
     if two_days_1:
-        print("\n[bright_cyan]By taking 2 vacation days on the suggested dates, you will have an extended break of at least 5 days.[/bright_cyan]")
+        print("\n[bright_green]By taking [/bright_green]2 [bright_green]vacation days on the suggested dates, you will have an extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]")
         for holiday_name, dates in two_days_1.items():
             dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
             print(f"{holiday_name}: Take off {dates_str}")
 
     if two_days_2:
-        print("\n[bright_cyan]Alternative 2-day vacation options for an extended break:[/bright_cyan]")
+        print("\n[bright_green]Alternative 2-day vacation options for an extended break:[/bright_green]")
         for holiday_name, dates in two_days_2.items():
             dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
             print(f"{holiday_name}: Take off {dates_str}")
