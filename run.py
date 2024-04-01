@@ -294,8 +294,22 @@ def check_holidays(start_date, end_date, country, state=None):
     return holiday_dict
 
 
+def filter_weekday_holidays(holiday_dict):
+    weekday_holidays = []
+    for date, holiday in sorted(holiday_dict.items()):
+        weekday = date.strftime("%A")
+        # Filter out weekends (Saturday and Sunday)
+        if weekday not in ['Saturday', 'Sunday']:
+            weekday_holidays.append({'name': holiday, 'date': date, 'weekday': weekday})
+    return weekday_holidays
+
+
+
+
+
 def get_bridge_days(start_date, end_date, days, holidays):
-    #check what day of the week the holiday has landed on --> iterate over the dictionary to find what day of the week each holliday is going to be at
+    #check what day of the week the holiday has landed on --> 
+    suitable_holidays = filter_weekday_holidays(holidays)
     #if holiday is not on the weekend: check how many days to the weekend
     #based on the amount of days entered by the user suggest the best combination during the period:
     #if holiday on monday: tuesday off = 4 days free with 1 vacation holiday (on Friday week before or tuesday),
@@ -305,7 +319,7 @@ def get_bridge_days(start_date, end_date, days, holidays):
     #always that total number of free days/2 > number of vacation days used --> holidays have been optimized
     #preference for more total days off using less vacation days:
     #if there are two holidays during the given period --> best result is to use up to 2 days per holiday than take 4 days in one week. For instance using the logic described above, taking 2 days on a week with a holiday we have 5 days free. If we do it with two separate holidays we then have 10 days using 4 vacation days. If we take 4 vacation days in one of the weeks with a holiday, we will have only 9 days free
-
+    
 
 
 def what_next():
