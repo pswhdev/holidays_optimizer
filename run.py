@@ -309,29 +309,26 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=6)),
                     (holiday["date"] + timedelta(days=7))
                 ]
-            # Logic for 1 vacation day scenario
+        # Logic for one and two days
             elif following_monday_holiday == False:
                 one_day[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=-1)),
                     (holiday["date"] + timedelta(days=3))
                 ]
-        elif holiday["weekday"] == "Monday":
-            one_day[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=1)),
-                    (holiday["date"] + timedelta(days=-3))
+                two_days_1[holiday["name"]] = [
+                (holiday["date"] + timedelta(days=-2)),
+                (holiday["date"] + timedelta(days=-1))
+                ]
+                two_days_2[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=3)),
+                    (holiday["date"] + timedelta(days=4))
                 ]
 
-        elif holiday["weekday"] == "Tuesday":
-            one_day[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=-1)),
-                ]
-
-        elif holiday["weekday"] == "Thursday":
-            one_day[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=1)),
-                ]
-        # Logic for 2 vacation day scenario
         elif holiday["weekday"] == "Monday":
+            one_day[holiday["name"]] = [
+                (holiday["date"] + timedelta(days=-3)),
+                (holiday["date"] + timedelta(days=1))
+            ]
             two_days_1[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=-3)),
                     (holiday["date"] + timedelta(days=1))
@@ -340,11 +337,16 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=1)),
                     (holiday["date"] + timedelta(days=2))
                 ]
+
         elif holiday["weekday"] == "Tuesday":
+            one_day[holiday["name"]] = [
+                (holiday["date"] + timedelta(days=-1))
+            ]
             two_days_1[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=-1)),
-                    (holiday["date"] + timedelta(days=1))
-                ]
+                (holiday["date"] + timedelta(days=-1)),
+                (holiday["date"] + timedelta(days=1))
+            ]
+        
         elif holiday["weekday"] == "Wednesday":
             two_days_1[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=-2)),
@@ -355,19 +357,68 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=2))
                 ]
         elif holiday["weekday"] == "Thursday":
-            ttwo_days_1[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=-1)),
-                    (holiday["date"] + timedelta(days=1))
-                ]
-        elif holiday["weekday"] == "Friday":
+            one_day[holiday["name"]] = [
+                (holiday["date"] + timedelta(days=1))
+            ]
             two_days_1[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=-2)),
-                    (holiday["date"] + timedelta(days=-1))
-                ]
-            two_days_2[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=3)),
-                    (holiday["date"] + timedelta(days=4))
-                ]
+                (holiday["date"] + timedelta(days=-1)),
+                (holiday["date"] + timedelta(days=1))
+            ]
+
+            
+        # elif holiday["weekday"] == "Monday":
+        #     one_day[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=1)),
+        #             (holiday["date"] + timedelta(days=-3))
+        #         ]
+
+        # elif holiday["weekday"] == "Tuesday":
+        #     one_day[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=-1)),
+        #         ]
+
+        # elif holiday["weekday"] == "Thursday":
+        #     one_day[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=1)),
+        #         ]
+        # # Logic for 2 vacation day scenario
+        # elif holiday["weekday"] == "Monday":
+        #     two_days_1[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=-3)),
+        #             (holiday["date"] + timedelta(days=1))
+        #         ]
+        #     two_days_2[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=1)),
+        #             (holiday["date"] + timedelta(days=2))
+        #         ]
+        # elif holiday["weekday"] == "Tuesday":
+        #     two_days_1[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=-1)),
+        #             (holiday["date"] + timedelta(days=1))
+        #         ]
+        # elif holiday["weekday"] == "Wednesday":
+        #     two_days_1[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=-2)),
+        #             (holiday["date"] + timedelta(days=-1))
+        #         ]
+        #     two_days_2[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=1)),
+        #             (holiday["date"] + timedelta(days=2))
+        #         ]
+        # elif holiday["weekday"] == "Thursday":
+        #     ttwo_days_1[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=-1)),
+        #             (holiday["date"] + timedelta(days=1))
+        #         ]
+        # elif holiday["weekday"] == "Friday":
+        #     two_days_1[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=-2)),
+        #             (holiday["date"] + timedelta(days=-1))
+        #         ]
+        #     two_days_2[holiday["name"]] = [
+        #             (holiday["date"] + timedelta(days=3)),
+        #             (holiday["date"] + timedelta(days=4))
+                # ]
     #Print statements:
     if four_days_1:
         print(
