@@ -261,9 +261,6 @@ def get_days():
             print(e)
 
 
-
-
-
 # https://pypi.org/project/holidays/
 def check_holidays(start_date, end_date, country, state=None):
     # Holidays for the specified country and state
@@ -297,10 +294,18 @@ def check_holidays(start_date, end_date, country, state=None):
     return holiday_dict
 
 
-# def get_bridge_days(start_date, end_date, holidays):
-    #How many days should be used on the calculation
-    #check what day of the week the holiday has landed on
-    #check how many days to the weekend
+def get_bridge_days(start_date, end_date, days, holidays):
+    #check what day of the week the holiday has landed on --> iterate over the dictionary to find what day of the week each holliday is going to be at
+    #if holiday is not on the weekend: check how many days to the weekend
+    #based on the amount of days entered by the user suggest the best combination during the period:
+    #if holiday on monday: tuesday off = 4 days free with 1 vacation holiday (on Friday week before or tuesday),
+    #tuesday and wednesday of friday week before and tuesday: 5 days total using 2 days or
+    #4 days on the week of the holiday = 9 days free using 4 vacation days.
+    #if holidays are the dey before and a day after a weekend (like easter) - 4 days in either week will result in 10 free days using 4 days off
+    #always that total number of free days/2 > number of vacation days used --> holidays have been optimized
+    #preference for more total days off using less vacation days:
+    #if there are two holidays during the given period --> best result is to use up to 2 days per holiday than take 4 days in one week. For instance using the logic described above, taking 2 days on a week with a holiday we have 5 days free. If we do it with two separate holidays we then have 10 days using 4 vacation days. If we take 4 vacation days in one of the weeks with a holiday, we will have only 9 days free
+
 
 
 def what_next():
@@ -333,7 +338,7 @@ def main():
     start_date, end_date = confirm_dates(start_date, end_date)
     number_of_days = get_days()
     holidays = check_holidays(start_date, end_date, selected_country_abb, selected_state)
-    # get_bridge_days(number_of_days, start_date, end_date, holidays)
+    get_bridge_days(number_of_days, start_date, end_date, holidays)
     
     what_next()
 
