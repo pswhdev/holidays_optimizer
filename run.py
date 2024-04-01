@@ -280,6 +280,8 @@ def get_bridge_days(holidays):
     four_days_1 = {}
     four_days_2 = {}
     one_day = {}
+    two_days_1 = {}
+    two_days_2 = {}
     # Filters what holidays are on weekdays
     suitable_holidays = filter_weekday_holidays(holidays)
     # Checks if the following monday of a Friday holiday is also a holiday (like for easter in Europe for instance)
@@ -328,7 +330,45 @@ def get_bridge_days(holidays):
             one_day[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=1)),
                 ]
-
+        # Logic for 2 vacation day scenario
+        elif holiday["weekday"] == "Monday":
+            two_days_1[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-3)),
+                    (holiday["date"] + timedelta(days=1))
+                ]
+            two_days_2[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=1)),
+                    (holiday["date"] + timedelta(days=2))
+                ]
+        elif holiday["weekday"] == "Tuesday":
+            two_days_1[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-1)),
+                    (holiday["date"] + timedelta(days=1))
+                ]
+        elif holiday["weekday"] == "Wednesday":
+            two_days_1[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-2)),
+                    (holiday["date"] + timedelta(days=-1))
+                ]
+            two_days_2[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=1)),
+                    (holiday["date"] + timedelta(days=2))
+                ]
+        elif holiday["weekday"] == "Thursday":
+            ttwo_days_1[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-1)),
+                    (holiday["date"] + timedelta(days=1))
+                ]
+        elif holiday["weekday"] == "Friday":
+            two_days_1[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-2)),
+                    (holiday["date"] + timedelta(days=-1))
+                ]
+            two_days_2[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=3)),
+                    (holiday["date"] + timedelta(days=4))
+                ]
+    #Print statements:
     if four_days_1:
         print(
             "\n[bright_cyan]Using 4 vacation days in the suggested weeks gives you a 10-day break.[/bright_cyan]"
@@ -349,7 +389,19 @@ def get_bridge_days(holidays):
             dates_str = " or ".join([date.strftime('%d-%m-%Y') for date in dates])
             print(f"{holiday_name}: Take off {dates_str}")
 
-    return four_days_1, four_days_2, one_day
+    if two_days_1:
+        print("\nBy taking 2 vacation days on the suggested dates, you will have an extended break of at least 5 days.")
+        for holiday_name, dates in two_days_1.items():
+            dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
+            print(f"{holiday_name}: Take off {dates_str}")
+
+    if two_days_2:
+        print("\nAlternative 2-day vacation options for an extended break:")
+        for holiday_name, dates in two_days_2.items():
+            dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
+            print(f"{holiday_name}: Take off {dates_str}")
+
+    return four_days_1, four_days_2, one_day, two_days_1, two_days_2
 
     
     # elif holiday['weekday'] == "Tuesday"
