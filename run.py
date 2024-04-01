@@ -258,11 +258,10 @@ def check_holidays(start_date, end_date, country, state=None):
         # Print the dictionary to the user
         if holiday_dict:
             print(
-                "[bright_cyan]The public holidays in your region during the selected period are:[bright_cyan]"
+                "[bright_cyan]The public holidays in your region during the selected period are:[/bright_cyan]"
             )
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
-                print()
     return holiday_dict
 
 
@@ -280,6 +279,7 @@ def get_bridge_days(holidays):
     # 10 days free taking 4 days vacation
     four_days_1 = {}
     four_days_2 = {}
+    one_day = {}
     # Filters what holidays are on weekdays
     suitable_holidays = filter_weekday_holidays(holidays)
     # Checks if the following monday of a Friday holiday is also a holiday (like for easter in Europe for instance)
@@ -299,34 +299,59 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=-4)),
                     (holiday["date"] + timedelta(days=-3)),
                     (holiday["date"] + timedelta(days=-2)),
-                    (holiday["date"] + timedelta(days=-1)),
+                    (holiday["date"] + timedelta(days=-1))
                 ]
                 four_days_2[following_monday_holiday["name"]] = [
                     (holiday["date"] + timedelta(days=4)),
                     (holiday["date"] + timedelta(days=5)),
                     (holiday["date"] + timedelta(days=6)),
-                    (holiday["date"] + timedelta(days=7)),
+                    (holiday["date"] + timedelta(days=7))
+                ]
+            # Logic for 1 vacation day scenario
+            elif following_monday_holiday == False:
+                one_day[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-1)),
+                    (holiday["date"] + timedelta(days=3))
+                ]
+        elif holiday["weekday"] == "Monday":
+            one_day[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=1)),
+                    (holiday["date"] + timedelta(days=-3))
                 ]
 
-    print(
-        "Taking 4 days off in either of the suggested weeks you will have 10 days free using 4 vacation days"
-    )
-    print()
+        elif holiday["weekday"] == "Tuesday":
+            one_day[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-1)),
+                ]
 
-    print("Option 1:")
-    for holiday_name, dates in four_days_1.items():
+        elif holiday["weekday"] == "Thursday":
+            one_day[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=1)),
+                ]
+
+    if four_days_1:
         print(
-            f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+            "\n[bright_cyan]Using 4 vacation days in the suggested weeks gives you a 10-day break.[/bright_cyan]"
         )
+        print("Option 1:")
+        for holiday_name, dates in four_days_1.items():
+            print(
+                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+            )
+        print("\nOption 2:")
+        for holiday_name, dates in four_days_2.items():
+            print(
+                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+            )
+    if one_day:
+        print("\n[bright_cyan]By taking 1 vacation day on the suggested date(s), you will have a long weekend of at least 4 days.[/bright_cyan]")
+        for holiday_name, dates in one_day.items():
+            dates_str = " or ".join([date.strftime('%d-%m-%Y') for date in dates])
+            print(f"{holiday_name}: Take off {dates_str}")
 
-    print("\nOption 2:")
-    for holiday_name, dates in four_days_2.items():
-        print(
-            f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-        )
-        print()
+    return four_days_1, four_days_2, one_day
 
-    return four_days_1, four_days_2
+    
     # elif holiday['weekday'] == "Tuesday"
     # if holiday is not on the weekend: check how many days to the weekend
     # based on the amount of days entered by the user suggest the best combination during the period:
@@ -339,6 +364,7 @@ def get_bridge_days(holidays):
 
 
 def what_next():
+    print()
     while True:
         what_next = input(
             "If you wish to make a new inquiry, press 'r', to finish the program, press 'f': "
@@ -347,7 +373,7 @@ def what_next():
             main()
         elif what_next == "f":
             print(
-                "[bright_green]Thank you for using Holidays Optimizer! Enjoy your time off :-)[/bright_green]"
+                "\n[bright_green]Thank you for using Holidays Optimizer! Enjoy your time off :-)[/bright_green]"
             )
             # Stops the loop
             break
