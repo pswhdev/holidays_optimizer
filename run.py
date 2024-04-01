@@ -232,6 +232,38 @@ def handle_new_dates():
     return start_date, end_date
 
 
+def get_days():
+    while True:
+        try:
+            days = input("How many vacation days would you like to take off during this time? ")
+            # Checks if input is a number and within a maximum vacation allowance
+            if days.isdigit() == False or int(days) > 40:
+                print("[bright_red]Invalid input. [/bright_red]")
+                raise ValueError ("Please enter a number between 1 and 50.")
+            #if the number of days entered is valid
+            print(
+                f"[bright_green]The selected number of days was {days}. [/bright_green]"
+            )
+            while True:
+                confirmation = (
+                    input(f"Is that correct? (y/n): ").strip().lower()
+                )
+                if confirmation == "y":
+                    # Returns the number of days and breakes the loop
+                    return days
+                elif confirmation == "n":
+                    break
+                else:
+                    print(
+                        "[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no."
+                    )
+        except ValueError as e:
+            print(e)
+
+
+
+
+
 # https://pypi.org/project/holidays/
 def check_holidays(start_date, end_date, country, state=None):
     # Holidays for the specified country and state
@@ -265,8 +297,10 @@ def check_holidays(start_date, end_date, country, state=None):
     return holiday_dict
 
 
-# def get_bridge_days(start_date, end_date):
-#     #elaborate this function
+# def get_bridge_days(start_date, end_date, holidays):
+    #How many days should be used on the calculation
+    #check what day of the week the holiday has landed on
+    #check how many days to the weekend
 
 
 def what_next():
@@ -289,24 +323,18 @@ def what_next():
 def main():
     prints_logo()
     print("Welcome to the Holiday Optimizer!")
-
     selected_country_abb = get_country()
-
     selected_state = specify_state(selected_country_abb)
-
     print("Please enter the start and end dates to check for holidays.")
-
     start_date = get_date("Please enter the start date ")
-
     end_date = get_date("Please enter the end date ")
     # Important to reassign the start and end date in case they had been reentered as part of the validation and confirmation steps
     start_date, end_date = verify_dates(start_date, end_date)
-
     start_date, end_date = confirm_dates(start_date, end_date)
-
-    check_holidays(start_date, end_date, selected_country_abb, selected_state)
-
-    # get_bridge_days(start_date, end_date)
+    number_of_days = get_days()
+    holidays = check_holidays(start_date, end_date, selected_country_abb, selected_state)
+    # get_bridge_days(number_of_days, start_date, end_date, holidays)
+    
     what_next()
 
 
