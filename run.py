@@ -1,10 +1,5 @@
 # next steps:
-# generate a holidays calendar using the information got from the user
-# Find out the day of the week the holidays are at
-# Develop a logic to check what days could be taken off as bridge days based on the day of the week the holiday landed on
-# Return the list of bridge days avaiable on the requested period
 # If there is time: find a way to display the information in a pleasant and direct way to the user
-# include some colors and a nice title to the program on the terminal
 # write docstrings for all functions
 # try to use classes and inheritance
 
