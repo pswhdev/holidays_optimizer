@@ -384,19 +384,19 @@ def get_bridge_days(holidays):
         print("\n[bright_green]By taking[/bright_green] 1 [bright_green]vacation day on the suggested date(s), you will have a long weekend of at least[/bright_green] 4 [bright_green]days.[/bright_green]")
         for holiday_name, dates in one_day.items():
             dates_str = " or ".join([date.strftime('%d-%m-%Y') for date in dates])
-            print(f"{holiday_name}: Take off {dates_str}")
+            print(f"{holiday_name}: Take {dates_str}")
 
     if two_days_1:
         print("\n[bright_green]By taking [/bright_green]2 [bright_green]vacation days on the suggested dates, you will have an extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]")
         for holiday_name, dates in two_days_1.items():
             dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
-            print(f"{holiday_name}: Take off {dates_str}")
+            print(f"{holiday_name}: Take {dates_str}")
 
     if two_days_2:
-        print("\n[bright_green]Alternative 2-day vacation options for an extended break:[/bright_green]")
+        print("\n[bright_green]Alternative options for taking [/bright_green] 2 [bright_green]vacation days:[/bright_green]")
         for holiday_name, dates in two_days_2.items():
             dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
-            print(f"{holiday_name}: Take off {dates_str}")
+            print(f"{holiday_name}: Take {dates_str}")
 
     return four_days_1, four_days_2, one_day, two_days_1, two_days_2
 
