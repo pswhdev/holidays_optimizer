@@ -4,7 +4,6 @@
 # try to use classes and inheritance
 
 import database
-
 import holidays
 from datetime import datetime, timedelta
 
@@ -36,8 +35,9 @@ def prints_logo():
     )
     print("\n" * 3)
 
-    # Wait for the user to press any key
+    # Wait for the user to press any key (https://pieriantraining.com/how-to-wait-for-a-keypress-in-python/)
     input("Press any key to continue...")
+
 
 # WordCompleter object with the keys on the dictrionary of countries set to ignore case to make the autocomplete regardless of typing with lower or uppercase
 country_completer = WordCompleter(database.countries.keys(), ignore_case=True)
@@ -45,9 +45,9 @@ country_completer = WordCompleter(database.countries.keys(), ignore_case=True)
 
 def get_country():
     """
-    Gets country from the user's input and checks for valid input.
-    While loop keeps prompting for correct input until a valid
-    country name from the list is given as an input.
+    Prompts user for a country name and returns its abbreviation after validation.
+    Ensures the input is a non-numeric, valid country name.
+    Confirms the choice with the user before proceeding.
     """
     while True:
         try:
@@ -99,7 +99,9 @@ def get_country():
 
 def specify_state(country):
     """
-    Ask the user to input a state for the given country and confirm.
+    Ask the user to input a state for the given country.
+    Confirms the choice with the user before proceeding.
+
     """
     while True:
         if country in database.states_by_country:
@@ -134,7 +136,8 @@ def specify_state(country):
 
 def get_date(message):
     """
-    Prompt the user to enter start date and confirm their selection.
+    Prompts the user to enter a date and validates it.
+    The date must be in the future and within 10 years from today.
     """
     while True:
         try:
@@ -181,7 +184,8 @@ def get_date(message):
 
 def verify_dates(start_date, end_date):
     """
-    Prompt the user to enter start and end dates and confirm their selection.
+    Validates the user's date choices, ensuring the end date
+    is after the start date and within one year.
     """
     while True:
         try:
@@ -202,6 +206,10 @@ def verify_dates(start_date, end_date):
 
 
 def confirm_dates(start_date, end_date):
+    """
+    Confirms the selected date range with the user and
+    allows for reselection if not satisfied.
+    """
     while True:
         print(
             f"[bright_green]The selected period was [/bright_green]{start_date.strftime('%d-%m-%Y')} [bright_green] and [/bright_green]{end_date.strftime('%d-%m-%Y')}. "
@@ -222,6 +230,10 @@ def confirm_dates(start_date, end_date):
 
 
 def handle_new_dates():
+    """
+    Handles the process of obtaining and confirming new
+    start and end dates from the user.
+    """
     start_date = get_date("Please select a new start date ")
     end_date = get_date("Please select a new end date ")
     start_date, end_date = verify_dates(start_date, end_date)
@@ -231,6 +243,11 @@ def handle_new_dates():
 
 # https://pypi.org/project/holidays/
 def check_holidays(start_date, end_date, country, state=None):
+    """
+    Identifies public holidays in a specified country (and state when that is the case)
+    between given start and end dates. Returns a dictionary of public holidays.
+    """
+
     # Holidays for the specified country and state
     holiday_calendar = holidays.CountryHoliday(country, state)
 
@@ -263,6 +280,10 @@ def check_holidays(start_date, end_date, country, state=None):
 
 
 def filter_weekday_holidays(holiday_dict):
+    """
+    Filters out weekend holidays from a dictionary of holidays,
+    returning only those that fall on weekdays.
+    """
     weekday_holidays = []
     for date, holiday in sorted(holiday_dict.items()):
         weekday = date.strftime("%A")
@@ -273,14 +294,20 @@ def filter_weekday_holidays(holiday_dict):
 
 
 def get_bridge_days(holidays):
-    # 10 days free taking 4 days vacation
+    """
+    Identifies potential bridge days around public holidays to optimize vacation days. 
+    Analyzes weekdays holidays to suggest days off for extended breaks. Considers taking 1, 2 and 
+    4 days vacation in special cases like consecutive Friday and Monday holidays for longer breaks.
+    """
     four_days_1 = {}
     four_days_2 = {}
     one_day = {}
     two_days_1 = {}
     two_days_2 = {}
+
     # Filters what holidays are on weekdays
     suitable_holidays = filter_weekday_holidays(holidays)
+
     # Checks if the following monday of a Friday holiday is also a holiday (like for easter in Europe for instance)
     # In this case, taking the remaining days of one of the two weeks (using 4 vacation days), the person has 10 days free
     for holiday in suitable_holidays:
@@ -320,7 +347,6 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=3)),
                     (holiday["date"] + timedelta(days=4)),
                 ]
-
         elif holiday["weekday"] == "Monday":
             one_day[holiday["name"]] = [
                 (holiday["date"] + timedelta(days=-3)),
@@ -334,14 +360,12 @@ def get_bridge_days(holidays):
                 (holiday["date"] + timedelta(days=1)),
                 (holiday["date"] + timedelta(days=2)),
             ]
-
         elif holiday["weekday"] == "Tuesday":
             one_day[holiday["name"]] = [(holiday["date"] + timedelta(days=-1))]
             two_days_1[holiday["name"]] = [
                 (holiday["date"] + timedelta(days=-1)),
                 (holiday["date"] + timedelta(days=1)),
             ]
-
         elif holiday["weekday"] == "Wednesday":
             two_days_1[holiday["name"]] = [
                 (holiday["date"] + timedelta(days=-2)),
@@ -361,7 +385,7 @@ def get_bridge_days(holidays):
     # Print statements:
     if four_days_1:
         print(
-            "\n[bright_green]Using[/bright_green] 4 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 10-day [bright_green]break.[/bright_green]"
+            "\n[bright_green]Using[/bright_green] 4 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 10[bright_green]-day break.[/bright_green]"
         )
         print("Option 1:")
         for holiday_name, dates in four_days_1.items():
@@ -391,7 +415,7 @@ def get_bridge_days(holidays):
 
     if two_days_2:
         print(
-            "\n[bright_green]Alternative options for taking [/bright_green] 2 [bright_green]vacation days:[/bright_green]"
+            "\n[bright_green]Alternatively, consider taking these [/bright_green]2 [bright_green]vacation days for an equally extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
         )
         for holiday_name, dates in two_days_2.items():
             dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
@@ -401,6 +425,9 @@ def get_bridge_days(holidays):
 
 
 def what_next():
+    """
+    Allows for the user to either restart the program or finish it.
+    """
     print()
     while True:
         what_next = input(
@@ -419,6 +446,11 @@ def what_next():
 
 
 def main():
+    """
+    Controls the order of execution of the functions guiding the user through the process of selecting a country, 
+    specifying dates, and checking for public holidays. It then suggests optimal days for taking time off to maximize 
+    holiday periods.
+    """
     prints_logo()
     print("\nWelcome to the Holiday Optimizer!")
     print(
