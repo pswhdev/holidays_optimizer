@@ -22,7 +22,7 @@ from prompt_toolkit.completion import WordCompleter
 
 def prints_logo():
     """
-    Prints the logo to the terminal
+    Prints the logo to the terminal and waits for the user to press any key.
     """
     banner_part1 = pyfiglet.figlet_format("     Holidays", font="doom")
     banner_part2 = pyfiglet.figlet_format(
@@ -36,6 +36,8 @@ def prints_logo():
     )
     print("\n" * 3)
 
+    # Wait for the user to press any key
+    input("Press any key to continue...")
 
 # WordCompleter object with the keys on the dictrionary of countries set to ignore case to make the autocomplete regardless of typing with lower or uppercase
 country_completer = WordCompleter(database.countries.keys(), ignore_case=True)
@@ -296,71 +298,67 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=-4)),
                     (holiday["date"] + timedelta(days=-3)),
                     (holiday["date"] + timedelta(days=-2)),
-                    (holiday["date"] + timedelta(days=-1))
+                    (holiday["date"] + timedelta(days=-1)),
                 ]
                 four_days_2[following_monday_holiday["name"]] = [
                     (holiday["date"] + timedelta(days=4)),
                     (holiday["date"] + timedelta(days=5)),
                     (holiday["date"] + timedelta(days=6)),
-                    (holiday["date"] + timedelta(days=7))
+                    (holiday["date"] + timedelta(days=7)),
                 ]
-        # Logic for one and two days
+            # Logic for one and two days
             elif following_monday_holiday == False:
                 one_day[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=-1)),
-                    (holiday["date"] + timedelta(days=3))
+                    (holiday["date"] + timedelta(days=3)),
                 ]
                 two_days_1[holiday["name"]] = [
-                (holiday["date"] + timedelta(days=-2)),
-                (holiday["date"] + timedelta(days=-1))
+                    (holiday["date"] + timedelta(days=-2)),
+                    (holiday["date"] + timedelta(days=-1)),
                 ]
                 two_days_2[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=3)),
-                    (holiday["date"] + timedelta(days=4))
+                    (holiday["date"] + timedelta(days=4)),
                 ]
 
         elif holiday["weekday"] == "Monday":
             one_day[holiday["name"]] = [
                 (holiday["date"] + timedelta(days=-3)),
-                (holiday["date"] + timedelta(days=1))
+                (holiday["date"] + timedelta(days=1)),
             ]
             two_days_1[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=-3)),
-                    (holiday["date"] + timedelta(days=1))
-                ]
+                (holiday["date"] + timedelta(days=-3)),
+                (holiday["date"] + timedelta(days=1)),
+            ]
             two_days_2[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=1)),
-                    (holiday["date"] + timedelta(days=2))
-                ]
+                (holiday["date"] + timedelta(days=1)),
+                (holiday["date"] + timedelta(days=2)),
+            ]
 
         elif holiday["weekday"] == "Tuesday":
-            one_day[holiday["name"]] = [
-                (holiday["date"] + timedelta(days=-1))
-            ]
+            one_day[holiday["name"]] = [(holiday["date"] + timedelta(days=-1))]
             two_days_1[holiday["name"]] = [
                 (holiday["date"] + timedelta(days=-1)),
-                (holiday["date"] + timedelta(days=1))
-            ]
-        
-        elif holiday["weekday"] == "Wednesday":
-            two_days_1[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=-2)),
-                    (holiday["date"] + timedelta(days=-1))
-                ]
-            two_days_2[holiday["name"]] = [
-                    (holiday["date"] + timedelta(days=1)),
-                    (holiday["date"] + timedelta(days=2))
-                ]
-        elif holiday["weekday"] == "Thursday":
-            one_day[holiday["name"]] = [
-                (holiday["date"] + timedelta(days=1))
-            ]
-            two_days_1[holiday["name"]] = [
-                (holiday["date"] + timedelta(days=-1)),
-                (holiday["date"] + timedelta(days=1))
+                (holiday["date"] + timedelta(days=1)),
             ]
 
-    #Print statements:
+        elif holiday["weekday"] == "Wednesday":
+            two_days_1[holiday["name"]] = [
+                (holiday["date"] + timedelta(days=-2)),
+                (holiday["date"] + timedelta(days=-1)),
+            ]
+            two_days_2[holiday["name"]] = [
+                (holiday["date"] + timedelta(days=1)),
+                (holiday["date"] + timedelta(days=2)),
+            ]
+        elif holiday["weekday"] == "Thursday":
+            one_day[holiday["name"]] = [(holiday["date"] + timedelta(days=1))]
+            two_days_1[holiday["name"]] = [
+                (holiday["date"] + timedelta(days=-1)),
+                (holiday["date"] + timedelta(days=1)),
+            ]
+
+    # Print statements:
     if four_days_1:
         print(
             "\n[bright_green]Using[/bright_green] 4 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 10-day [bright_green]break.[/bright_green]"
@@ -376,24 +374,31 @@ def get_bridge_days(holidays):
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
             )
     if one_day:
-        print("\n[bright_green]By taking[/bright_green] 1 [bright_green]vacation day on the suggested date(s), you will have a long weekend of at least[/bright_green] 4 [bright_green]days.[/bright_green]")
+        print(
+            "\n[bright_green]By taking[/bright_green] 1 [bright_green]vacation day on the suggested date(s), you will have a long weekend of at least[/bright_green] 4 [bright_green]days.[/bright_green]"
+        )
         for holiday_name, dates in one_day.items():
-            dates_str = " or ".join([date.strftime('%d-%m-%Y') for date in dates])
+            dates_str = " or ".join([date.strftime("%d-%m-%Y") for date in dates])
             print(f"{holiday_name}: Take {dates_str}")
 
     if two_days_1:
-        print("\n[bright_green]By taking [/bright_green]2 [bright_green]vacation days on the suggested dates, you will have an extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]")
+        print(
+            "\n[bright_green]By taking [/bright_green]2 [bright_green]vacation days on the suggested dates, you will have an extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
+        )
         for holiday_name, dates in two_days_1.items():
-            dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
+            dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
             print(f"{holiday_name}: Take {dates_str}")
 
     if two_days_2:
-        print("\n[bright_green]Alternative options for taking [/bright_green] 2 [bright_green]vacation days:[/bright_green]")
+        print(
+            "\n[bright_green]Alternative options for taking [/bright_green] 2 [bright_green]vacation days:[/bright_green]"
+        )
         for holiday_name, dates in two_days_2.items():
-            dates_str = " and ".join([date.strftime('%d-%m-%Y') for date in dates])
+            dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
             print(f"{holiday_name}: Take {dates_str}")
 
     return four_days_1, four_days_2, one_day, two_days_1, two_days_2
+
 
 def what_next():
     print()
@@ -415,7 +420,15 @@ def what_next():
 
 def main():
     prints_logo()
-    print("Welcome to the Holiday Optimizer!")
+    print("\nWelcome to the Holiday Optimizer!")
+    print(
+        "\nThis interactive tool helps you maximize your holiday time off."
+        "Simply select your country and desired dates, and the Holidays Optimizer"
+        " will identify public holidays in your region. It then suggests the best"
+        " days to take off work, turning regular holidays into extended breaks. "
+        "With easy-to-follow prompts and a user-friendly interface, planning your "
+        "time off of work has never been easier!\n"
+    )
     selected_country_abb = get_country()
     selected_state = specify_state(selected_country_abb)
     print("Please enter the start and end dates to check for holidays.")
