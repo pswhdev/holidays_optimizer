@@ -279,7 +279,7 @@ def check_holidays(start_date, end_date, country, state=None):
             for date, holiday in sorted(holiday_dict.items()):
                 #For testing purpose:
                 weekday = date.strftime("%A")
-                print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
+                # print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
                 #For testing purpose:
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}, {weekday}")
     return holiday_dict
@@ -445,15 +445,23 @@ def get_bridge_days(holidays):
             dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
             print(f"{holiday_name}: Take {dates_str}")
 
-    if two_days_2 or two_days_3:
+    if two_days_2:
         print(
-            "\n[bright_green]Alternatively, consider taking these [/bright_green]2 [bright_green]vacation days for an equally extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
+            "\n[bright_green]Alternatively, consider taking these [/bright_green]2 [bright_green]vacation days for the extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
         )
         for holiday_name, dates in two_days_2.items():
             dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
             print(f"{holiday_name}: Take {dates_str}")
+    
+    if two_days_3:
+        print(
+            "\n[bright_green]Yet another alternative for taking [/bright_green]2 [bright_green]vacation days for the extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
+        )
+        for holiday_name, dates in two_days_3.items():
+            dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
+            print(f"{holiday_name}: Take {dates_str}")
 
-    return four_days_1, four_days_2, one_day, two_days_1, two_days_2
+    return four_days_1, four_days_2, one_day, two_days_1, two_days_2, two_days_3
 
 
 def what_next():
