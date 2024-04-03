@@ -277,10 +277,10 @@ def check_holidays(start_date, end_date, country, state=None):
                 "[bright_green]The public holidays in your region during the selected period are:[/bright_green]"
             )
             for date, holiday in sorted(holiday_dict.items()):
-                #For testing purpose:
+                # For testing purpose:
                 weekday = date.strftime("%A")
                 # print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
-                #For testing purpose:
+                # For testing purpose:
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}, {weekday}")
     return holiday_dict
 
@@ -309,6 +309,8 @@ def get_bridge_days(holidays):
     # Different options for using vacation days. Always considering (total break time / 2) > vacation days
     four_days_1 = {}
     four_days_2 = {}
+    three_days_1 = {}
+    three_days_2 = {}
     one_day = {}
     two_days_1 = {}
     two_days_2 = {}
@@ -318,7 +320,6 @@ def get_bridge_days(holidays):
     suitable_holidays = filter_weekday_holidays(holidays)
 
     # Checks if the following monday of a Friday holiday is also a holiday (like for easter in Europe for instance)
-    # In this case, taking the remaining days of one of the two weeks (using 4 vacation days), the person has 10 days free
     for holiday in suitable_holidays:
         if holiday["weekday"] == "Friday":
             following_monday = holiday["date"] + timedelta(days=3)
@@ -327,9 +328,10 @@ def get_bridge_days(holidays):
             for h in suitable_holidays:
                 if h["date"] == following_monday:
                     following_monday_holiday = h
+                    # Stops the loop and implement the logic of Fri holiday + Weekend + Mon holiday
                     break
-
             if following_monday_holiday:
+                # In this case, Taking 4 vacation days on either week will result in 10 days break
                 four_days_1[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=-4)),
                     (holiday["date"] + timedelta(days=-3)),
@@ -342,6 +344,37 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=6)),
                     (holiday["date"] + timedelta(days=7)),
                 ]
+                # Taking 3 days vacation adjacent to the holiday will result in 7 days break
+                three_days_1[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-3)),
+                    (holiday["date"] + timedelta(days=-2)),
+                    (holiday["date"] + timedelta(days=-1)),
+                ]
+                three_days_2[following_monday_holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=4)),
+                    (holiday["date"] + timedelta(days=5)),
+                    (holiday["date"] + timedelta(days=6)),
+                ]
+                # Taking 2 days vacation adjacent to the holiday will result in 6 days break
+                # Previous Wed and Thu
+                two_days_1[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-2)),
+                    (holiday["date"] + timedelta(days=-1)),
+                ]
+                # Following Tue and Wed
+                two_days_1[following_monday_holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=4)),
+                    (holiday["date"] + timedelta(days=5)),
+                ]
+                # Taking 1 day vacation adjacent to the holiday will result in 5 days break
+                # Previous Thu or following Tue
+                one_day[holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=-1)),
+                ]
+                one_day[following_monday_holiday["name"]] = [
+                    (holiday["date"] + timedelta(days=4)),
+                ]
+
             # Logic for one and two days
             # Holiday on Friday an Monday is not a holiday
             elif not following_monday_holiday:
@@ -365,7 +398,12 @@ def get_bridge_days(holidays):
                     (holiday["date"] + timedelta(days=3)),
                     (holiday["date"] + timedelta(days=4)),
                 ]
-        elif holiday["weekday"] == "Monday":
+        elif (
+            holiday["weekday"] == "Monday"
+            and holiday["name"] not in four_days_2
+            and holiday["name"] not in one_day
+            and holiday["name"] not in two_days_1
+        ):
             # Fri previous week; following Tue
             one_day[holiday["name"]] = [
                 (holiday["date"] + timedelta(days=-3)),
@@ -429,6 +467,20 @@ def get_bridge_days(holidays):
             print(
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
             )
+    if three_days_1:
+        print(
+            "\n[bright_green]Using[/bright_green] 3 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 7[bright_green]-day break.[/bright_green]"
+        )
+        print("Option 1:")
+        for holiday_name, dates in three_days_1.items():
+            print(
+                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+            )
+        print("\nOption 2:")
+        for holiday_name, dates in three_days_2.items():
+            print(
+                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+            )
     if one_day:
         print(
             "\n[bright_green]By taking[/bright_green] 1 [bright_green]vacation day on the suggested date(s), you will have a long weekend of at least[/bright_green] 4 [bright_green]days.[/bright_green]"
@@ -452,7 +504,7 @@ def get_bridge_days(holidays):
         for holiday_name, dates in two_days_2.items():
             dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
             print(f"{holiday_name}: Take {dates_str}")
-    
+
     if two_days_3:
         print(
             "\n[bright_green]Yet another alternative for taking [/bright_green]2 [bright_green]vacation days for the extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
