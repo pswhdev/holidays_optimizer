@@ -300,7 +300,7 @@ def filter_weekday_holidays(holiday_dict):
     return weekday_holidays
 
 
-def get_bridge_days(holidays, start_date, end_date):
+def get_bridge_days(holidays):
     """
     Identifies potential bridge days around public holidays to optimize vacation days.
     Analyzes weekdays holidays to suggest days off for extended breaks. Considers taking 1, 2 and
@@ -319,7 +319,7 @@ def get_bridge_days(holidays, start_date, end_date):
     # Filters what holidays are on weekdays
     suitable_holidays = filter_weekday_holidays(holidays)
 
-    # Checks if the following Mon of a Fri holiday is also a holiday (like for easter in Europe for instance)
+    # Checks if the following monday of a Friday holiday is also a holiday (like for easter in Europe for instance)
     for holiday in suitable_holidays:
         if holiday["weekday"] == "Friday":
             following_monday = holiday["date"] + timedelta(days=3)
@@ -330,8 +330,7 @@ def get_bridge_days(holidays, start_date, end_date):
                     following_monday_holiday = h
                     # Stops the loop and implement the logic of Fri holiday + Weekend + Mon holiday
                     break
-            #Always checking if the dates are compatible with the entered start and end dates.
-            if following_monday_holiday and (holiday["date"] + timedelta(days=-4)) > start_date:
+            if following_monday_holiday:
                 # In this case, Taking 4 vacation days on either week will result in 10 days break
                 four_days_1[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=-4)),
@@ -339,7 +338,6 @@ def get_bridge_days(holidays, start_date, end_date):
                     (holiday["date"] + timedelta(days=-2)),
                     (holiday["date"] + timedelta(days=-1)),
                 ]
-            if following_monday_holiday and (holiday["date"] + timedelta(days=7)) < end_date:
                 four_days_2[following_monday_holiday["name"]] = [
                     (holiday["date"] + timedelta(days=4)),
                     (holiday["date"] + timedelta(days=5)),
@@ -347,13 +345,11 @@ def get_bridge_days(holidays, start_date, end_date):
                     (holiday["date"] + timedelta(days=7)),
                 ]
                 # Taking 3 days vacation adjacent to the holiday will result in 7 days break
-            if following_monday_holiday and (holiday["date"] + timedelta(days=-3)) > start_date:
                 three_days_1[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=-3)),
                     (holiday["date"] + timedelta(days=-2)),
                     (holiday["date"] + timedelta(days=-1)),
                 ]
-            if following_monday_holiday and (holiday["date"] + timedelta(days=6)) < end_date:
                 three_days_2[following_monday_holiday["name"]] = [
                     (holiday["date"] + timedelta(days=4)),
                     (holiday["date"] + timedelta(days=5)),
@@ -457,7 +453,7 @@ def get_bridge_days(holidays, start_date, end_date):
             ]
 
     # Print statements:
-    if four_days_1 and four_days_2:
+    if four_days_1:
         print(
             "\n[bright_green]Using[/bright_green] 4 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 10[bright_green]-day break.[/bright_green]"
         )
@@ -471,23 +467,7 @@ def get_bridge_days(holidays, start_date, end_date):
             print(
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
             )
-    if four_days_1 and not four_days_2:
-        print(
-            "\n[bright_green]Using[/bright_green] 4 [bright_green]vacation days in the suggested week(s) gives you a[/bright_green] 10[bright_green]-day break.[/bright_green]"
-        )
-        for holiday_name, dates in four_days_1.items():
-            print(
-                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-            )
-    if not four_days_1 and four_days_2:
-        print(
-            "\n[bright_green]Using [/bright_green] 4 [bright_green]vacation days in the suggested week(s) gives you a[/bright_green] 10[bright_green]-day break.[/bright_green]"
-        )
-        for holiday_name, dates in four_days_2.items():
-            print(
-                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-            )
-    if three_days_1 and three_days_2:
+    if three_days_1:
         print(
             "\n[bright_green]Using[/bright_green] 3 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 7[bright_green]-day break.[/bright_green]"
         )
@@ -497,22 +477,6 @@ def get_bridge_days(holidays, start_date, end_date):
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
             )
         print("\nOption 2:")
-        for holiday_name, dates in three_days_2.items():
-            print(
-                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-            )
-    if three_days_1 and not three_days_2:
-        print(
-            "\n[bright_green]Using[/bright_green] 3 [bright_green]vacation days in the suggested week(s) gives you a[/bright_green] 7[bright_green]-day break.[/bright_green]"
-        )
-        for holiday_name, dates in three_days_1.items():
-            print(
-                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-            )
-    if not three_days_1 and three_days_2:
-        print(
-            "\n[bright_green]Using[/bright_green] 3 [bright_green]vacation days in the suggested week(s) gives you a[/bright_green] 7[bright_green]-day break.[/bright_green]"
-        )
         for holiday_name, dates in three_days_2.items():
             print(
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
@@ -600,7 +564,7 @@ def main():
     holidays = check_holidays(
         start_date, end_date, selected_country_abb, selected_state
     )
-    get_bridge_days(holidays, start_date, end_date)
+    get_bridge_days(holidays)
     what_next()
 
 
