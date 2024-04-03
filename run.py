@@ -347,11 +347,13 @@ def get_bridge_days(holidays, start_date, end_date):
                     (holiday["date"] + timedelta(days=7)),
                 ]
                 # Taking 3 days vacation adjacent to the holiday will result in 7 days break
+            if following_monday_holiday and (holiday["date"] + timedelta(days=-3)) > start_date:
                 three_days_1[holiday["name"]] = [
                     (holiday["date"] + timedelta(days=-3)),
                     (holiday["date"] + timedelta(days=-2)),
                     (holiday["date"] + timedelta(days=-1)),
                 ]
+            if following_monday_holiday and (holiday["date"] + timedelta(days=6)) < end_date:
                 three_days_2[following_monday_holiday["name"]] = [
                     (holiday["date"] + timedelta(days=4)),
                     (holiday["date"] + timedelta(days=5)),
@@ -485,7 +487,7 @@ def get_bridge_days(holidays, start_date, end_date):
             print(
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
             )
-    if three_days_1:
+    if three_days_1 and three_days_2:
         print(
             "\n[bright_green]Using[/bright_green] 3 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 7[bright_green]-day break.[/bright_green]"
         )
@@ -495,6 +497,22 @@ def get_bridge_days(holidays, start_date, end_date):
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
             )
         print("\nOption 2:")
+        for holiday_name, dates in three_days_2.items():
+            print(
+                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+            )
+    if three_days_1 and not three_days_2:
+        print(
+            "\n[bright_green]Using[/bright_green] 3 [bright_green]vacation days in the suggested week(s) gives you a[/bright_green] 7[bright_green]-day break.[/bright_green]"
+        )
+        for holiday_name, dates in three_days_1.items():
+            print(
+                f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
+            )
+    if not three_days_1 and three_days_2:
+        print(
+            "\n[bright_green]Using[/bright_green] 3 [bright_green]vacation days in the suggested week(s) gives you a[/bright_green] 7[bright_green]-day break.[/bright_green]"
+        )
         for holiday_name, dates in three_days_2.items():
             print(
                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
