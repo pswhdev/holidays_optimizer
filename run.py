@@ -254,7 +254,9 @@ def check_holidays(start_date, end_date, country, state=None):
         # Check if the current date is a holiday and if it is add the holiday to the dictionary
         if check_date in holiday_calendar:
             holiday_name = holiday_calendar[check_date]
-            holiday_dict[check_date] = holiday_name
+            #For the countries that have Sunday on the holidays library saved as holidays (e.g. Sweeden)
+            if holiday_name != "Sunday" and holiday_name != "Söndag":
+                holiday_dict[check_date] = holiday_name
 
         # Move to the next day. If use only += 1 it gives an error: unsupported operand type(s) for +=: 'datetime.datetime' and 'int'
         check_date += timedelta(days=1)
