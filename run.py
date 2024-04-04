@@ -285,19 +285,64 @@ def check_holidays(start_date, end_date, country, state=None):
     return holiday_dict
 
 
-def filter_weekday_holidays(holiday_dict):
+# def filter_weekday_holidays(holiday_dict):
+#     """
+#     Filters out weekend holidays from a dictionary of holidays,
+#     returning only those that fall on weekdays.
+#     """
+#     weekday_holidays = []
+#     for date, holiday in sorted(holiday_dict.items()):
+#         # Using datetime to find day of the week (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
+#         weekday = date.strftime("%A")
+#         # Filter out weekends (Saturday and Sunday)
+#         if weekday not in ["Saturday", "Sunday"]:
+#             weekday_holidays.append({"name": holiday, "date": date, "weekday": weekday})
+#     return weekday_holidays
+
+
+def is_weekend(date):
     """
-    Filters out weekend holidays from a dictionary of holidays,
-    returning only those that fall on weekdays.
+    Checks if a certain date is a weekday(Mo-Fr)
     """
-    weekday_holidays = []
-    for date, holiday in sorted(holiday_dict.items()):
-        # Using datetime to find day of the week (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
-        weekday = date.strftime("%A")
-        # Filter out weekends (Saturday and Sunday)
-        if weekday not in ["Saturday", "Sunday"]:
-            weekday_holidays.append({"name": holiday, "date": date, "weekday": weekday})
-    return weekday_holidays
+    # Uses the method .weekday() from the Python's module daytime to find the day of the week. It returns an integer where Monday is 0 and Sunday is 6
+    return date.weekday() >= 5
+
+def find_blocks(start_date, end_date, holidays):
+    """
+    Finds blocks of workdays between free days that could be suggested as vacation days.
+    It iterates over the days within the given range and whenever a weekend or a holiday
+    is found, it creates a block of dates that are saved independently within the workday_blocks
+    and continues the iteration.
+    """
+    workday_blocks = []
+    current_workday_block = []
+
+    current_date = start_date
+    while current_date <= end_date:
+        if not is_weekend(current_date) and current_date not in holidays:
+            current_workday_block.append(current_date)
+        else:
+            if current_workday_block:  # Append non-empty blocks
+                workday_blocks.append(current_workday_block)
+            current_workday_block = []
+        # Increments current_date by one day
+        current_date += timedelta(days=1)
+    # To append the last block if it contains working days after the loop is finished
+    if current_workday_block:
+        workday_blocks.append(current_workday_block)
+    print(workday_blocks)
+    return workday_blocks
+
+
+
+
+
+
+
+
+
+
+
 
 
 # def get_bridge_days(holidays):
@@ -564,7 +609,8 @@ def main():
     holidays = check_holidays(
         start_date, end_date, selected_country_abb, selected_state
     )
-    get_bridge_days(holidays)
+    # get_bridge_days(holidays)
+    find_blocks(start_date, end_date, holidays)
     what_next()
 
 
