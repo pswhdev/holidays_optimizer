@@ -314,9 +314,10 @@ def find_blocks(start_date, end_date, holidays):
 
 def vacation_suggestions(workday_blocks, holidays):
     """
-    Gathers, sorts, and prints vacation suggestions based on blocks containing 1 to 3 days and
-    in special cases for 4-day periods where either a Friday and the immediately following Monday
-    are both holidays, or a Monday and the immediately preceding Friday are both holidays.
+    Gathers, sorts, and prints vacation suggestions based on blocks containing 1 and 2 days and
+    in special cases for 3-day period where the remaing two week days are holydays and 4-day periods
+    where either a Friday and the immediately following Monday are both holidays, or a Monday and
+    the immediately preceding Friday are both holidays.
     """
     suggestions_dict = {}
 
@@ -332,10 +333,20 @@ def vacation_suggestions(workday_blocks, holidays):
             elif first_date.weekday() == 1 and (
                 first_date + timedelta(days=-4) in holidays
             ):
-                # Adds the block of dates with the first_date of the block as key to the suggestions dictionary
                 suggestions_dict[block[0]] = block
-        # Collects suggestions for 1-3 day blocks
-        elif 1 <= len(block) <= 3:
+        elif len(block) == 3:
+            first_date = block[0]
+            last_date = block[-1]
+            # Check if the last date is a Wednesday (meaning there is a holiday on Thursday) and if Friday is also a holiday
+            if last_date.weekday() == 2 and (last_date + timedelta(days=2) in holidays):
+                suggestions_dict[block[0]] = block
+            # Check if the last date is a Wednesday (meaning there is a holiday on Tuesday) and if Monday is also a holiday
+            elif first_date.weekday() == 2 and (
+                first_date + timedelta(days=-2) in holidays
+            ):
+                suggestions_dict[block[0]] = block
+        # Collects suggestions for 1-2 day blocks
+        elif 1 <= len(block) <= 2:
             suggestions_dict[block[0]] = block
 
     # To sort suggestions by the first date in each block
@@ -353,7 +364,7 @@ def vacation_suggestions(workday_blocks, holidays):
             print(f"{', '.join(formatted_dates)}")
     else:
         print(
-            "\n[bright_yellow]No optimal vacation suggestions found in the given date range.[/[bright_yellow]]"
+            "\n[bright_green]No optimal vacation suggestions found in the given date range.[/bright_green]]"
         )
 
 
