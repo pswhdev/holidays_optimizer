@@ -1,8 +1,3 @@
-# next steps:
-# If there is time: find a way to display the information in a pleasant and direct way to the user
-# write docstrings for all functions
-# try to use classes and inheritance
-
 import database
 import holidays
 from datetime import datetime, timedelta
@@ -88,10 +83,7 @@ def get_country():
                             break
                         else:
                             print("Please enter 'y' or 'n'.")
-                    # Since the first input (country's name) was a valid one,
-                    # if the user's input was 'n' inside the confirmation block,
-                    # the inner loop is stopped and the outer loop also needs to be stopped
-                    # so the block restarts and prompts for choice of country again.
+                    # Since the first input (country's name) was a valid one, if the user's input was 'n' inside the confirmation block, the inner loop is stopped and the outer loop also needs to be stopped so the block restarts and prompts for choice of country again.
                     break
             else:
                 raise ValueError("Please enter a valid country name in English.")
@@ -285,27 +277,13 @@ def check_holidays(start_date, end_date, country, state=None):
     return holiday_dict
 
 
-# def filter_weekday_holidays(holiday_dict):
-#     """
-#     Filters out weekend holidays from a dictionary of holidays,
-#     returning only those that fall on weekdays.
-#     """
-#     weekday_holidays = []
-#     for date, holiday in sorted(holiday_dict.items()):
-#         # Using datetime to find day of the week (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
-#         weekday = date.strftime("%A")
-#         # Filter out weekends (Saturday and Sunday)
-#         if weekday not in ["Saturday", "Sunday"]:
-#             weekday_holidays.append({"name": holiday, "date": date, "weekday": weekday})
-#     return weekday_holidays
-
-
 def is_weekend(date):
     """
     Checks if a certain date is a weekday(Mo-Fr)
     """
     # Uses the method .weekday() from the Python's module daytime to find the day of the week. It returns an integer where Monday is 0 and Sunday is 6
     return date.weekday() >= 5
+
 
 def find_blocks(start_date, end_date, holidays):
     """
@@ -330,13 +308,13 @@ def find_blocks(start_date, end_date, holidays):
     # To append the last block if it contains working days after the loop is finished
     if current_workday_block:
         workday_blocks.append(current_workday_block)
-    
+
     return workday_blocks
 
 
 def vacation_suggestions(workday_blocks, holidays):
     """
-    Gathers, sorts, and prints vacation suggestions based on blocks containing 1 to 3 days and 
+    Gathers, sorts, and prints vacation suggestions based on blocks containing 1 to 3 days and
     in special cases for 4-day periods where either a Friday and the immediately following Monday
     are both holidays, or a Monday and the immediately preceding Friday are both holidays.
     """
@@ -351,249 +329,32 @@ def vacation_suggestions(workday_blocks, holidays):
                 # Adds the block of dates with the first_date of the block as key to the suggestions dictionary
                 suggestions_dict[block[0]] = block
             # Check if the end date is a Tuesday (meaning Monday is a holiday) and the previous Friday is a holiday
-            elif first_date.weekday() == 1 and (first_date + timedelta(days=-4) in holidays):
+            elif first_date.weekday() == 1 and (
+                first_date + timedelta(days=-4) in holidays
+            ):
                 # Adds the block of dates with the first_date of the block as key to the suggestions dictionary
                 suggestions_dict[block[0]] = block
         # Collects suggestions for 1-3 day blocks
         elif 1 <= len(block) <= 3:
             suggestions_dict[block[0]] = block
-    
+
     # To sort suggestions by the first date in each block
     sorted_by_date = sorted(suggestions_dict.keys())
-    
+
     if sorted_by_date:
-        print("\n[bright_green]Suggested vacation days for time off optimization: [/bright_green]")
+        print(
+            "\n[bright_green]Suggested vacation days for time off optimization: [/bright_green]"
+        )
         # Iterates over the sorted list of dates and gets the block of dates on that corresponding key from the dicrionary
         for date in sorted_by_date:
             block = suggestions_dict[date]
-            #Iterates over the dates within the block and formats it to DD-MM-YYYY
-            formatted_dates = [d.strftime('%d-%m-%Y') for d in block]
+            # Iterates over the dates within the block and formats it to DD-MM-YYYY
+            formatted_dates = [d.strftime("%d-%m-%Y") for d in block]
             print(f"{', '.join(formatted_dates)}")
     else:
-        print("\n[bright_yellow]No optimal vacation suggestions found in the given date range.[/[bright_yellow]]")
-
-
-
-
-
-
-
-
-
-# def get_bridge_days(holidays):
-#     """
-#     Identifies potential bridge days around public holidays to optimize vacation days.
-#     Analyzes weekdays holidays to suggest days off for extended breaks. Considers taking 1, 2 and
-#     4 days vacation in special cases like consecutive Friday and Monday holidays for longer breaks.
-#     """
-#     # Different options for using vacation days. Always considering (total break time / 2) > vacation days
-#     four_days_1 = {}
-#     four_days_2 = {}
-#     three_days_1 = {}
-#     three_days_2 = {}
-#     one_day = {}
-#     two_days_1 = {}
-#     two_days_2 = {}
-#     two_days_3 = {}
-
-#     # Filters what holidays are on weekdays
-#     suitable_holidays = filter_weekday_holidays(holidays)
-
-#     # Checks if the following monday of a Friday holiday is also a holiday (like for easter in Europe for instance)
-#     for holiday in suitable_holidays:
-#         if holiday["weekday"] == "Friday":
-#             following_monday = holiday["date"] + timedelta(days=3)
-#             following_monday_holiday = None
-#             # Iterate through the holidays to find if the following Monday is also a holiday
-#             for h in suitable_holidays:
-#                 if h["date"] == following_monday:
-#                     following_monday_holiday = h
-#                     # Stops the loop and implement the logic of Fri holiday + Weekend + Mon holiday
-#                     break
-#             if following_monday_holiday:
-#                 # In this case, Taking 4 vacation days on either week will result in 10 days break
-#                 four_days_1[holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=-4)),
-#                     (holiday["date"] + timedelta(days=-3)),
-#                     (holiday["date"] + timedelta(days=-2)),
-#                     (holiday["date"] + timedelta(days=-1)),
-#                 ]
-#                 four_days_2[following_monday_holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=4)),
-#                     (holiday["date"] + timedelta(days=5)),
-#                     (holiday["date"] + timedelta(days=6)),
-#                     (holiday["date"] + timedelta(days=7)),
-#                 ]
-#                 # Taking 3 days vacation adjacent to the holiday will result in 7 days break
-#                 three_days_1[holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=-3)),
-#                     (holiday["date"] + timedelta(days=-2)),
-#                     (holiday["date"] + timedelta(days=-1)),
-#                 ]
-#                 three_days_2[following_monday_holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=4)),
-#                     (holiday["date"] + timedelta(days=5)),
-#                     (holiday["date"] + timedelta(days=6)),
-#                 ]
-#                 # Taking 2 days vacation adjacent to the holiday will result in 6 days break
-#                 # Previous Wed and Thu
-#                 two_days_1[holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=-2)),
-#                     (holiday["date"] + timedelta(days=-1)),
-#                 ]
-#                 # Following Tue and Wed
-#                 two_days_1[following_monday_holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=4)),
-#                     (holiday["date"] + timedelta(days=5)),
-#                 ]
-#                 # Taking 1 day vacation adjacent to the holiday will result in 5 days break
-#                 # Previous Thu or following Tue
-#                 one_day[holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=-1)),
-#                 ]
-#                 one_day[following_monday_holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=4)),
-#                 ]
-
-#             # Logic for one and two days
-#             # Holiday on Friday an Monday is not a holiday
-#             elif not following_monday_holiday:
-#                 # Previous Thu; Mon following week;
-#                 one_day[holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=-1)),
-#                     (holiday["date"] + timedelta(days=3)),
-#                 ]
-#                 # Thu and Mon following week;
-#                 two_days_1[holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=-1)),
-#                     (holiday["date"] + timedelta(days=3)),
-#                 ]
-#                 # Previous Wed and Thu
-#                 two_days_2[holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=-2)),
-#                     (holiday["date"] + timedelta(days=-1)),
-#                 ]
-#                 # Following Mon and Tue
-#                 two_days_3[holiday["name"]] = [
-#                     (holiday["date"] + timedelta(days=3)),
-#                     (holiday["date"] + timedelta(days=4)),
-#                 ]
-#         elif (
-#             holiday["weekday"] == "Monday"
-#             and holiday["name"] not in four_days_2
-#             and holiday["name"] not in one_day
-#             and holiday["name"] not in two_days_1
-#         ):
-#             # Fri previous week; following Tue
-#             one_day[holiday["name"]] = [
-#                 (holiday["date"] + timedelta(days=-3)),
-#                 (holiday["date"] + timedelta(days=1)),
-#             ]
-#             # Thu and Fri previous week
-#             two_days_1[holiday["name"]] = [
-#                 (holiday["date"] + timedelta(days=-4)),
-#                 (holiday["date"] + timedelta(days=-3)),
-#             ]
-#             # Fri previous week and following Tue
-#             two_days_2[holiday["name"]] = [
-#                 (holiday["date"] + timedelta(days=-3)),
-#                 (holiday["date"] + timedelta(days=1)),
-#             ]
-#             # Following Tue and Wed
-#             two_days_3[holiday["name"]] = [
-#                 (holiday["date"] + timedelta(days=1)),
-#                 (holiday["date"] + timedelta(days=2)),
-#             ]
-#         elif holiday["weekday"] == "Tuesday":
-#             # Previous Mon
-#             one_day[holiday["name"]] = [(holiday["date"] + timedelta(days=-1))]
-#             # Previous Mon and following Tue
-#             two_days_1[holiday["name"]] = [
-#                 (holiday["date"] + timedelta(days=-1)),
-#                 (holiday["date"] + timedelta(days=1)),
-#             ]
-#         elif holiday["weekday"] == "Wednesday":
-#             # Previous Mon and Tue
-#             two_days_1[holiday["name"]] = [
-#                 (holiday["date"] + timedelta(days=-2)),
-#                 (holiday["date"] + timedelta(days=-1)),
-#             ]
-#             # Following Thu and Fri
-#             two_days_2[holiday["name"]] = [
-#                 (holiday["date"] + timedelta(days=1)),
-#                 (holiday["date"] + timedelta(days=2)),
-#             ]
-#         elif holiday["weekday"] == "Thursday":
-#             # Following Fri
-#             one_day[holiday["name"]] = [(holiday["date"] + timedelta(days=1))]
-#             # Previous Wed and following Fri
-#             two_days_1[holiday["name"]] = [
-#                 (holiday["date"] + timedelta(days=-1)),
-#                 (holiday["date"] + timedelta(days=1)),
-#             ]
-
-#     # Print statements:
-#     if four_days_1:
-#         print(
-#             "\n[bright_green]Using[/bright_green] 4 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 10[bright_green]-day break.[/bright_green]"
-#         )
-#         print("Option 1:")
-#         for holiday_name, dates in four_days_1.items():
-#             print(
-#                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-#             )
-#         print("\nOption 2:")
-#         for holiday_name, dates in four_days_2.items():
-#             print(
-#                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-#             )
-#     if three_days_1:
-#         print(
-#             "\n[bright_green]Using[/bright_green] 3 [bright_green]vacation days in the suggested weeks gives you a[/bright_green] 7[bright_green]-day break.[/bright_green]"
-#         )
-#         print("Option 1:")
-#         for holiday_name, dates in three_days_1.items():
-#             print(
-#                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-#             )
-#         print("\nOption 2:")
-#         for holiday_name, dates in three_days_2.items():
-#             print(
-#                 f"{holiday_name}: {', '.join([date.strftime('%d-%m-%Y') for date in dates])}"
-#             )
-#     if one_day:
-#         print(
-#             "\n[bright_green]By taking[/bright_green] 1 [bright_green]vacation day on the suggested date(s), you will have a long weekend of at least[/bright_green] 4 [bright_green]days.[/bright_green]"
-#         )
-#         for holiday_name, dates in one_day.items():
-#             dates_str = " or ".join([date.strftime("%d-%m-%Y") for date in dates])
-#             print(f"{holiday_name}: Take {dates_str}")
-
-#     if two_days_1:
-#         print(
-#             "\n[bright_green]By taking [/bright_green]2 [bright_green]vacation days on the suggested dates, you will have an extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
-#         )
-#         for holiday_name, dates in two_days_1.items():
-#             dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
-#             print(f"{holiday_name}: Take {dates_str}")
-
-#     if two_days_2:
-#         print(
-#             "\n[bright_green]Alternatively, consider taking these [/bright_green]2 [bright_green]vacation days for the extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
-#         )
-#         for holiday_name, dates in two_days_2.items():
-#             dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
-#             print(f"{holiday_name}: Take {dates_str}")
-
-#     if two_days_3:
-#         print(
-#             "\n[bright_green]Yet another alternative for taking [/bright_green]2 [bright_green]vacation days for the extended break of at least[/bright_green] 5 [bright_green]days.[/bright_green]"
-#         )
-#         for holiday_name, dates in two_days_3.items():
-#             dates_str = " and ".join([date.strftime("%d-%m-%Y") for date in dates])
-#             print(f"{holiday_name}: Take {dates_str}")
-
-#     return four_days_1, four_days_2, three_days_1, three_days_2, one_day, two_days_1, two_days_2, two_days_3
+        print(
+            "\n[bright_yellow]No optimal vacation suggestions found in the given date range.[/[bright_yellow]]"
+        )
 
 
 def what_next():
