@@ -334,36 +334,46 @@ def find_blocks(start_date, end_date, holidays):
     return workday_blocks
 
 
-def print_vacation_suggestions(workday_blocks):
+def vacation_suggestions(workday_blocks, holidays):
     """
-    Prints vacation suggestions based on blocks containing 1 to 3 days.
+    Gathers, sorts, and prints vacation suggestions based on blocks containing 1 to 3 days and 
+    in special cases for 4-day periods where either a Friday and the immediately following Monday
+    are both holidays, or a Monday and the immediately preceding Friday are both holidays.
     """
-    print("\n[bright_green]Suggested vacation days for time off optimization: [/bright_green]")
-    for block in workday_blocks:
-        if 1 <= len(block) <= 3:
-            formatted_dates = [date.strftime('%d-%m-%Y') for date in block]
-            print(f"{', '.join(formatted_dates)}")
+    suggestions_dict = {}
 
-
-def special_case_four_days(workday_blocks, holidays):
-    """
-    Check for 4-day periods where either a Friday and the immediately following Monday
-    are both holidays, or a Monday and the immediately preceding Friday are both holidays
-    """
     for block in workday_blocks:
         if len(block) == 4:
             first_date = block[0]
             last_date = block[-1]
-
             # Check if the last date is a Thursday (meaning there is a holiday on Friday) and the next Monday is a holiday
             if last_date.weekday() == 3 and (last_date + timedelta(days=4) in holidays):
-                formatted_dates = [date.strftime('%d-%m-%Y') for date in block]
-                print(f"{', '.join(formatted_dates)}")
-
+                # Adds the block of dates with the first_date of the block as key to the suggestions dictionary
+                suggestions_dict[block[0]] = block
             # Check if the end date is a Tuesday (meaning Monday is a holiday) and the previous Friday is a holiday
             elif first_date.weekday() == 1 and (first_date + timedelta(days=-4) in holidays):
-                formatted_dates = [date.strftime('%d-%m-%Y') for date in block]
-                print(f"{', '.join(formatted_dates)}")
+                # Adds the block of dates with the first_date of the block as key to the suggestions dictionary
+                suggestions_dict[block[0]] = block
+        # Collects suggestions for 1-3 day blocks
+        elif 1 <= len(block) <= 3:
+            suggestions_dict[block[0]] = block
+    
+    # To sort suggestions by the first date in each block
+    sorted_by_date = sorted(suggestions_dict.keys())
+    
+    if sorted_by_date:
+        print("\n[bright_green]Suggested vacation days for time off optimization: [/bright_green]")
+        # Iterates over the sorted list of dates and gets the block of dates on that corresponding key from the dicrionary
+        for date in sorted_by_date:
+            block = suggestions_dict[date]
+            #Iterates over the dates within the block and formats it to DD-MM-YYYY
+            formatted_dates = [d.strftime('%d-%m-%Y') for d in block]
+            print(f"{', '.join(formatted_dates)}")
+    else:
+        print("\n[bright_yellow]No optimal vacation suggestions found in the given date range.[/[bright_yellow]]")
+
+
+
 
 
 
@@ -636,8 +646,7 @@ def main():
     )
     # get_bridge_days(holidays)
     workday_blocks = find_blocks(start_date, end_date, holidays)
-    print_vacation_suggestions(workday_blocks)
-    special_case_four_days(workday_blocks, holidays)
+    vacation_suggestions(workday_blocks, holidays)
     what_next()
 
 
