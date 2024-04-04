@@ -338,10 +338,10 @@ def print_vacation_suggestions(workday_blocks):
     """
     Prints vacation suggestions based on blocks containing 1 to 3 days.
     """
+    print("[bright_green]Suggested vacation days: [/bright_green]")
     for block in workday_blocks:
         if 1 <= len(block) <= 3:
             formatted_dates = [date.strftime('%d-%m-%Y') for date in block]
-            print("[bright_green]Suggested vacation days: [/bright_green]")
             print(f"{', '.join(formatted_dates)}")
 
 
