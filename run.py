@@ -269,11 +269,8 @@ def check_holidays(start_date, end_date, country, state=None):
                 "[bright_green]The public holidays in your region during the selected period are:[/bright_green]"
             )
             for date, holiday in sorted(holiday_dict.items()):
-                # # For testing purpose:
-                # weekday = date.strftime("%A")
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
-                # # For testing purpose:
-                # print(f"{date.strftime('%d-%m-%Y')}: {holiday}, {weekday}")
+                
     return holiday_dict
 
 
