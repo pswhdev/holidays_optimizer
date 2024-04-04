@@ -338,16 +338,32 @@ def print_vacation_suggestions(workday_blocks):
     """
     Prints vacation suggestions based on blocks containing 1 to 3 days.
     """
-    print("[bright_green]Suggested vacation days: [/bright_green]")
+    print("\n[bright_green]Suggested vacation days for time off optimization: [/bright_green]")
     for block in workday_blocks:
         if 1 <= len(block) <= 3:
             formatted_dates = [date.strftime('%d-%m-%Y') for date in block]
             print(f"{', '.join(formatted_dates)}")
 
 
+def special_case_four_days(workday_blocks, holidays):
+    """
+    Check for 4-day periods where either a Friday and the immediately following Monday
+    are both holidays, or a Monday and the immediately preceding Friday are both holidays
+    """
+    for block in workday_blocks:
+        if len(block) == 4:
+            first_date = block[0]
+            last_date = block[-1]
 
+            # Check if the last date is a Thursday (meaning there is a holiday on Friday) and the next Monday is a holiday
+            if last_date.weekday() == 3 and (last_date + timedelta(days=4) in holidays):
+                formatted_dates = [date.strftime('%d-%m-%Y') for date in block]
+                print(f"{', '.join(formatted_dates)}")
 
-
+            # Check if the end date is a Tuesday (meaning Monday is a holiday) and the previous Friday is a holiday
+            elif first_date.weekday() == 1 and (first_date + timedelta(days=-4) in holidays):
+                formatted_dates = [date.strftime('%d-%m-%Y') for date in block]
+                print(f"{', '.join(formatted_dates)}")
 
 
 
@@ -621,6 +637,7 @@ def main():
     # get_bridge_days(holidays)
     workday_blocks = find_blocks(start_date, end_date, holidays)
     print_vacation_suggestions(workday_blocks)
+    special_case_four_days(workday_blocks, holidays)
     what_next()
 
 
