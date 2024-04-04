@@ -330,10 +330,19 @@ def find_blocks(start_date, end_date, holidays):
     # To append the last block if it contains working days after the loop is finished
     if current_workday_block:
         workday_blocks.append(current_workday_block)
-    print(workday_blocks)
+    
     return workday_blocks
 
 
+def print_vacation_suggestions(workday_blocks):
+    """
+    Prints vacation suggestions based on blocks containing 1 to 3 days.
+    """
+    for block in workday_blocks:
+        if 1 <= len(block) <= 3:
+            formatted_dates = [date.strftime('%d-%m-%Y') for date in block]
+            print("[bright_green]Suggested vacation days: [/bright_green]")
+            print(f"{', '.join(formatted_dates)}")
 
 
 
@@ -610,7 +619,8 @@ def main():
         start_date, end_date, selected_country_abb, selected_state
     )
     # get_bridge_days(holidays)
-    find_blocks(start_date, end_date, holidays)
+    workday_blocks = find_blocks(start_date, end_date, holidays)
+    print_vacation_suggestions(workday_blocks)
     what_next()
 
 
