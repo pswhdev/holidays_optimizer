@@ -3,6 +3,7 @@ import holidays
 from datetime import datetime, timedelta
 
 # For the ASCII art of the logo
+# https://pypi.org/project/pyfiglet/
 # (https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/)
 import pyfiglet
 

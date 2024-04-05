@@ -43,7 +43,7 @@ To help with planning my project, I used [Lucidchart](https://www.lucidchart.com
 
 ![Holiday Optimizer initial FlowChart](documentation/initial-flowchart.png)  
 
-### Development
+## Development
 
 I began by developing functions to collect user input for the country and state (if available).
 
@@ -63,3 +63,57 @@ With these changes during the process the resulting flowchart was slightly chang
 
 ![Holiday Optimizer final FlowChart](documentation/flowchart-final.png)
 
+
+## Design Choices      
+
+As this project focused on back-end programming, I, a student of the [Code Institute](https://codeinstitute.net/ie/), did not undertake front-end production myself. The command-line interface (CLI) code was provided through the use of CI's [Python Essentials template](https://github.com/Code-Institute-Org/python-essentials-template), and I chose not to modify the HTML or JavaScript code, maintaining the original interface design. The CLI application displayed within an 80-character window with a vertical scrollbar.
+
+ASCII art was used using the [pyfiglet module](https://pypi.org/project/pyfiglet/) for the program's logo at the start of the program as described [here](https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/) using the font "doom".
+
+![Holiday Optimizer logo](documentation/logo-screen.png)
+
+## Colors scheme
+
+The [Rich python library](https://rich.readthedocs.io/en/stable/introduction.html) was utilized to craft a vibrant and engaging user interface. Colors were incorporated to aid in localization during program execution on the CLI, as well as to provide visual feedback.
+
+By establishing a consistent color scheme throughout the application, users can predict what to expect. This predictability enhances usability and overall user experience.
+
+### Green
+
+All feedback of choices and results are printed in green. The color green is commonly linked with positivity, success, and affirmation. By employing green for feedback messages, the application provides a clear and unmistakable signal of valid choices made by the user. This assists users in distinguishing between successful interactions and potential errors or warnings with ease.
+![Green feedback](documentation/green-feedback.png)
+
+### Yellow
+
+Yellow was used when listing the states of a country because it is a color that stands out among several white lines in the CLI.
+![Yellow listing states](documentation/yellow-states.png)
+
+Yellow was also utilized for feedback indicating that no holidays were present during the selected period, distinguishing it from the green feedback message used when listing the holidays and vacation day suggestions.
+![Yellow feedback](documentation/yellow-feedback.png)
+
+### Red
+
+Any input provided by the user that fails validation will result in an 'Error' message printed in red. This provides the user with feedback to pay close attention to their input, as invalid data will prevent them from proceeding with the operations.
+![Red warning](documentation/red-feedback.png)
+
+### Cyan
+
+The dates are displayed in cyan, standing out from the rest of the content.
+![Cyan dates](documentation/cyan-dates.png)
+
+
+# Features
+
+## Wait for a keypress
+
+Because of the limitation of the size of the CLI application, I used an input function that waits for the user to press "Enter" before the screen scrolls down and the first prompt comes up.
+
+![Press enter feature](documentation/press-enter.png)
+
+## Autocomplete
+
+## Confirmation after each input
+
+## Clear display of results
+
+## Thank you message
