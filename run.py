@@ -31,7 +31,7 @@ def prints_logo():
     print("\n" * 3)
 
     # Wait for the user to press any key (https://pieriantraining.com/how-to-wait-for-a-keypress-in-python/)
-    input("Press any key to continue...")
+    input("Press enter to continue...")
 
 
 # WordCompleter object with the keys on the dictrionary of countries set to ignore case to make the autocomplete regardless of typing with lower or uppercase
@@ -48,7 +48,7 @@ def get_country():
         try:
             # Autocomplete to improve UX and avoid misspells
             user_input = prompt(
-                "Please enter a country: ",
+                "Please enter a country, or select from the list using arrow/tab keys: ",
                 completer=country_completer,
             )
             # Converts input to lowercase and deletes empty spaces
