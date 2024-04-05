@@ -493,7 +493,7 @@ def main():
     )
     workday_blocks = find_blocks(start_date, end_date, holidays)
     vacation_suggestions(workday_blocks, holidays)
-    what_next()
 
 
 main()
+what_next()
