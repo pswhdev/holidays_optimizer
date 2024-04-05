@@ -17,7 +17,11 @@ This program assists users in planning their vacation time by identifying public
 # User Experience 
   
 ## User Goals
-
+- As a user, I want an attractive and engaging application.
+- As a user, I want clear instructions provided throughout the application.
+- As a user, I want feedback confirming my choices of country, state, and selected period.
+- As a user, I want to be able to re-enter data entered by mistake during the process without having to restart the program.
+- As a user, I want a clear and sorted output of the suggested vacation dates.
 
 # Creation Process   
 
@@ -57,4 +61,5 @@ After some consideration, I also decided not to include the previously planned p
 
 With these changes during the process the resulting flowchart was slightly changed.
 
-![Holiday Optimizer final FlowChart](documentation/flowchart-final.png) 
+![Holiday Optimizer final FlowChart](documentation/flowchart-final.png)
+
