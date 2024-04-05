@@ -144,7 +144,8 @@ countries = {
     "Zimbabwe": "ZW",
 }
 
-# Dict with countries with holidays varying with the state and the state/district/province/territory lists
+# Dict with countries with holidays varying with the state and the
+#state/district/province/territory lists
 states_by_country = {
     "AD": ["02", "03", "04", "05", "06", "07", "08"],
     "AU": ["ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"],

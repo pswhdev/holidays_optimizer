@@ -16,7 +16,7 @@ from prompt_toolkit.completion import WordCompleter
 
 def prints_logo():
     """
-    Prints the logo to the terminal and waits for the user to press any key.
+    Prints the logo to the terminal and waits for the user to press enter.
     """
     banner_part1 = pyfiglet.figlet_format("     Holidays", font="doom")
     banner_part2 = pyfiglet.figlet_format(
@@ -30,7 +30,8 @@ def prints_logo():
     )
     print("\n" * 3)
 
-    # Wait for the user to press any key (https://pieriantraining.com/how-to-wait-for-a-keypress-in-python/)
+    # Wait for the user to press any key
+    # (https://pieriantraining.com/how-to-wait-for-a-keypress-in-python/)
     input("Press enter to continue...")
 
 
@@ -40,8 +41,8 @@ country_completer = WordCompleter(database.countries.keys(), ignore_case=True)
 
 def get_country():
     """
-    Prompts user for a country name and returns its abbreviation after validation.
-    Ensures the input is a non-numeric, valid country name.
+    Prompts user for a country name and returns its abbreviation after
+    validation. Ensures the input is a non-numeric, valid country name.
     Confirms the choice with the user before proceeding.
     """
     while True:
@@ -60,7 +61,9 @@ def get_country():
                     "Please enter a valid country name (text, not a number)."
                 )
             elif not user_input:
-                raise ValueError("Input cannot be empty. Please enter a country.")
+                raise ValueError(
+                    "Input cannot be empty. Please enter a country."
+                )
             # If the input is valid:
             # To find the country's abbreviation given the country name to work with the holidays library
             for country, abbreviation in database.countries.items():
@@ -86,15 +89,17 @@ def get_country():
                     # Since the first input (country's name) was a valid one, if the user's input was 'n' inside the confirmation block, the inner loop is stopped and the outer loop also needs to be stopped so the block restarts and prompts for choice of country again.
                     break
             else:
-                raise ValueError("Please enter a valid country name in English.")
+                raise ValueError(
+                    "Please enter a valid country name in English."
+                )
         except ValueError as e:
             print("[bright_red]Invalid input.[/bright_red]", e)
 
 
 def specify_state(country):
     """
-    Ask the user to input a state for the given country.
-    Confirms the choice with the user before proceeding.
+    Ask the user to input a state for the given country
+    from a list and confirms the choice with the user before proceeding.
 
     """
     while True:
@@ -110,7 +115,9 @@ def specify_state(country):
                         f"[bright_green]The selected state/territory/province was {state_input}. [/bright_green]"
                     )
                     confirmation = (
-                        input("Is this the desired one? (y/n): ").strip().lower()
+                        input("Is this the desired one? (y/n): ")
+                        .strip()
+                        .lower()
                     )
                     if confirmation == "y":
                         return state_input
@@ -131,7 +138,8 @@ def specify_state(country):
 def get_date(message):
     """
     Prompts the user to enter a date and validates it.
-    The date must be in the future and within 10 years from today.
+    The date must be entered on the indicated format DD-MM-YYYY,
+    must be in the future and within 10 years from today.
     """
     while True:
         try:
@@ -146,11 +154,14 @@ def get_date(message):
                 print("[bright_red]Invalid date format. [/bright_red]")
                 raise ValueError("Please enter the date in DD-MM-YYYY format.")
 
-            # Conversion of the given dates into date objects to be used by the datetime library (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
+            # Conversion of the given dates into date objects to be used by the datetime library
+            # (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
             selected_date = datetime.strptime(selected_date_str, "%d-%m-%Y")
 
             if selected_date < datetime.now():
-                print("[bright_red]You cannot choose a date in the past. [/bright_red]")
+                print(
+                    "[bright_red]You cannot choose a date in the past. [/bright_red]"
+                )
                 raise ValueError(
                     f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future."
                 )
@@ -179,7 +190,7 @@ def get_date(message):
 def verify_dates(start_date, end_date):
     """
     Validates the user's date choices, ensuring the end date
-    is after the start date and within one year.
+    is after the start date and that dates are maximum one year apart.
     """
     while True:
         try:
@@ -187,10 +198,15 @@ def verify_dates(start_date, end_date):
             if end_date < start_date:
                 raise ValueError("End date cannot be before the start date.")
             if end_date == start_date:
-                raise ValueError("End date cannot be the same as the start date.")
-            # Check if dates are maximum one year apart (https://docs.python.org/3/library/datetime.html#timedelta-objects)
+                raise ValueError(
+                    "End date cannot be the same as the start date."
+                )
+            # Check if dates are maximum one year apart
+            # (https://docs.python.org/3/library/datetime.html#timedelta-objects)
             if (end_date - start_date).days > 366:
-                raise ValueError("Please enter dates that are maximum one year apart.")
+                raise ValueError(
+                    "Please enter dates that are maximum one year apart."
+                )
             # To break the loop in case there is no problem with the chosen dates validation
             return start_date, end_date
         except ValueError as e:
@@ -208,7 +224,9 @@ def confirm_dates(start_date, end_date):
         print(
             f"[bright_green]The selected period was [/bright_green]{start_date.strftime('%d-%m-%Y')}[bright_green] and [/bright_green]{end_date.strftime('%d-%m-%Y')}[bright_green].[/bright_green]"
         )
-        confirmation = input("Are you happy with these dates? (y/n): ").strip().lower()
+        confirmation = (
+            input("Are you happy with these dates? (y/n): ").strip().lower()
+        )
 
         if confirmation == "n":
             # Asks for new start and end dates
@@ -254,7 +272,7 @@ def check_holidays(start_date, end_date, country, state=None):
         # Check if the current date is a holiday and if it is add the holiday to the dictionary
         if check_date in holiday_calendar:
             holiday_name = holiday_calendar[check_date]
-            #For the countries that have Sunday on the holidays library saved as holidays (e.g. Sweeden)
+            # For the countries that have Sunday on the holidays library saved as holidays (e.g. Sweeden)
             if holiday_name != "Sunday" and holiday_name != "Söndag":
                 holiday_dict[check_date] = holiday_name
 
@@ -272,24 +290,27 @@ def check_holidays(start_date, end_date, country, state=None):
             )
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
-                
+
     return holiday_dict
 
 
 def is_weekend(date):
     """
-    Checks if a certain date is a weekday(Mo-Fr)
+    Checks if a certain date is a weekend day (Saturday or Sunday)
+    Uses the method .weekday() from the Python's module daytime to find
+    the day of the week. It returns an integer where Monday is 0 and
+    Sunday is 6.
     """
-    # Uses the method .weekday() from the Python's module daytime to find the day of the week. It returns an integer where Monday is 0 and Sunday is 6
     return date.weekday() >= 5
 
 
 def find_blocks(start_date, end_date, holidays):
     """
-    Finds blocks of workdays between free days that could be suggested as vacation days.
-    It iterates over the days within the given range and whenever a weekend or a holiday
-    is found, it creates a block of dates that are saved independently within the workday_blocks
-    and continues the iteration.
+    Finds blocks of workdays between non-working days that could be
+    suggested as vacation days. It iterates over the days within the
+    given range and whenever a weekend or a holiday is found, it creates
+    a block of dates that are saved independently within the
+    workday_blocks and continues the iteration.
     """
     workday_blocks = []
     current_workday_block = []
@@ -304,7 +325,7 @@ def find_blocks(start_date, end_date, holidays):
             current_workday_block = []
         # Increments current_date by one day
         current_date += timedelta(days=1)
-    # To append the last block if it contains working days after the loop is finished
+    # Appends the final block if it includes workdays after looping.
     if current_workday_block:
         workday_blocks.append(current_workday_block)
 
@@ -313,12 +334,13 @@ def find_blocks(start_date, end_date, holidays):
 
 def vacation_suggestions(workday_blocks, holidays):
     """
-    Gathers, sorts, and prints vacation suggestions based on blocks containing 1 and 2 days and
-    in special cases for 3-day period where the remaing two week days are holydays and 4-day periods
-    where either a Friday and the immediately following Monday are both holidays, or a Monday and
+    Collects and presents vacation recommendations. It focuses on
+    1-2 day periods, extends to 3-day periods when the adjacent weekdays
+    are holidays, and includes 4-day periods if either a Friday and the
+    immediately following Monday are both holidays, or a Monday and
     the immediately preceding Friday are both holidays.
     """
-    if holidays: 
+    if holidays:
         suggestions_dict = {}
 
         for block in workday_blocks:
@@ -326,7 +348,9 @@ def vacation_suggestions(workday_blocks, holidays):
                 first_date = block[0]
                 last_date = block[-1]
                 # Check if the last date is a Thursday (meaning there is a holiday on Friday) and the next Monday is a holiday
-                if last_date.weekday() == 3 and (last_date + timedelta(days=4) in holidays):
+                if last_date.weekday() == 3 and (
+                    last_date + timedelta(days=4) in holidays
+                ):
                     # Adds the block of dates with the first_date of the block as key to the suggestions dictionary
                     suggestions_dict[block[0]] = block
                 # Check if the end date is a Tuesday (meaning Monday is a holiday) and the previous Friday is a holiday
@@ -338,7 +362,9 @@ def vacation_suggestions(workday_blocks, holidays):
                 first_date = block[0]
                 last_date = block[-1]
                 # Check if the last date is a Wednesday (meaning there is a holiday on Thursday) and if Friday is also a holiday
-                if last_date.weekday() == 2 and (last_date + timedelta(days=2) in holidays):
+                if last_date.weekday() == 2 and (
+                    last_date + timedelta(days=2) in holidays
+                ):
                     suggestions_dict[block[0]] = block
                 # Check if the last date is a Wednesday (meaning there is a holiday on Tuesday) and if Monday is also a holiday
                 elif first_date.weekday() == 2 and (
@@ -391,26 +417,28 @@ def what_next():
 
 def main():
     """
-    Controls the order of execution of the functions guiding the user through the process of selecting a country,
-    specifying dates, and checking for public holidays. It then suggests optimal days for taking time off to maximize
-    holiday periods.
+    Controls the order of execution of the functions guiding the user
+    through the process of selecting a country, specifying dates, and
+    checks for public holidays. It then suggests optimal days for taking
+    time off to maximize holiday periods.
     """
     prints_logo()
     print("\nWelcome to the Holiday Optimizer!")
     print(
-        "\nThis interactive tool helps you maximize your holiday time off."
-        "Simply select your country and desired dates, and the Holidays Optimizer"
-        " will identify public holidays in your region. It then suggests the best"
-        " days to take off work, turning regular holidays into extended breaks. "
-        "With easy-to-follow prompts and a user-friendly interface, planning your "
-        "time off of work has never been easier!\n"
+        "\nThis interactive tool helps you maximize your holiday time off. "
+        "Simply select your country and desired dates, and the Holidays "
+        "Optimizer will identify public holidays in your region. It then "
+        "suggests the best days to take off work, turning regular holidays "
+        "into extended breaks. With easy-to-follow prompts and a user-friendly"
+        " interface, planning your time off of work has never been easier!\n"
     )
     selected_country_abb = get_country()
     selected_state = specify_state(selected_country_abb)
     print("Please enter the start and end dates to check for holidays.")
     start_date = get_date("Please enter the start date ")
     end_date = get_date("Please enter the end date ")
-    # Important to reassign the start and end date in case they had been reentered as part of the validation and confirmation steps
+    # Important to reassign the start and end date in case they had been
+    # reentered as part of the validation and confirmation steps
     start_date, end_date = verify_dates(start_date, end_date)
     start_date, end_date = confirm_dates(start_date, end_date)
     holidays = check_holidays(
