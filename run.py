@@ -28,7 +28,8 @@ def prints_logo():
     print(f"[bright_cyan]{banner_part1}[/bright_cyan]")
     print(f"[bright_cyan]{banner_part2}[/bright_cyan]")
     print(
-        "[magenta]                                               By Patricia Halley[/magenta]"
+        "[magenta]                                               "
+        "By Patricia Halley[/magenta]"
     )
     print("\n" * 3)
 
@@ -56,7 +57,8 @@ def get_country():
             # Autocomplete using prompt-toolkit to improve UX. Avoids misspells
             # https://python-prompt-toolkit.readthedocs.io/en/stable/pages/asking_for_input.html
             user_input = prompt(
-                "Please enter a country, or select from the list using arrow/tab keys: ",
+                "Please enter a country, or select from the list using "
+                "arrow/tab keys: ",
                 completer=country_completer,
             )
             # Converts input to lowercase and deletes empty spaces
@@ -79,7 +81,8 @@ def get_country():
                     # for 'y' or 'n' until a valid response is given.
                     while True:
                         print(
-                            f"[bright_green]The selected country was {country}. [/bright_green]"
+                            f"[bright_green]The selected country was "
+                            f"{country}.[/bright_green]"
                         )
                         confirmation = (
                             input("Is this the desired country? (y/n): ")
@@ -115,13 +118,16 @@ def specify_state(country):
         if country in database.states_by_country:
             # Displays available states for the given country
             print(
-                f"[bright_yellow]States or territories in {country}:[/bright_yellow] {', '.join(database.states_by_country[country])}"
+                f"[bright_yellow]States or territories in {country}:"
+                f"[/bright_yellow] "
+                f"{', '.join(database.states_by_country[country])}"
             )
             state_input = input("Please enter a state: ").strip().upper()
             if state_input in database.states_by_country[country]:
                 while True:
                     print(
-                        f"[bright_green]The selected state/territory/province was {state_input}. [/bright_green]"
+                        f"[bright_green]The selected state/territory/province "
+                        f"was {state_input}. [/bright_green]"
                     )
                     confirmation = (
                         input("Is this the desired one? (y/n): ")
@@ -134,11 +140,13 @@ def specify_state(country):
                         break
                     else:
                         print(
-                            "[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no."
+                            "[bright_red]Invalid input.[/bright_red] Please "
+                            "enter 'y' for yes or 'n' for no."
                         )
             else:
                 print(
-                    "[bright_red]Invalid state[/bright_red]. Please enter a state from the provided list."
+                    "[bright_red]Invalid state[/bright_red]. Please enter a "
+                    "state from the provided list."
                 )
         else:
             return None
@@ -170,19 +178,23 @@ def get_date(message):
 
             if selected_date < datetime.now():
                 print(
-                    "[bright_red]You cannot choose a date in the past. [/bright_red]"
+                    "[bright_red]You cannot choose a date in the past."
+                    "[/bright_red]"
                 )
                 raise ValueError(
-                    f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date in the future."
+                    f"Today is {datetime.now().strftime('%d-%m-%Y')}. "
+                    "Please choose a date in the future."
                 )
             # Check if the selected date is within 10 years from today
             max_date = datetime.now() + timedelta(days=365 * 10)
             if selected_date > max_date:
                 print(
-                    "[bright_red]The selected date is too far in the future.[/bright_red]"
+                    "[bright_red]The selected date is too far in the future."
+                    "[/bright_red]"
                 )
                 raise ValueError(
-                    f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please choose a date within the next 10 years."
+                    f"Today is {datetime.now().strftime('%d-%m-%Y')}. Please "
+                    "choose a date within the next 10 years."
                 )
 
             # If no problem is found with the date format entry, returns
@@ -193,7 +205,8 @@ def get_date(message):
             # date format and promts for the correct format
             if "time data" in str(e):
                 print(
-                    "[bright_red]Invalid date format.[/bright_red] Please enter the date in DD-MM-YYYY format."
+                    "[bright_red]Invalid date format.[/bright_red] Please "
+                    "enter the date in DD-MM-YYYY format."
                 )
             else:
                 print(e)
@@ -234,7 +247,10 @@ def confirm_dates(start_date, end_date):
     """
     while True:
         print(
-            f"[bright_green]The selected period was [/bright_green]{start_date.strftime('%d-%m-%Y')}[bright_green] and [/bright_green]{end_date.strftime('%d-%m-%Y')}[bright_green].[/bright_green]"
+            "[bright_green]The selected period was [/bright_green]"
+            f"{start_date.strftime('%d-%m-%Y')}[bright_green] and "
+            f"[/bright_green]{end_date.strftime('%d-%m-%Y')}[bright_green]."
+            "[/bright_green]"
         )
         confirmation = (
             input("Are you happy with these dates? (y/n): ").strip().lower()
@@ -249,7 +265,8 @@ def confirm_dates(start_date, end_date):
             return start_date, end_date
         else:
             print(
-                "[bright_red]Invalid input.[/bright_red] Please enter 'y' for yes or 'n' for no."
+                "[bright_red]Invalid input.[/bright_red] Please enter 'y' "
+                "for yes or 'n' for no."
             )
 
 
@@ -303,7 +320,8 @@ def check_holidays(start_date, end_date, country, state=None):
         # Prints the dictionary to the user
         if holiday_dict:
             print(
-                "[bright_green]The public holidays in your region during the selected period are:[/bright_green]"
+                "[bright_green]The public holidays in your region during the "
+                "selected period are:[/bright_green]"
             )
             for date, holiday in sorted(holiday_dict.items()):
                 print(f"{date.strftime('%d-%m-%Y')}: {holiday}")
@@ -402,7 +420,8 @@ def vacation_suggestions(workday_blocks, holidays):
 
         if sorted_by_date:
             print(
-                "\n[bright_green]Suggested vacation days for time off optimization: [/bright_green]"
+                "\n[bright_green]Suggested vacation days for time off "
+                "optimization: [/bright_green]"
             )
             # Iterates over the sorted list of dates and gets
             # the block of dates on that corresponding key from
@@ -415,7 +434,8 @@ def vacation_suggestions(workday_blocks, holidays):
                 print(f"{', '.join(formatted_dates)}")
         else:
             print(
-                "\n[bright_green]No optimal vacation suggestions found in the given date range.[/bright_green]"
+                "\n[bright_green]No optimal vacation suggestions found in the "
+                "given date range.[/bright_green]"
             )
 
 
@@ -426,13 +446,15 @@ def what_next():
     print()
     while True:
         what_next = input(
-            "If you wish to make a new inquiry, press 'r', to finish the program, press 'f': "
+            "If you wish to make a new inquiry, press 'r', to finish the "
+            "program, press 'f': "
         )
         if what_next == "r":
             main()
         elif what_next == "f":
             print(
-                "\n[bright_green]Thank you for using Holidays Optimizer! Enjoy your time off :-)[/bright_green]"
+                "\n[bright_green]Thank you for using Holidays Optimizer! "
+                "Enjoy your time off :-)[/bright_green]"
             )
             # Stops the loop
             break
