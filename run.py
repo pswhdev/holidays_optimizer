@@ -262,7 +262,7 @@ def check_holidays(start_date, end_date, country, state=None):
         check_date += timedelta(days=1)
     if not holiday_dict:
         print(
-            "[bright_yellow]There are no holidays during the selected period in your area[/bright_yellow]"
+            "\n[bright_yellow]There are no holidays during the selected period in your area.[/bright_yellow]"
         )
     else:
         # Print the dictionary to the user
@@ -318,53 +318,54 @@ def vacation_suggestions(workday_blocks, holidays):
     where either a Friday and the immediately following Monday are both holidays, or a Monday and
     the immediately preceding Friday are both holidays.
     """
-    suggestions_dict = {}
+    if holidays: 
+        suggestions_dict = {}
 
-    for block in workday_blocks:
-        if len(block) == 4:
-            first_date = block[0]
-            last_date = block[-1]
-            # Check if the last date is a Thursday (meaning there is a holiday on Friday) and the next Monday is a holiday
-            if last_date.weekday() == 3 and (last_date + timedelta(days=4) in holidays):
-                # Adds the block of dates with the first_date of the block as key to the suggestions dictionary
+        for block in workday_blocks:
+            if len(block) == 4:
+                first_date = block[0]
+                last_date = block[-1]
+                # Check if the last date is a Thursday (meaning there is a holiday on Friday) and the next Monday is a holiday
+                if last_date.weekday() == 3 and (last_date + timedelta(days=4) in holidays):
+                    # Adds the block of dates with the first_date of the block as key to the suggestions dictionary
+                    suggestions_dict[block[0]] = block
+                # Check if the end date is a Tuesday (meaning Monday is a holiday) and the previous Friday is a holiday
+                elif first_date.weekday() == 1 and (
+                    first_date + timedelta(days=-4) in holidays
+                ):
+                    suggestions_dict[block[0]] = block
+            elif len(block) == 3:
+                first_date = block[0]
+                last_date = block[-1]
+                # Check if the last date is a Wednesday (meaning there is a holiday on Thursday) and if Friday is also a holiday
+                if last_date.weekday() == 2 and (last_date + timedelta(days=2) in holidays):
+                    suggestions_dict[block[0]] = block
+                # Check if the last date is a Wednesday (meaning there is a holiday on Tuesday) and if Monday is also a holiday
+                elif first_date.weekday() == 2 and (
+                    first_date + timedelta(days=-2) in holidays
+                ):
+                    suggestions_dict[block[0]] = block
+            # Collects suggestions for 1-2 day blocks
+            elif 1 <= len(block) <= 2:
                 suggestions_dict[block[0]] = block
-            # Check if the end date is a Tuesday (meaning Monday is a holiday) and the previous Friday is a holiday
-            elif first_date.weekday() == 1 and (
-                first_date + timedelta(days=-4) in holidays
-            ):
-                suggestions_dict[block[0]] = block
-        elif len(block) == 3:
-            first_date = block[0]
-            last_date = block[-1]
-            # Check if the last date is a Wednesday (meaning there is a holiday on Thursday) and if Friday is also a holiday
-            if last_date.weekday() == 2 and (last_date + timedelta(days=2) in holidays):
-                suggestions_dict[block[0]] = block
-            # Check if the last date is a Wednesday (meaning there is a holiday on Tuesday) and if Monday is also a holiday
-            elif first_date.weekday() == 2 and (
-                first_date + timedelta(days=-2) in holidays
-            ):
-                suggestions_dict[block[0]] = block
-        # Collects suggestions for 1-2 day blocks
-        elif 1 <= len(block) <= 2:
-            suggestions_dict[block[0]] = block
 
-    # To sort suggestions by the first date in each block
-    sorted_by_date = sorted(suggestions_dict.keys())
+        # To sort suggestions by the first date in each block
+        sorted_by_date = sorted(suggestions_dict.keys())
 
-    if sorted_by_date:
-        print(
-            "\n[bright_green]Suggested vacation days for time off optimization: [/bright_green]"
-        )
-        # Iterates over the sorted list of dates and gets the block of dates on that corresponding key from the dicrionary
-        for date in sorted_by_date:
-            block = suggestions_dict[date]
-            # Iterates over the dates within the block and formats it to DD-MM-YYYY
-            formatted_dates = [d.strftime("%d-%m-%Y") for d in block]
-            print(f"{', '.join(formatted_dates)}")
-    else:
-        print(
-            "\n[bright_green]No optimal vacation suggestions found in the given date range.[/bright_green]]"
-        )
+        if sorted_by_date:
+            print(
+                "\n[bright_green]Suggested vacation days for time off optimization: [/bright_green]"
+            )
+            # Iterates over the sorted list of dates and gets the block of dates on that corresponding key from the dicrionary
+            for date in sorted_by_date:
+                block = suggestions_dict[date]
+                # Iterates over the dates within the block and formats it to DD-MM-YYYY
+                formatted_dates = [d.strftime("%d-%m-%Y") for d in block]
+                print(f"{', '.join(formatted_dates)}")
+        else:
+            print(
+                "\n[bright_green]No optimal vacation suggestions found in the given date range.[/bright_green]"
+            )
 
 
 def what_next():
