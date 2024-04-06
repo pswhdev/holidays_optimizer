@@ -47,11 +47,7 @@ To help with planning my project, I used [Lucidchart](https://www.lucidchart.com
 
 I began by developing functions to collect user input for the country and state (if available).
 
-Since I intended to utilize the holidays library to retrieve holidays based on the country input, ensuring accurate results required obtaining the country abbreviation in accordance with the ISO 3166-1 alpha-2 code, as outlined in the [library's documentation](https://pypi.org/project/holidays/).
-
-To enhance user-friendliness and enable input of country names, I created a separate file containing a dictionary. This dictionary mapped country names to their respective abbreviations. Additionally, within the same file, I established a second dictionary called 'database,' which listed countries with available lists of states within the library to be used by the functions on the program.
-
-To prevent mistypes and improve the user experience, I integrated the autocomplete feature from the [prompt_toolkit](https://python-prompt-toolkit.readthedocs.io/en/master/) library when prompting for the country's name.
+Since I intended to utilize the holidays library to retrieve holidays based on the country input, ensuring accurate results required obtaining the country abbreviation in accordance with the ISO 3166-1 alpha-2 code, as outlined in the [library's documentation](https://pypi.org/project/holidays/). At the same time I wanted to enhance user-friendliness and enable input of country names, I therefore created a separate file containing a dictionary that mapped country names to their respective abbreviations and another one which listed countries with available lists of states within the library to be used by the functions on the program.
 
 I relied on the flowchart as my guide throughout the development process, ensuring that each function worked properly and that validations were effectively implemented at every step.
 
@@ -64,13 +60,13 @@ With these changes during the process the resulting flowchart was slightly chang
 ![Holiday Optimizer final FlowChart](documentation/flowchart-final.png)
 
 
-## Design Choices      
+## Design Choices
 
 As this project focused on back-end programming, I, a student of the [Code Institute](https://codeinstitute.net/ie/), did not undertake front-end production myself. The command-line interface (CLI) code was provided through the use of CI's [Python Essentials template](https://github.com/Code-Institute-Org/python-essentials-template), and I chose not to modify the HTML or JavaScript code, maintaining the original interface design. The CLI application displayed within an 80-character window with a vertical scrollbar.
 
 ASCII art was used using the [pyfiglet module](https://pypi.org/project/pyfiglet/) for the program's logo at the start of the program as described [here](https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/) using the font "doom".
 
-![Holiday Optimizer logo](documentation/logo-screen.png)
+![ASCII Art](documentation/ascii-art.png)
 
 ## Colors scheme
 
@@ -101,19 +97,37 @@ Any input provided by the user that fails validation will result in an 'Error' m
 The dates are displayed in cyan, standing out from the rest of the content.
 ![Cyan dates](documentation/cyan-dates.png)
 
-
 # Features
 
 ## Wait for a keypress
 
-Because of the limitation of the size of the CLI application, I used an input function that waits for the user to press "Enter" before the screen scrolls down and the first prompt comes up.
+The size of the CLI application is limited, so to allow the user to see the ASCII art, I used a handy feature: an input function that waits for the user to press 'Enter' before the screen scrolls down and the first prompt appears.
 
-![Press enter feature](documentation/press-enter.png)
+![Press Enter line](documentation/press-enter.png)
 
 ## Autocomplete
 
+To enhance user experience during country selection, I implemented autocomplete functionality using the [Python Prompt Toolkit](https://python-prompt-toolkit.readthedocs.io/en/master/) library. This feature enables users to efficiently choose a country from a dropdown list using arrow keys or the Tab key on the keyboard. Additionally, it significantly reduces the likelihood of typing errors.
+![Autocomplete feature example](documentation/autocomplete.png)
+
+## Validation of entered data
+
+After the user provides information as prompted by the program, this input is subjected to a validation process to confirm its correctness before proceeding. In cases where the input is invalid, such as an empty field or a numerical entry where text is expected, the error is identified, and the user receives a clear message explaining the discrepancy. Subsequently, they are prompted to re-enter the information correctly. A few examples of error messages are depicted below.
+![Handling of invalid entry examples](documentation/validation-error-messages.png)
+
 ## Confirmation after each input
+
+After input validation, the user receives a confirmation message along with the option to either revise their choice or confirm it. This step enhances the user experience by allowing corrections without the need to restart the program.
+![Confirmation step example](documentation/date-confirmation.png)
 
 ## Clear display of results
 
+The results are displayed in a concise, clear, and understandable format. The holidays for the selected country are listed, followed by the suggested vacation days to be taken off in order to maximize the work break time. The suggested periods for block leave are presented as lines of dates, separated by commas. Additionally, these blocks of suggestions are thoughtfully sorted by date for easy reference.
+![Result screenshot](documentation/result.png)
+
+
 ## Thank you message
+
+A short thank you message was added to provide a personal touch and to mark a clear end to an interaction, giving a sense of closure to the user's experience.
+![Thank you message](documentation/thank-you-message.png
+)
