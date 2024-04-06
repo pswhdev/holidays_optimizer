@@ -142,7 +142,6 @@ countries = {
     "Vietnam": "VN",
     "Zambia": "ZM",
     "Zimbabwe": "ZW",
-    "Test": "TS"
 }
 
 # Dict with countries with holidays varying with the state and the
