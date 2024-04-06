@@ -97,7 +97,7 @@ def get_country():
                                 # (used on the holidays library)
                                 return abbreviation
                             else:
-                                # Country is not on library
+                                # Country is not on library.
                                 print(
                                     "\n[bright_yellow]Sorry, the country "
                                     f"'{country}' is not available in our "
@@ -119,18 +119,21 @@ def get_country():
         except ValueError as e:
             print("[bright_red]Invalid input.[/bright_red]", e)
 
+
 def is_country_supported(country, state=None):
     """
     Checks if the country (and state, if provided) is supported by the
-    holidays library. Returns True if supported, False if not supported.
+    holidays library.
     """
     try:
         # Tries to access the country in the library, if the country
         # is supported the object is created
-        country_holiday = holidays.CountryHoliday(country, state)
+        _ = holidays.CountryHoliday(country, state)
         return True
     except NotImplementedError:
+        # Country is not supported. Error message handled in get_country
         return False
+
 
 def specify_state(country):
     """
