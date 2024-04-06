@@ -7,7 +7,40 @@ Visit the deployed program: [Holidays Optimizer](https://holidays-optimizer-02bf
 
 ## Contents
 
-<!-- Instert table of contents here -->
+- [Introduction](#introduction)
+- [User Experience](#user-experience)
+    - [User Goals](#user-goals)
+- [Creation Process](#creation-process)
+    - [Project Planning](#project-planning)
+    - [Flowchart](#flowchart)
+    - [Development](#development)
+    - [Design Choices](#design-choices)
+- [Features](#features)
+    - [Wait for a Keypress](#wait-for-a-keypress)
+    - [Short introduction](#short-introduction)
+    - [Autocomplete](#autocomplete)
+    - [Validation of Entered Data](#validation-of-entered-data)
+    - [Confirmation After Each Input](#confirmation-after-each-input)
+    - [Clear Display of Results](#clear-display-of-results)
+    - [Restart Option](#restart-option)
+    - [Thank You Message](#thank-you-message)
+    - [Known Limitations and Future Features](#known-limitations-and-future-features)
+- [Technologies Used](#technologies-used)
+    - [Languages Used](#languages-used)
+    - [Programs Used](#programs-used)
+    - [Libraries Used](#libraries-used)
+- [Deployment and Local Deployment](#deployment-and-local-deployment)
+    - [Deployment](#deployment)
+        - [Heroku](#heroku)
+    - [Local Deployment](#local-deployment)
+        - [How to Fork](#how-to-fork)
+        - [How to Clone](#how-to-clone)
+- [Testing](#testing)
+- [Credits](#credits)
+    - [Code](#code)
+    - [Content](#content)
+    - [Acknowledgments](#acknowledgments)
+
 
 
 ## Introduction
@@ -129,6 +162,11 @@ The dates are displayed in cyan, standing out from the rest of the content.
 The size of the CLI application is limited, so to allow the user to see the ASCII art, I used a handy feature: an input function that waits for the user to press 'Enter' before the screen scrolls down and the first prompt appears.
 
 ![Press Enter line](documentation/press-enter.png)
+
+### Short introduction
+
+A welcome message and short introduction preceed the first prompt giving a short overview of the program
+![Welcome message](documentation/short-introduction.png)
 
 ### Autocomplete
 

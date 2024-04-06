@@ -499,7 +499,7 @@ def main():
     time off to maximize holiday periods.
     """
     prints_logo()
-    print("\nWelcome to the Holiday Optimizer!")
+    print("\nWelcome to the Holidays Optimizer!")
     print(
         "\nThis interactive tool helps you maximize your holiday time off. "
         "Simply select your country and desired dates, and the Holidays "
