@@ -135,8 +135,18 @@ After receiving the results for an inquiry, the user is presented with the optio
 A short thank you message was added to provide a personal touch and to mark a clear end to an interaction, giving a sense of closure to the user's experience.
 ![Thank you message](documentation/thank-you-message.png)
 
-# Known Limitations and Future Features
+## Known Limitation and Future Feature
 
-Not all countries have Saturday and Sunday as weekend days; some countries observe Friday and Saturday, while others have Thursday and Friday as their weekends. Consequently, a valuable future feature would be to incorporate the ability to select from these varying weekend options.
+Not all countries have Saturday and Sunday as weekend days. Some countries have Friday and Saturday, while others have Thursday and Friday as their weekends. Consequently, a valuable future feature would be to incorporate the ability to select from these varying weekend options.
 
-
+# Technologies Used 
+   - HTML5 - provide within the Code Institute's [Python Essentials template](https://github.com/Code-Institute-Org/python-essentials-template) 
+   - JavaScript - same as above.
+   - Python - Python code written is my own.
+   - [Lucidchart](https://www.lucidchart.com/pages/) - used to create the flowchart needed during project planning.
+   - [GitHub](https://github.com/) - used for hosting the program's source code.
+   - [VSCode](https://code.visualstudio.com/) - used as a workspace for developing the code and testing the program.
+   - Git - used for version control.
+   - [Heroku](https://heroku.com/apps) - used for deploying the project.
+   - [PEP8 Validator](https://pep8ci.herokuapp.com/#) - used for validating the Python code.
+   - [Tiny PNG](https://tinypng.com/) - used to compress images.
