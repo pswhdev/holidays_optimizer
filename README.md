@@ -145,7 +145,7 @@ Not all countries have Saturday and Sunday as weekend days. Some countries have 
 
    - HTML5 - provide within the Code Institute's [Python Essentials template](https://github.com/Code-Institute-Org/python-essentials-template) 
    - JavaScript - same as above.
-   - Python - Python code written is my own.
+   - Python - Python code written is my own with insights from ChatGPT at OpenAI.
 
 ### Programs Used
    - [Lucidchart](https://www.lucidchart.com/pages/) - used to create the flowchart needed during project planning.
@@ -162,3 +162,89 @@ Not all countries have Saturday and Sunday as weekend days. Some countries have 
  - [pyfiglet](https://pypi.org/project/pyfiglet/) - For the ASCII art
  - [rich](https://rich.readthedocs.io/en/stable/introduction.html#) - To add color to the text
  - [prompt_toolkit](https://python-prompt-toolkit.readthedocs.io/en/master/) - For the autocomplete
+
+
+## Deployment and Local deployment:
+
+### Deployment
+
+#### Heroku
+
+The Application has been deployed from GitHub to Heroku by following the steps:
+
+1. Create or log in to your account at heroku.com
+2. Create a new app, add a unique app name and then choose your region
+3. Click on create app
+4. Go to "Settings"
+5. Under Config Vars add a key 'PORT' and value '8000'.
+6. Add required buildpacks. Set it up so Python will be on top and Node.js on bottom
+7. Go to "Deploy" and select "GitHub" in "Deployment method"
+8. To connect Heroku app to your Github repository code enter your repository name, click 'Search' and then 'Connect' once it is found.
+9.  Choose the branch you want to build your app from
+10. Either choose to deploy manually by clicking "Deploy Branch" or click on "Enable Automatic Deploys", which keeps the app up to date with your GitHub repository
+11. Wait for the app to build. Once ready you will see the “App was successfully deployed” message and a 'View' button to take you to your deployed link.
+
+The live link can be found here - [Holidays Optimizer](https://holidays-optimizer-02bf64773985.herokuapp.com/)
+
+### Local Deployment
+
+#### How to Fork
+
+To fork the repository:
+
+  - Log in (or sign up) to Github.
+  - Go to the repository for this project, [pswhdev/holidays_optimizer](https://github.com/pswhdev/holidays_optimizer)
+  - Click the Fork button in the top right corner.
+
+#### How to Clone
+
+To clone the repository:
+
+  - Log in (or sign up) to GitHub.
+  - Go to the repository for this project, [pswhdev/holidays_optimizer](https://github.com/pswhdev/holidays_optimizer)
+  - Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+  - Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
+  - Type 'git clone' into the terminal and then paste the link you copied from the repository. Press enter.
+
+
+## Testing
+
+Please refer to [TESTING.md](TESTING.md) file for details on all testing conducted.
+
+## Credits
+
+### Code
+
+I used the following tutorials and documentation:
+- https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/ for the ASCII art for the logo.
+
+- Tutorials on how to use the holidays library:
+    - https://pypi.org/project/holidays/ - holidays documentation
+    - https://www.javatpoint.com/python-holidays-module
+    - https://www.geeksforgeeks.org/python-holidays-library/
+
+- https://pieriantraining.com/how-to-wait-for-a-keypress-in-python/ - to create a "wait" for Enter to be pressed on the logo screen.
+
+- https://www.geeksforgeeks.org/python-program-to-find-day-of-the-week-for-a-given-date/ - to find day of the week
+
+- https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior - to learn how to format the date to DD-MM_YYYY
+
+- https://docs.python.org/3/library/datetime.html#timedelta-objects - to learn how to work with dates and days
+
+-  ChatGPT from OpenAI was used to troubleshoot code when it was not working as expected, as well as to provide insights on how to achieve my intended goals when I encountered difficulties on my own. 
+
+### Content
+
+The documentation in the README file was inspired by README files authored by both Amy Richardson and Diane Corriette.
+
+Text revisions were made with the assistance from ChatGPT.
+
+### Acknowledgments
+
+I would like to express my gratitude to the following individuals:
+
+- Jubril Akolade, my mentor, for providing his support and guidance.
+- My family for testing the program and giving feedback.
+- The Cohort Facilitators Kristyna Wach and Amy RichardsonMy as well as my fellow Code Institute students who have provided great support.
+
+[Back to Top](#holidays-optimizer)

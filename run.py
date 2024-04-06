@@ -200,7 +200,7 @@ def get_date(message):
 
             # Conversion of the given dates into date objects to be used by
             # the datetime library
-            # (https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior)
+            # https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior
             selected_date = datetime.strptime(selected_date_str, "%d-%m-%Y")
 
             if selected_date < datetime.now():
@@ -254,7 +254,7 @@ def verify_dates(start_date, end_date):
                     "End date cannot be the same as the start date."
                 )
             # Checks if dates are maximum one year apart
-            # (https://docs.python.org/3/library/datetime.html#timedelta-objects)
+            # https://docs.python.org/3/library/datetime.html#timedelta-objects
             if (end_date - start_date).days > 366:
                 raise ValueError(
                     "Please enter dates that are maximum one year apart."
@@ -363,6 +363,7 @@ def is_weekend(date):
     the day of the week. It returns an integer where Monday is 0 and
     Sunday is 6.
     """
+    # https://www.geeksforgeeks.org/python-program-to-find-day-of-the-week-for-a-given-date/
     return date.weekday() >= 5
 
 
@@ -386,6 +387,7 @@ def find_blocks(start_date, end_date, holidays):
                 workday_blocks.append(current_workday_block)
             current_workday_block = []
         # Increments current_date by one day
+        #https://docs.python.org/3/library/datetime.html#timedelta-objects
         current_date += timedelta(days=1)
     # Appends the final block if it includes workdays after looping.
     if current_workday_block:
