@@ -125,9 +125,18 @@ After input validation, the user receives a confirmation message along with the 
 The results are displayed in a concise, clear, and understandable format. The holidays for the selected country are listed, followed by the suggested vacation days to be taken off in order to maximize the work break time. The suggested periods for block leave are presented as lines of dates, separated by commas. Additionally, these blocks of suggestions are thoughtfully sorted by date for easy reference.
 ![Result screenshot](documentation/result.png)
 
+## Restart option
+
+After receiving the results for an inquiry, the user is presented with the option to either initiate a new inquiry or conclude the program. This feature was incorporated to offer sense of control, accommodating users who have multiple queries without the need to restart the program, while also providing a straightforward way to exit for those who have completed their task. It streamlines the user experience, making the application more efficient and user-friendly.
+![Restart feature screenshot](documentation/restart.png)
 
 ## Thank you message
 
 A short thank you message was added to provide a personal touch and to mark a clear end to an interaction, giving a sense of closure to the user's experience.
-![Thank you message](documentation/thank-you-message.png
-)
+![Thank you message](documentation/thank-you-message.png)
+
+# Known Limitations and Future Features
+
+Not all countries have Saturday and Sunday as weekend days; some countries observe Friday and Saturday, while others have Thursday and Friday as their weekends. Consequently, a valuable future feature would be to incorporate the ability to select from these varying weekend options.
+
+

@@ -91,9 +91,20 @@ def get_country():
                             .lower()
                         )
                         if confirmation == "y":
-                            # Returns the country's abbreviation
-                            # (used on the holidays library)
-                            return abbreviation
+                            # Check if the country is supported by the library
+                            if is_country_supported(abbreviation):
+                                # Returns the country's abbreviation
+                                # (used on the holidays library)
+                                return abbreviation
+                            else:
+                                # Country is not on library
+                                print(
+                                    "\n[bright_yellow]Sorry, the country "
+                                    f"'{country}' is not available in our "
+                                    "system.[/bright_yellow]\n"
+                                )
+                                # Stops inner loop
+                                break
                         elif confirmation == "n":
                             # Stops inner loop
                             break
@@ -108,6 +119,18 @@ def get_country():
         except ValueError as e:
             print("[bright_red]Invalid input.[/bright_red]", e)
 
+def is_country_supported(country, state=None):
+    """
+    Checks if the country (and state, if provided) is supported by the
+    holidays library. Returns True if supported, False if not supported.
+    """
+    try:
+        # Tries to access the country in the library, if the country
+        # is supported the object is created
+        country_holiday = holidays.CountryHoliday(country, state)
+        return True
+    except NotImplementedError:
+        return False
 
 def specify_state(country):
     """
