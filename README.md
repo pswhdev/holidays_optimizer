@@ -14,18 +14,18 @@ Visit the deployed program: [Holidays Optimizer](https://holidays-optimizer-02bf
 
 This program assists users in planning their vacation time by identifying public holidays within a specified period and suggesting optimal days for taking time off. Its goal is to maximize extended breaks around these holidays.
 
-# User Experience 
+## User Experience 
   
-## User Goals
+### User Goals
 - As a user, I want an attractive and engaging application.
 - As a user, I want clear instructions provided throughout the application.
 - As a user, I want feedback confirming my choices of country, state, and selected period.
 - As a user, I want to be able to re-enter data entered by mistake during the process without having to restart the program.
 - As a user, I want a clear and sorted output of the suggested vacation dates.
 
-# Creation Process   
+## Creation Process   
 
-## Project planning
+### Project planning
 
 My idea for this project was to develop a program that, when provided with user-specified dates, automatically pinpoints public holidays and recommends bridge days, which are strategically chosen to effectively prolong holiday breaks, to be taken as vacations optimizing the break periods by using less vacation.
 
@@ -38,12 +38,12 @@ Reseraching online I found that in order to offer the product to a wider range o
 - Implement input validation to ensure that no empty spaces or inappropriate date formats or date ranges are accepted.
 - Produce clear output with a sorted list of dates, serving as suggestions for vacation dates.
 
-## Flowchart   
+### Flowchart   
 To help with planning my project, I used [Lucidchart](https://www.lucidchart.com/pages/) to produce a flowchart and organize the flow of the program.
 
 ![Holiday Optimizer initial FlowChart](documentation/initial-flowchart.png)  
 
-## Development
+### Development
 
 I began by developing functions to collect user input for the country and state (if available).
 
@@ -68,18 +68,18 @@ ASCII art was used using the [pyfiglet module](https://pypi.org/project/pyfiglet
 
 ![ASCII Art](documentation/ascii-art.png)
 
-## Colors scheme
+### Colors scheme
 
 The [Rich python library](https://rich.readthedocs.io/en/stable/introduction.html) was utilized to craft a vibrant and engaging user interface. Colors were incorporated to aid in localization during program execution on the CLI, as well as to provide visual feedback.
 
 By establishing a consistent color scheme throughout the application, users can predict what to expect. This predictability enhances usability and overall user experience.
 
-### Green
+#### Green
 
 All feedback of choices and results are printed in green. The color green is commonly linked with positivity, success, and affirmation. By employing green for feedback messages, the application provides a clear and unmistakable signal of valid choices made by the user. This assists users in distinguishing between successful interactions and potential errors or warnings with ease.
 ![Green feedback](documentation/green-feedback.png)
 
-### Yellow
+#### Yellow
 
 Yellow was used when listing the states of a country because it is a color that stands out among several white lines in the CLI.
 ![Yellow listing states](documentation/yellow-states.png)
@@ -87,62 +87,67 @@ Yellow was used when listing the states of a country because it is a color that 
 Yellow was also utilized for feedback indicating that no holidays were present during the selected period, distinguishing it from the green feedback message used when listing the holidays and vacation day suggestions.
 ![Yellow feedback](documentation/yellow-feedback.png)
 
-### Red
+#### Red
 
 Any input provided by the user that fails validation will result in an 'Error' message printed in red. This provides the user with feedback to pay close attention to their input, as invalid data will prevent them from proceeding with the operations.
 ![Red warning](documentation/red-feedback.png)
 
-### Cyan
+#### Cyan
 
 The dates are displayed in cyan, standing out from the rest of the content.
 ![Cyan dates](documentation/cyan-dates.png)
 
-# Features
+## Features
 
-## Wait for a keypress
+### Wait for a keypress
 
 The size of the CLI application is limited, so to allow the user to see the ASCII art, I used a handy feature: an input function that waits for the user to press 'Enter' before the screen scrolls down and the first prompt appears.
 
 ![Press Enter line](documentation/press-enter.png)
 
-## Autocomplete
+### Autocomplete
 
 To enhance user experience during country selection, I implemented autocomplete functionality using the [Python Prompt Toolkit](https://python-prompt-toolkit.readthedocs.io/en/master/) library. This feature enables users to efficiently choose a country from a dropdown list using arrow keys or the Tab key on the keyboard. Additionally, it significantly reduces the likelihood of typing errors.
 ![Autocomplete feature example](documentation/autocomplete.png)
 
-## Validation of entered data
+### Validation of entered data
 
 After the user provides information as prompted by the program, this input is subjected to a validation process to confirm its correctness before proceeding. In cases where the input is invalid, such as an empty field or a numerical entry where text is expected, the error is identified, and the user receives a clear message explaining the discrepancy. Subsequently, they are prompted to re-enter the information correctly. A few examples of error messages are depicted below.
 ![Handling of invalid entry examples](documentation/validation-error-messages.png)
 
-## Confirmation after each input
+### Confirmation after each input
 
 After input validation, the user receives a confirmation message along with the option to either revise their choice or confirm it. This step enhances the user experience by allowing corrections without the need to restart the program.
 ![Confirmation step example](documentation/date-confirmation.png)
 
-## Clear display of results
+### Clear display of results
 
 The results are displayed in a concise, clear, and understandable format. The holidays for the selected country are listed, followed by the suggested vacation days to be taken off in order to maximize the work break time. The suggested periods for block leave are presented as lines of dates, separated by commas. Additionally, these blocks of suggestions are thoughtfully sorted by date for easy reference.
 ![Result screenshot](documentation/result.png)
 
-## Restart option
+### Restart option
 
 After receiving the results for an inquiry, the user is presented with the option to either initiate a new inquiry or conclude the program. This feature was incorporated to offer sense of control, accommodating users who have multiple queries without the need to restart the program, while also providing a straightforward way to exit for those who have completed their task. It streamlines the user experience, making the application more efficient and user-friendly.
 ![Restart feature screenshot](documentation/restart.png)
 
-## Thank you message
+### Thank you message
 
 A short thank you message was added to provide a personal touch and to mark a clear end to an interaction, giving a sense of closure to the user's experience.
 ![Thank you message](documentation/thank-you-message.png)
 
-## Known Limitation and Future Feature
+### Known Limitation and Future Feature
 
 Not all countries have Saturday and Sunday as weekend days. Some countries have Friday and Saturday, while others have Thursday and Friday as their weekends. Consequently, a valuable future feature would be to incorporate the ability to select from these varying weekend options.
 
-# Technologies Used 
+## Technologies Used
+
+### Languages used
+
    - HTML5 - provide within the Code Institute's [Python Essentials template](https://github.com/Code-Institute-Org/python-essentials-template) 
    - JavaScript - same as above.
    - Python - Python code written is my own.
+
+### Programs Used
    - [Lucidchart](https://www.lucidchart.com/pages/) - used to create the flowchart needed during project planning.
    - [GitHub](https://github.com/) - used for hosting the program's source code.
    - [VSCode](https://code.visualstudio.com/) - used as a workspace for developing the code and testing the program.
@@ -150,3 +155,10 @@ Not all countries have Saturday and Sunday as weekend days. Some countries have 
    - [Heroku](https://heroku.com/apps) - used for deploying the project.
    - [PEP8 Validator](https://pep8ci.herokuapp.com/#) - used for validating the Python code.
    - [Tiny PNG](https://tinypng.com/) - used to compress images.
+
+### Libraries Used
+ - [holidays](https://pypi.org/project/holidays/) - To get the holidays by country
+ - [datetime](https://docs.python.org/3/library/datetime.html) - To work with dates
+ - [pyfiglet](https://pypi.org/project/pyfiglet/) - For the ASCII art
+ - [rich](https://rich.readthedocs.io/en/stable/introduction.html#) - To add color to the text
+ - [prompt_toolkit](https://python-prompt-toolkit.readthedocs.io/en/master/) - For the autocomplete
