@@ -59,6 +59,31 @@ With these changes during the process the resulting flowchart was slightly chang
 
 ![Holiday Optimizer final FlowChart](documentation/flowchart-final.png)
 
+For the main logic of how the program should work, I sketched out three consecutive weeks on paper to map out the various possibilities based on which day of the week the holiday falls on. Initially, my plan was to offer different suggestions, including one and two days around the public holidays, regardless of which workdays they fall on. For example, if a holiday falls on a Tuesday, the suggestions would not only include the preceding Monday but also additional days such as Monday and Wednesday, allowing for an extended break of five days by taking two days off. Additionally, the suggestions would include the option of taking Friday of the preceding week off as well as the subsequent Monday. The suggestions also included four days on special scenarios where there are holidays on both a Friday and the subsequent Monday, resulting in a 10 days break by taking only four vacation days.
+
+The scheme below illustrates the sketches I created. The blue indicates the weekend days (Saturday and Sunday). The orange marks the various possibilities for holidays on different weekdays, while the green represents the suggested vacation days to extend the work break period. Light green would be the alternative of additional suggestions to further extend the breaks by taking an extra day.
+
+![Initial plan for the logic](documentation/logic-before.png)
+
+After developing and testing the program based on this logic, it became apparent to me that the resulting output contained excessive information, which, although easy to comprehend, lacked simplicity. Additionally, I felt that it was deviating slightly from the main objective of identifying bridge days between public holidays and weekends to extend free time. At that time, several issues arose:
+
+The program failed to consider the distances between holidays, sometimes suggesting vacation days that coincided with existing public holidays.
+If a public holiday fell very close to the range of days entered, some suggestions could potentially extend beyond the specified range.
+
+In the picture below, on the left, the result provided by the program can be observed, while on the right, the suggested dates are highlighted on a calendar. The "bridge" days are marked in green, alternative extra days in blue, and dates that were already public holidays are highlighted in red. Additionally, the dates marked in red on the results list on the left are those that fall outside the provided range.
+
+![Result initial logic](documentation/bahamas-res-cal-before.png)
+
+When I began thinking about how to address the issues, it became increasingly evident that my code required refactoring with a different approach. This decision was far from easy, given the considerable energy invested in planning and developing the initial logic. However, I opted to revise my approach and focus solely on identifying the working days between holidays and weekends.
+
+The scheme below illustrates this revised concept, employing the same color scheme as described in the first logic.
+
+![Revised plan for the logic](documentation/logic-final.png)
+
+The outcome of the new approach (picture below) was significantly more straightforward, clear, and easy to understand, making more sense in its presentation. While it could be argued that fewer days are being suggested, I believe this method aligns more precisely with the users expectations when using such a tool.
+
+![Result final logic](documentation/bahamas-res-calendar.png)
+
 
 ## Design Choices
 
@@ -241,10 +266,10 @@ Text revisions were made with the assistance from ChatGPT.
 
 ### Acknowledgments
 
-I would like to express my gratitude to the following individuals:
+I would like to express my gratitude to:
 
-- Jubril Akolade, my mentor, for providing his support and guidance.
 - My family for testing the program and giving feedback.
 - The Cohort Facilitators Kristyna Wach and Amy RichardsonMy as well as my fellow Code Institute students who have provided great support.
+- Jubril Akolade, my mentor, for providing his support and guidance.
 
 [Back to Top](#holidays-optimizer)
