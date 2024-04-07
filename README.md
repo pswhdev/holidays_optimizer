@@ -36,11 +36,12 @@ Visit the deployed program: [Holidays Optimizer](https://holidays-optimizer-02bf
         - [How to Fork](#how-to-fork)
         - [How to Clone](#how-to-clone)
 - [Testing](#testing)
+- [Fixed bugs](#fixed-bugs)
+- [Existing bugs](#existing-bugs)
 - [Credits](#credits)
     - [Code](#code)
     - [Content](#content)
     - [Acknowledgments](#acknowledgments)
-
 
 
 ## Introduction
@@ -92,7 +93,13 @@ With these changes during the process the resulting flowchart was slightly chang
 
 ![Holiday Optimizer final FlowChart](documentation/flowchart-final.png)
 
-For the main logic of how the program should work, I sketched out three consecutive weeks on paper to map out the various possibilities based on which day of the week the holiday falls on. Initially, my plan was to offer different suggestions, including one and two days around the public holidays, regardless of which workdays they fall on. For example, if a holiday falls on a Tuesday, the suggestions would not only include the preceding Monday but also additional days such as Monday and Wednesday, allowing for an extended break of five days by taking two days off. Additionally, the suggestions would include the option of taking Friday of the preceding week off as well as the subsequent Monday. The suggestions also included four days on special scenarios where there are holidays on both a Friday and the subsequent Monday, resulting in a 10 days break by taking only four vacation days.
+For the main logic of how the program should work, I sketched out three consecutive weeks on paper to map out the various possibilities based on which day of the week the holiday falls on. Initially, my plan was to offer different suggestions, including one and two days around the public holidays, regardless of which workdays they fall on.
+
+For example, if a holiday falls on a Tuesday, the suggestions would not only include the preceding Monday but also additional days such as Monday and Wednesday, allowing for an extended break of five days by taking two days off.
+
+Allways having in mind that the duration of the extended break, which includes both public holidays and vacation days, should be at least twice as long as the number of suggested vacation days.
+
+Additionally, the suggestions would include the option of taking Friday of the preceding week off as well as the subsequent Monday. The suggestions also included four days on special scenarios where there are holidays on both a Friday and the subsequent Monday, resulting in a 10 days break by taking only four vacation days.
 
 The scheme below illustrates the sketches I created. The blue indicates the weekend days (Saturday and Sunday). The orange marks the various possibilities for holidays on different weekdays, while the green represents the suggested vacation days to extend the work break period. Light green would be the alternative of additional suggestions to further extend the breaks by taking an extra day.
 
@@ -116,7 +123,6 @@ The scheme below illustrates this revised concept, employing the same color sche
 The outcome of the new approach (picture below) was significantly more straightforward, clear, and easy to understand, making more sense in its presentation. While it could be argued that fewer days are being suggested, I believe this method aligns more precisely with the users expectations when using such a tool.
 
 ![Result final logic](documentation/bahamas-res-calendar.png)
-
 
 ## Design Choices
 
@@ -273,6 +279,25 @@ To clone the repository:
 ## Testing
 
 Please refer to [TESTING.md](TESTING.md) file for details on all testing conducted.
+
+## Fixed bugs
+1. When a country that does not have a list of states available in the library, an error occurred. To solve the issue, I modified the specify_state function to return None if there were no states to be selected from. Additionally, I assigned selected_state as None by default in the functions that had a state as a parameter.
+
+2. After being prompted to confirm the choice of period and pressing "n" and entering new dates, I noticed that the same dates chosen on the first prompt were being printed on the terminal for confirmation instead of the new dates. This issue occurred because the dates weren't being returned in the "no" block of the confirmation function. To address this problem, I modified the return statement within the function to include the newly selected dates. Additionally, I added the lines "start_date, end_date = validate_dates(start_date, end_date)" and "start_date, end_date = confirm_dates(start_date, end_date)" to the main() function. This ensures that the main function receives the validated and confirmed dates directly from their respective functions, allowing them to be used for the next steps of the code.
+
+3. After receiving feedback from peer reviewers, I decided to split the functions for obtaining, validating, confirming dates, and handling newly chosen dates. This approach allows for handling wrong inputs on the end day separately from the start date, thereby improving the user experience. Previously, the user was prompted to choose the start date again even if the start date was valid and correct, but the user had made a mistake while entering the end date.
+
+4. During the testing phase, it was observed that the country wasn't changing after selecting another country, and the list of states was shown for the first country selected. To address this issue, I combined the two functions responsible for obtaining and confirming the country and state into one. This resulted in more concise code, and only one value would be returned to the main() function fixing the problem.
+
+5. While I was testing the program, I noticed by chance that some countries, such as Sweden, have Sunday saved as a holiday in the holidays library. To address this, I added a condition within the function to exclude Sundays from the list of holidays if it is not specified as a holiday. However, there may be other countries with similar configurations, in which case Sundays will be listed as holidays when the function check_holidays runs.
+
+6.While testing, I noticed that if I input a range of only one day, the program would suggest both the start date and end date as vacation days for time off optimization. To resolve this issue, I implemented a conditional to suggest dates only if public holidays are found during the selected period.
+
+7. During testing, I encountered an issue where if I pressed "r" to make a new inquiry at the end of the program, it would run again. However, after the second time it ran, if I then chose "f" to finish the program, I would still get the message "thank you for using..." but I would be prompted again to press "r" or "f". To fix this, I removed the what_next() function from the main() function.
+
+
+## Existing bugs
+To the best of my knowledge, there are no bugs in the program.
 
 ## Credits
 
