@@ -51,9 +51,25 @@ Restart or finish program	|	User enters anything other than "r" or "f"	|	Error m
 Restart or finish program	|	User presses "r"	|	Program restarts from the beginning on the logo screen
 Restart or finish program	|	User presses "f"	|	Program finishes and a thank you message is displayed
 
-### User Stories
+### Testing User Stories
 
+- As a user, I want an attractive and engaging application.
+    - Rich library used to produce text with engaging colours and meaning  
+       - GREEN  for choice confirmation and result displays
+       - YELLOW to highlight important information and draw the user's attention to it
+       - RED for invalid input
+       - CYAN to highlight the dates
 
+- As a user, I want clear instructions provided throughout the application.
+    - During the programs execution clear instructions are given every step of the way.
+
+- As a user, I want feedback confirming my choices of country, state, and selected period.
+    - After entering data, the user is prompted with a message confirming the input.
+- As a user, I want to be able to re-enter data entered by mistake during the process without having to restart the program.
+    - After each input, the user is prompted to confirm their choice and given the chance to re-enter a new option if desired.
+- As a user, I want a clear and sorted output of the suggested vacation dates.
+    - The final results of the program are displayed as a clear list of blocks of suggestions, presenting vacation days to be taken sorted by date.
+    
 
 ## Fixed bugs
 

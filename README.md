@@ -152,7 +152,7 @@ Any input provided by the user that fails validation will result in an 'Error' m
 
 #### Cyan
 
-The dates are displayed in cyan, standing out from the rest of the content.
+The dates are automatically displayed in cyan and this configuration was left unchanged to allow the dates to stand out from the rest of the content.
 ![Cyan dates](documentation/cyan-dates.png)
 
 ## Features
