@@ -340,7 +340,7 @@ def check_holidays(start_date, end_date, country, state=None):
         check_date += timedelta(days=1)
     if not holiday_dict:
         print(
-            "\n[bright_yellow]There are no holidays during the selected"
+            "\n[bright_yellow]There are no holidays during the selected "
             "period in your area.[/bright_yellow]"
         )
     else:
