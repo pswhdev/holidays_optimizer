@@ -36,7 +36,7 @@ def prints_logo():
 
     # Wait for the user to press enter
     # (https://pieriantraining.com/how-to-wait-for-a-keypress-in-python/)
-    input("Press enter to continue...")
+    input("Press Enter to continue...")
 
 
 # Creates a WordCompleter object named country_completer. Uses the keys
