@@ -145,7 +145,7 @@ def specify_state(country):
         if country in database.states_by_country:
             # Displays available states for the given country
             print(
-                f"[bright_yellow]States or territories in {country}:"
+                f"[bright_yellow]States or territories in {country}: "
                 f"[/bright_yellow] "
                 f"{', '.join(database.states_by_country[country])}"
             )
