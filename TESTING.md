@@ -1,5 +1,14 @@
 # Testing
 
+## Testing Contents
+
+- [Validation](#validation)
+- [Manual Testing](#manual-testing)
+    - [Full Testing](#full-testing)
+- [Testing User Stories](#testing-user-stories)
+- [Back to README](README.md)
+
+
 ## Validation
 
 The code underwent validation using the Code Institute's Pep8 Linter with no errors detected. The validation result is provided below:
@@ -53,7 +62,7 @@ Restart or finish program	|	User enters anything other than "r" or "f"	|	Error m
 Restart or finish program	|	User presses "r"	|	Program restarts from the beginning on the logo screen
 Restart or finish program	|	User presses "f"	|	Program finishes and a thank you message is displayed
 
-### Testing User Stories
+## Testing User Stories
 
 - As a user, I want an attractive and engaging application.
     - Rich library used to produce text with engaging colours and meaning  
