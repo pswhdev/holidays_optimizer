@@ -388,7 +388,7 @@ def find_blocks(start_date, end_date, holidays):
                 workday_blocks.append(current_workday_block)
             current_workday_block = []
         # Increments current_date by one day
-        #https://docs.python.org/3/library/datetime.html#timedelta-objects
+        # https://docs.python.org/3/library/datetime.html#timedelta-objects
         current_date += timedelta(days=1)
     # Appends the final block if it includes workdays after looping.
     if current_workday_block:
