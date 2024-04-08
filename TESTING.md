@@ -4,10 +4,9 @@
 
 - [Validation](#validation)
 - [Manual Testing](#manual-testing)
-    - [Full Testing](#full-testing)
+  - [Full Testing](#full-testing)
 - [Testing User Stories](#testing-user-stories)
 - [Back to README](README.md)
-
 
 ## Validation
 
@@ -29,57 +28,58 @@ To test the results given by the program, I randomly chose three countries: Germ
 
 I set the date range period to 366 days for a year instead of 365. This was done to make it easier for the user to plan for a full year, from the first day to the first day, and to account for leap years at the same time.
 
-To visit the deployed project live link click [HERE](https://holidays-optimizer-02bf64773985.herokuapp.com/) - ***Use Ctrl (Cmd) and click to open in a new window.*** 
+To visit the deployed project live link click [HERE](https://holidays-optimizer-02bf64773985.herokuapp.com/) - **_Use Ctrl (Cmd) and click to open in a new window._**
 
 ### Full Testing
 
- **Feature**   	|	 **Action**                    	|	 **Expected Result**          	|	 **Actual Result** 
- ------------- 	|	 ----------------------------- 	|	 ---------------------------- 	|	 ----------------- 
-Logo Screen	|	Logo screen is displayed with message to press enter to continue	|	The logo screen remains displayed until the user presses Enter	|	 Works as expected 
-Welcome message	|	Press Enter	|	Welcome message and introduction appears when the Enter key is pressed followed by prompt to choose country	|	 Works as expected 
- Country input 	|	User enters a number	|	Error message "Invalid input. Please enter a valid country name (text, not a number)." Prompt to enter a country	|	 Works as expected 
- Country input 	|	User enters wrong country name or random text	|	Error message "Invalid input. Please enter a valid country name in English." Prompt to enter a country	|	 Works as expected 
- Country input 	|	User enters space or just presses Enter	|	Error message "Invalid input. Input cannot be empty. Please enter a country." Prompt to enter a country	|	 Works as expected 
- Country input 	|	User enters a country	|	Feedback of chosen country followed by prompt to confirm country choice	|	 Works as expected 
-Confirmation of chosen country 	|	User enters anything other than "y" or "n"	|	User is promt to enter "y" or "n"	|	 Works as expected 
-Confirmation of chosen country 	|	User enters "n"	|	User is prompt to enter a country	|	 Works as expected 
-Confirmation of chosen country 	|	User enters "y"	|	If country is supported by the library, user is prompt to enter a start date. If not Error message "Sorry, the country <country's name> is not available in our system". User is then prompt to enter a country again	|	 Works as expected 
-Enter start date	|	User enters anything other than a date in the specified format DD-MM-YYYY	|	Error message "Invalid date format. Please enter the date in DD-MM-YYYY format." Prompt to enter a start date	|	 Works as expected 
-Enter start date	|	User enters space, text or just presses Enter	|	Error message "Invalid date format.  Please enter the date in DD-MM-YYYY format. Prompt to enter a start date	|	 Works as expected 
-Enter start date	|	User enters a date in the past	|	Error message "You cannot choose a date in the past. Today is <today's date>. Please choose a date in the future." Prompt to enter a start date	|	 Works as expected 
-Enter start date	|	User enters a date far in the future (more than ten years from current date)	|	Error message "The selected date is too far in the future. Today is <today's date>. Please choose a date within the next 10 years." Prompt to enter a start date	|	 Works as expected 
-Enter start date	|	User enters valid date	|	User is prompt to enter an end date	|	 Works as expected 
-Enter end date	|	User enters anything other than a date in the specified format DD-MM-YYYY	|	Error message "Invalid date format. Please enter the date in DD-MM-YYYY format." Prompt to enter end date	|	 Works as expected 
-Enter end date	|	User enters space, text or just presses Enter	|	Error message "Invalid date format.  Please enter the date in DD-MM-YYYY format." Prompt to enter end date	|	 Works as expected 
-Enter end date	|	User enters a date in the past	|	Error message "You cannot choose a date in the past. Today is <today's date>. Please choose a date in the future." Prompt to enter end date	|	 Works as expected 
-Enter end date	|	User enters a date far in the future (more than ten years from current date)	|	Error message "The selected date is too far in the future. Today is <today's date>. Please choose a date within the next 10 years." Prompt to enter end date	|	 Works as expected 
-Enter end date	|	User enters a date more than one year and less than ten years in the future	|	Error message "Invalid choice.  Please enter dates that are maximum one year apart." Prompt to enter new start date	|	 Works as expected 
-Enter end date	|	User enters valid date	|	Feedback of chosen dates followed by prompt to confirm period	|	 Works as expected 
-Confirmation of chosen period 	|	User enters anything other than "y" or "n"	|	Error message "Invalid input. Please enter 'y' for yes or 'n' for no." Confirmation of period is dispayed one more time and the user is prompt to enter 'y' or 'n'	|	 Works as expected 
-Confirmation of chosen period 	|	User enters "n"	|	Prompt to choose start date	|	 Works as expected 
-Confirmation of chosen period 	|	User enters "y"	|	Program runs and results are displayed. User is offered the possibility of restarting the program by pessing "r" or finish the progam by pressing "f"	|	 Works as expected 
-Restart or finish program	|	User enters anything other than "r" or "f"	|	Error message "Invalid entry." Prompt to enter "r" or "f"	|	 Works as expected 
-Restart or finish program	|	User presses "r"	|	Program restarts from the beginning on the logo screen	|	 Works as expected 
-Restart or finish program	|	User presses "f"	|	Program finishes and a thank you message is displayed	|	 Works as expected 
+| **Feature**                    | **Action**                                                                   | **Expected Result**                                                                                                                                                                                                   | **Actual Result** |
+| ------------------------------ | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| Logo Screen                    | Logo screen is displayed with message to press enter to continue             | The logo screen remains displayed until the user presses Enter                                                                                                                                                        | Works as expected |
+| Welcome message                | Press Enter                                                                  | Welcome message and introduction appears when the Enter key is pressed followed by prompt to choose country                                                                                                           | Works as expected |
+| Country input                  | User enters a number                                                         | Error message "Invalid input. Please enter a valid country name (text, not a number)." Prompt to enter a country                                                                                                      | Works as expected |
+| Country input                  | User enters wrong country name or random text                                | Error message "Invalid input. Please enter a valid country name in English." Prompt to enter a country                                                                                                                | Works as expected |
+| Country input                  | User enters space or just presses Enter                                      | Error message "Invalid input. Input cannot be empty. Please enter a country." Prompt to enter a country                                                                                                               | Works as expected |
+| Country input                  | User enters a country                                                        | Feedback of chosen country followed by prompt to confirm country choice                                                                                                                                               | Works as expected |
+| Confirmation of chosen country | User enters anything other than "y" or "n"                                   | User is promt to enter "y" or "n"                                                                                                                                                                                     | Works as expected |
+| Confirmation of chosen country | User enters "n"                                                              | User is prompt to enter a country                                                                                                                                                                                     | Works as expected |
+| Confirmation of chosen country | User enters "y"                                                              | If country is supported by the library, user is prompt to enter a start date. If not Error message "Sorry, the country <country's name> is not available in our system". User is then prompt to enter a country again | Works as expected |
+| Enter start date               | User enters anything other than a date in the specified format DD-MM-YYYY    | Error message "Invalid date format. Please enter the date in DD-MM-YYYY format." Prompt to enter a start date                                                                                                         | Works as expected |
+| Enter start date               | User enters space, text or just presses Enter                                | Error message "Invalid date format. Please enter the date in DD-MM-YYYY format. Prompt to enter a start date                                                                                                          | Works as expected |
+| Enter start date               | User enters a date in the past                                               | Error message "You cannot choose a date in the past. Today is <today's date>. Please choose a date in the future." Prompt to enter a start date                                                                       | Works as expected |
+| Enter start date               | User enters a date far in the future (more than ten years from current date) | Error message "The selected date is too far in the future. Today is <today's date>. Please choose a date within the next 10 years." Prompt to enter a start date                                                      | Works as expected |
+| Enter start date               | User enters valid date                                                       | User is prompt to enter an end date                                                                                                                                                                                   | Works as expected |
+| Enter end date                 | User enters anything other than a date in the specified format DD-MM-YYYY    | Error message "Invalid date format. Please enter the date in DD-MM-YYYY format." Prompt to enter end date                                                                                                             | Works as expected |
+| Enter end date                 | User enters space, text or just presses Enter                                | Error message "Invalid date format. Please enter the date in DD-MM-YYYY format." Prompt to enter end date                                                                                                             | Works as expected |
+| Enter end date                 | User enters a date in the past                                               | Error message "You cannot choose a date in the past. Today is <today's date>. Please choose a date in the future." Prompt to enter end date                                                                           | Works as expected |
+| Enter end date                 | User enters a date far in the future (more than ten years from current date) | Error message "The selected date is too far in the future. Today is <today's date>. Please choose a date within the next 10 years." Prompt to enter end date                                                          | Works as expected |
+| Enter end date                 | User enters a date more than one year and less than ten years in the future  | Error message "Invalid choice. Please enter dates that are maximum one year apart." Prompt to enter new start date                                                                                                    | Works as expected |
+| Enter end date                 | User enters valid date                                                       | Feedback of chosen dates followed by prompt to confirm period                                                                                                                                                         | Works as expected |
+| Confirmation of chosen period  | User enters anything other than "y" or "n"                                   | Error message "Invalid input. Please enter 'y' for yes or 'n' for no." Confirmation of period is dispayed one more time and the user is prompt to enter 'y' or 'n'                                                    | Works as expected |
+| Confirmation of chosen period  | User enters "n"                                                              | Prompt to choose start date                                                                                                                                                                                           | Works as expected |
+| Confirmation of chosen period  | User enters "y"                                                              | Program runs and results are displayed. User is offered the possibility of restarting the program by pessing "r" or finish the progam by pressing "f"                                                                 | Works as expected |
+| Restart or finish program      | User enters anything other than "r" or "f"                                   | Error message "Invalid entry." Prompt to enter "r" or "f"                                                                                                                                                             | Works as expected |
+| Restart or finish program      | User presses "r"                                                             | Program restarts from the beginning on the logo screen                                                                                                                                                                | Works as expected |
+| Restart or finish program      | User presses "f"                                                             | Program finishes and a thank you message is displayed                                                                                                                                                                 | Works as expected |
 
 ## Testing User Stories
 
 - As a user, I want an attractive and engaging application.
-    - Rich library used to produce text with engaging colours and meaning  
-       - GREEN  for choice confirmation and result displays
-       - YELLOW to highlight important information and draw the user's attention to it
-       - RED for invalid input
-       - CYAN to highlight the dates
+
+  - Rich library used to produce text with engaging colours and meaning
+    - GREEN for choice confirmation and result displays
+    - YELLOW to highlight important information and draw the user's attention to it
+    - RED for invalid input
+    - CYAN to highlight the dates
 
 - As a user, I want clear instructions provided throughout the application.
-    - During the programs execution clear instructions are given every step of the way.
+
+  - During the programs execution clear instructions are given every step of the way.
 
 - As a user, I want feedback confirming my choices of country, state, and selected period.
-    - After entering data, the user is prompted with a message confirming the input.
+  - After entering data, the user is prompted with a message confirming the input.
 - As a user, I want to be able to re-enter data entered by mistake during the process without having to restart the program.
-    - After each input, the user is prompted to confirm their choice and given the chance to re-enter a new option if desired.
+  - After each input, the user is prompted to confirm their choice and given the chance to re-enter a new option if desired.
 - As a user, I want a clear and sorted output of the suggested vacation dates.
-    - The final results of the program are displayed as a clear list of blocks of suggestions, presenting vacation days to be taken sorted by date.
-
+  - The final results of the program are displayed as a clear list of blocks of suggestions, presenting vacation days to be taken sorted by date.
 
 [Back to README](README.md)
