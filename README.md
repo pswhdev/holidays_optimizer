@@ -101,11 +101,11 @@ Allways having in mind that the duration of the extended break, which includes b
 
 Additionally, the suggestions would include the option of taking Friday of the preceding week off as well as the subsequent Monday. The suggestions also included four days on special scenarios where there are holidays on both a Friday and the subsequent Monday, resulting in a 10 days break by taking only four vacation days.
 
-The scheme below illustrates the sketches I created. The blue indicates the weekend days (Saturday and Sunday). The orange marks the various possibilities for holidays on different weekdays, while the green represents the suggested vacation days to extend the work break period. Light green would be the alternative of additional suggestions to further extend the breaks by taking an extra day.
+The scheme below illustrates the sketches I created. The blue indicates the weekend days (Saturday and Sunday). The orange marks the various possibilities for holidays on different weekdays, while the green represents the suggested vacation days to extend the work break period. Light green would be the alternative of additional suggestions to further extend the breaks by taking an extra day. The code reflected this strategy literaly, so, the program would check for public holidays within the entered period and if the holiday was on a Monday, suggest Tuesday or Friday of previous week for a one day vacation required for a total of four days break; Monday and Friday or Thursday and Friday of the previous week or Tuesday and Wednesday for a five day break using two vacation days. The same logic was applyed for all days of the week.
 
 ![Initial plan for the logic](documentation/logic-before.png)
 
-After developing and testing the program based on this logic, it became apparent to me that the resulting output contained excessive information, which, although easy to comprehend, lacked simplicity. Additionally, I felt that it was deviating slightly from the main objective of identifying bridge days between public holidays and weekends to extend free time. At that time, several issues arose:
+After developing and testing the program based on this logic, it became apparent to me that the resulting output contained excessive information, which, although easy to comprehend, lacked simplicity and could be overwhelming for the user. Additionally, I felt that it was deviating slightly from the main objective of identifying bridge days between public holidays and weekends to extend free time. At that time, a few issues arose:
 
 The program failed to consider the distances between holidays, sometimes suggesting vacation days that coincided with existing public holidays.
 If a public holiday fell very close to the range of days entered, some suggestions could potentially extend beyond the specified range.
@@ -114,7 +114,7 @@ In the picture below, on the left, the result provided by the program can be obs
 
 ![Result initial logic](documentation/bahamas-res-cal-before.png)
 
-When I began thinking about how to address the issues, it became increasingly evident that my code required refactoring with a different approach. This decision was far from easy, given the considerable energy invested in planning and developing the initial logic. However, I opted to revise my approach and focus solely on identifying the working days between holidays and weekends.
+When I began thinking about how to address the issues, it became increasingly evident that my code required refactoring with a different approach. This decision was far from easy, given the considerable energy invested in planning and developing the initial logic. However, I opted to revise my approach and re-think the whole strategy. This time I considered the weekends and public holidays as non working days and looked for how many workdays were present between two non working days during the given period.
 
 The scheme below illustrates this revised concept, employing the same color scheme as described in the first logic.
 
