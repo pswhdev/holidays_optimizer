@@ -229,7 +229,8 @@ def get_date(message):
             return selected_date
         except ValueError as e:
             # Checks if the user's input is anything other than the requested
-            # date format and promts for the correct format
+            # date format (error containing "time data" on the text) and
+            # promts for the correct format
             if "time data" in str(e):
                 print(
                     "[bright_red]Invalid date format.[/bright_red] Please "
