@@ -1,63 +1,64 @@
 # Holidays Optimizer
+
 ![Holiday Optimizer logo](documentation/logo-screen.png)
 
 The "Holidays Optimizer" is a user-friendly program designed to help the user make the most out of their vacation days. It cleverly identifies public holidays within a given time frame and suggests the best days to take off from work. This way, regular holidays can be extended into longer breaks. The program is especially useful to maximize time off without using up too many leave days. By aligning vacation with existing public holidays, and considering weekends, it helps to achieve longer periods of leisure.
 
-Visit the deployed program: [Holidays Optimizer](https://holidays-optimizer-02bf64773985.herokuapp.com/) - ***Use Ctrl (Cmd) and click to open in a new window.*** 
+Visit the deployed program: [Holidays Optimizer](https://holidays-optimizer-02bf64773985.herokuapp.com/) - **_Use Ctrl (Cmd) and click to open in a new window._**
 
 ## Contents
 
 - [Introduction](#introduction)
 - [User Experience](#user-experience)
-    - [User Goals](#user-goals)
+  - [User Goals](#user-goals)
 - [Creation Process](#creation-process)
-    - [Project Planning](#project-planning)
-    - [Flowchart](#flowchart)
-    - [Development](#development)
-    - [Design Choices](#design-choices)
+  - [Project Planning](#project-planning)
+  - [Flowchart](#flowchart)
+  - [Development](#development)
+  - [Design Choices](#design-choices)
 - [Features](#features)
-    - [Wait for a Keypress](#wait-for-a-keypress)
-    - [Short introduction](#short-introduction)
-    - [Autocomplete](#autocomplete)
-    - [Validation of Entered Data](#validation-of-entered-data)
-    - [Confirmation After Each Input](#confirmation-after-each-input)
-    - [Clear Display of Results](#clear-display-of-results)
-    - [Restart Option](#restart-option)
-    - [Thank You Message](#thank-you-message)
-    - [Known Limitations and Future Features](#known-limitations-and-future-features)
+  - [Wait for a Keypress](#wait-for-a-keypress)
+  - [Short introduction](#short-introduction)
+  - [Autocomplete](#autocomplete)
+  - [Validation of Entered Data](#validation-of-entered-data)
+  - [Confirmation After Each Input](#confirmation-after-each-input)
+  - [Clear Display of Results](#clear-display-of-results)
+  - [Restart Option](#restart-option)
+  - [Thank You Message](#thank-you-message)
+  - [Known Limitations and Future Features](#known-limitations-and-future-features)
 - [Technologies Used](#technologies-used)
-    - [Languages Used](#languages-used)
-    - [Programs Used](#programs-used)
-    - [Libraries Used](#libraries-used)
+  - [Languages Used](#languages-used)
+  - [Programs Used](#programs-used)
+  - [Libraries Used](#libraries-used)
 - [Deployment and Local Deployment](#deployment-and-local-deployment)
-    - [Deployment](#deployment)
-        - [Heroku](#heroku)
-    - [Local Deployment](#local-deployment)
-        - [How to Fork](#how-to-fork)
-        - [How to Clone](#how-to-clone)
+  - [Deployment](#deployment)
+    - [Heroku](#heroku)
+  - [Local Deployment](#local-deployment)
+    - [How to Fork](#how-to-fork)
+    - [How to Clone](#how-to-clone)
 - [Testing](#testing)
 - [Fixed bugs](#fixed-bugs)
-- [Existing bugs](#existing-bugs)
+- [Known bugs](#known-bugs)
 - [Credits](#credits)
-    - [Code](#code)
-    - [Content](#content)
-    - [Acknowledgments](#acknowledgments)
-
+  - [Code](#code)
+  - [Content](#content)
+  - [Acknowledgments](#acknowledgments)
 
 ## Introduction
 
 This program assists users in planning their vacation time by identifying public holidays within a specified period and suggesting optimal days for taking time off. Its goal is to maximize extended breaks around these holidays.
 
-## User Experience 
-  
+## User Experience
+
 ### User Goals
+
 - As a user, I want an attractive and engaging application.
 - As a user, I want clear instructions provided throughout the application.
 - As a user, I want feedback confirming my choices of country, state, and selected period.
 - As a user, I want to be able to re-enter data entered by mistake during the process without having to restart the program.
 - As a user, I want a clear and sorted output of the suggested vacation dates.
 
-## Creation Process   
+## Creation Process
 
 ### Project planning
 
@@ -65,17 +66,18 @@ My idea for this project was to develop a program that, when provided with user-
 
 Reseraching online I found that in order to offer the product to a wider range of users, I have decided to use a [holidays library](https://pypi.org/project/holidays/) available for Python, which includes holidays from many different countries.
 
- My main goals for the application were to:
+My main goals for the application were to:
 
 - Obtain location input from the user, including country and state/province or territory (depending on the availability of those in the holidays library).
 - Gather start and end dates from the user to generate a list of holidays within the specified period.
 - Implement input validation to ensure that no empty spaces or inappropriate date formats or date ranges are accepted.
 - Produce clear output with a sorted list of dates, serving as suggestions for vacation dates.
 
-### Flowchart   
+### Flowchart
+
 To help with planning my project, I used [Lucidchart](https://www.lucidchart.com/pages/) to produce a flowchart and organize the flow of the program.
 
-![Holiday Optimizer initial FlowChart](documentation/initial-flowchart.png)  
+![Holiday Optimizer initial FlowChart](documentation/initial-flowchart.png)
 
 ### Development
 
@@ -212,26 +214,27 @@ Not all countries have Saturday and Sunday as weekend days. Some countries have 
 
 ### Languages used
 
-   - HTML5 - provide within the Code Institute's [Python Essentials template](https://github.com/Code-Institute-Org/python-essentials-template) 
-   - JavaScript - same as above.
-   - Python - Python code written is my own with insights from ChatGPT at OpenAI.
+- HTML5 - provide within the Code Institute's [Python Essentials template](https://github.com/Code-Institute-Org/python-essentials-template)
+- JavaScript - same as above.
+- Python - Python code written is my own with insights from ChatGPT at OpenAI.
 
 ### Programs Used
-   - [Lucidchart](https://www.lucidchart.com/pages/) - used to create the flowchart needed during project planning.
-   - [GitHub](https://github.com/) - used for hosting the program's source code.
-   - [VSCode](https://code.visualstudio.com/) - used as a workspace for developing the code and testing the program.
-   - Git - used for version control.
-   - [Heroku](https://heroku.com/apps) - used for deploying the project.
-   - [PEP8 Validator](https://pep8ci.herokuapp.com/#) - used for validating the Python code.
-   - [Tiny PNG](https://tinypng.com/) - used to compress images.
+
+- [Lucidchart](https://www.lucidchart.com/pages/) - used to create the flowchart needed during project planning.
+- [GitHub](https://github.com/) - used for hosting the program's source code.
+- [VSCode](https://code.visualstudio.com/) - used as a workspace for developing the code and testing the program.
+- Git - used for version control.
+- [Heroku](https://heroku.com/apps) - used for deploying the project.
+- [PEP8 Validator](https://pep8ci.herokuapp.com/#) - used for validating the Python code.
+- [Tiny PNG](https://tinypng.com/) - used to compress images.
 
 ### Libraries Used
- - [holidays](https://pypi.org/project/holidays/) - To get the holidays by country
- - [datetime](https://docs.python.org/3/library/datetime.html) - To work with dates
- - [pyfiglet](https://pypi.org/project/pyfiglet/) - For the ASCII art
- - [rich](https://rich.readthedocs.io/en/stable/introduction.html#) - To add color to the text
- - [prompt_toolkit](https://python-prompt-toolkit.readthedocs.io/en/master/) - For the autocomplete
 
+- [holidays](https://pypi.org/project/holidays/) - To get the holidays by country
+- [datetime](https://docs.python.org/3/library/datetime.html) - To work with dates
+- [pyfiglet](https://pypi.org/project/pyfiglet/) - For the ASCII art
+- [rich](https://rich.readthedocs.io/en/stable/introduction.html#) - To add color to the text
+- [prompt_toolkit](https://python-prompt-toolkit.readthedocs.io/en/master/) - For the autocomplete
 
 ## Deployment and Local deployment:
 
@@ -249,7 +252,7 @@ The Application has been deployed from GitHub to Heroku by following the steps:
 6. Add required buildpacks. Set it up so Python will be on top and Node.js on bottom
 7. Go to "Deploy" and select "GitHub" in "Deployment method"
 8. To connect Heroku app to your Github repository code enter your repository name, click 'Search' and then 'Connect' once it is found.
-9.  Choose the branch you want to build your app from
+9. Choose the branch you want to build your app from
 10. Either choose to deploy manually by clicking "Deploy Branch" or click on "Enable Automatic Deploys", which keeps the app up to date with your GitHub repository
 11. Wait for the app to build. Once ready you will see the “App was successfully deployed” message and a 'View' button to take you to your deployed link.
 
@@ -261,26 +264,26 @@ The live link can be found here - [Holidays Optimizer](https://holidays-optimize
 
 To fork the repository:
 
-  - Log in (or sign up) to Github.
-  - Go to the repository for this project, [pswhdev/holidays_optimizer](https://github.com/pswhdev/holidays_optimizer)
-  - Click the Fork button in the top right corner.
+- Log in (or sign up) to Github.
+- Go to the repository for this project, [pswhdev/holidays_optimizer](https://github.com/pswhdev/holidays_optimizer)
+- Click the Fork button in the top right corner.
 
 #### How to Clone
 
 To clone the repository:
 
-  - Log in (or sign up) to GitHub.
-  - Go to the repository for this project, [pswhdev/holidays_optimizer](https://github.com/pswhdev/holidays_optimizer)
-  - Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
-  - Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
-  - Type 'git clone' into the terminal and then paste the link you copied from the repository. Press enter.
-
+- Log in (or sign up) to GitHub.
+- Go to the repository for this project, [pswhdev/holidays_optimizer](https://github.com/pswhdev/holidays_optimizer)
+- Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+- Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
+- Type 'git clone' into the terminal and then paste the link you copied from the repository. Press enter.
 
 ## Testing
 
 Please refer to [TESTING.md](TESTING.md) file for details on all testing conducted.
 
 ## Fixed bugs
+
 1. When a country that does not have a list of states available in the library, an error occurred. To solve the issue, I modified the specify_state function to return None if there were no states to be selected from. Additionally, I assigned selected_state as None by default in the functions that had a state as a parameter.
 
 2. After being prompted to confirm the choice of period and pressing "n" and entering new dates, I noticed that the same dates chosen on the first prompt were being printed on the terminal for confirmation instead of the new dates. This issue occurred because the dates weren't being returned in the "no" block of the confirmation function. To address this problem, I modified the return statement within the function to include the newly selected dates. Additionally, I added the lines "start_date, end_date = validate_dates(start_date, end_date)" and "start_date, end_date = confirm_dates(start_date, end_date)" to the main() function. This ensures that the main function receives the validated and confirmed dates directly from their respective functions, allowing them to be used for the next steps of the code.
@@ -295,8 +298,8 @@ Please refer to [TESTING.md](TESTING.md) file for details on all testing conduct
 
 7. During testing, I encountered an issue where if I pressed "r" to make a new inquiry at the end of the program, it would run again. However, after the second time it ran, if I then chose "f" to finish the program, I would still get the message "thank you for using..." but I would be prompted again to press "r" or "f". To fix this, I removed the what_next() function from the main() function.
 
+## Known bugs
 
-## Existing bugs
 To the best of my knowledge, there are no bugs in the program.
 
 ## Credits
@@ -304,12 +307,14 @@ To the best of my knowledge, there are no bugs in the program.
 ### Code
 
 I used the following tutorials and documentation:
+
 - https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/ for the ASCII art for the logo.
 
 - Tutorials on how to use the holidays library:
-    - https://pypi.org/project/holidays/ - holidays documentation
-    - https://www.javatpoint.com/python-holidays-module
-    - https://www.geeksforgeeks.org/python-holidays-library/
+
+  - https://pypi.org/project/holidays/ - holidays documentation
+  - https://www.javatpoint.com/python-holidays-module
+  - https://www.geeksforgeeks.org/python-holidays-library/
 
 - https://pieriantraining.com/how-to-wait-for-a-keypress-in-python/ - to create a "wait" for Enter to be pressed on the logo screen.
 
@@ -319,13 +324,9 @@ I used the following tutorials and documentation:
 
 - https://docs.python.org/3/library/datetime.html#timedelta-objects - to learn how to work with dates and days
 
--  ChatGPT from OpenAI was used to troubleshoot code when it was not working as expected, as well as to provide insights on how to achieve my intended goals when I encountered difficulties on my own. 
-
 ### Content
 
 The documentation in the README file was inspired by README files authored by both Amy Richardson and Diane Corriette.
-
-Text revisions were made with the assistance from ChatGPT.
 
 ### Acknowledgments
 
