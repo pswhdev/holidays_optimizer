@@ -291,7 +291,7 @@ Please refer to [TESTING.md](TESTING.md) file for details on all testing conduct
 
 5. While I was testing the program, I noticed by chance that some countries, such as Sweden, have Sunday saved as a holiday in the holidays library. To address this, I added a condition within the function to exclude Sundays from the list of holidays if it is not specified as a holiday. However, there may be other countries with similar configurations, in which case Sundays will be listed as holidays when the function check_holidays runs.
 
-6.While testing, I noticed that if I input a range of only one day, the program would suggest both the start date and end date as vacation days for time off optimization. To resolve this issue, I implemented a conditional to suggest dates only if public holidays are found during the selected period.
+6. While testing, I noticed that if I input a range of only one day, the program would suggest both the start date and end date as vacation days for time off optimization. To resolve this issue, I implemented a conditional to suggest dates only if public holidays are found during the selected period.
 
 7. During testing, I encountered an issue where if I pressed "r" to make a new inquiry at the end of the program, it would run again. However, after the second time it ran, if I then chose "f" to finish the program, I would still get the message "thank you for using..." but I would be prompted again to press "r" or "f". To fix this, I removed the what_next() function from the main() function.
 
